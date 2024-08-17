@@ -1,0 +1,27 @@
+{
+  "name": "gift-management-server",
+  "version": "0.0.1",
+  "private": true,
+  "description": "It is designed to streamline the process of managing corporate gifts, ensuring that businesses can efficiently track, organize and distribute gifts to clients,partners and employees",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mssql": "^11.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "git",
+    "hospitality"
+  ],
+  "author": "hari",
+  "license": "ISC"
+}
