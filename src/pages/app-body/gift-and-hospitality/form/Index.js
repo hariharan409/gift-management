@@ -260,7 +260,7 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
                 />
                 {errors.giftValue && <ShowError errorMessage="this is required" />}
                 {/* TEXT BOX */}
-                {(watch("giftCategory") === "business-entertainment" || watch("giftCategory") === "travel-business-entertainment") && 
+                {(watch("giftCategory.name") === "business-entertainment" || watch("giftCategory.name") === "travel-business-entertainment") && 
                 <>
                     <Controller 
                     name="higherPositionName" 
