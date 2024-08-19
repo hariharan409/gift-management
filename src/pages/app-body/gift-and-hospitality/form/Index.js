@@ -89,7 +89,7 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
         try {
             await createGiftAPI(giftObject);
             SuccessToast(`Your gift form has been ${giftID ? "updated" : "created"} successfully`);
-            navigation.navigate("gift-and-hospitality-table");
+            navigation.navigate("gift-and-hospitality-submission-table");
         } catch (error) {
             FailureToast(error.message);
         }

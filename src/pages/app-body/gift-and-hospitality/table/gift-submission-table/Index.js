@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View,StyleSheet, Button } from "react-native";
 import {Ionicons,FontAwesome5,MaterialIcons} from "@expo/vector-icons";
-import {getGiftPendingApprovalCountAPI, getGiftSubmissionAPI} from "../../../../api/giftApi";
+import {getGiftPendingApprovalCountAPI, getGiftSubmissionAPI} from "../../../../../api/giftApi";
 import { useIsFocused } from "@react-navigation/native";
-import { FailureToast } from "../../../../components/Toast";
-import { FullScreenLoader } from "../../../../components/Loader";
+import { FailureToast } from "../../../../../components/Toast";
+import { FullScreenLoader } from "../../../../../components/Loader";
 
-const GiftAndHospitalityTable = ({navigation}) => {
+const GiftAndHospitalitySubmissionTable = ({navigation}) => {
     const isFocused = useIsFocused();
     const loggedInEmail = localStorage.getItem("user-email")
     const [giftSubmissionList,setGiftSubmissionList] = useState([]);
@@ -162,4 +162,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default GiftAndHospitalityTable;
+export default GiftAndHospitalitySubmissionTable;
