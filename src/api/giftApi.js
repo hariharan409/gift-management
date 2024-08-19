@@ -26,9 +26,9 @@ export const createGiftAPI = async(giftObject) => {
     }
 }
 
-export const getGiftSubmissionAPI = async() => {
+export const getGiftSubmissionAPI = async(email) => {
     try{
-        let value = await getRequest('/gift/get-gift');
+        let value = await getRequest('/gift/get-gift',email);
         if(value.success === true) {
             return value.value;
         } else {

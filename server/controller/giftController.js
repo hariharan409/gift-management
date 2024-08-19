@@ -24,9 +24,13 @@ exports.createGift = async(req,res) => {
     }
 }
 
-exports.getGiftSubmission = async(_,res) => {
+exports.getGiftSubmission = async(req,res) => {
     try {
-        const responseData = await getGiftSubmission();
+        const email = req.query.payload;
+        if(!email) {
+            throw new Error("Something went wrong!.");
+          } 
+        const responseData = await getGiftSubmission(email);
         responseHelper(res,responseData,null);
     } catch (error) {
         responseHelper(res,null,error);

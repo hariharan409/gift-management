@@ -82,10 +82,11 @@ exports.updateGift = async(gift) => {
     }
 }
 
-exports.getGiftSubmission = async() => {
+exports.getGiftSubmission = async(email) => {
     try {
         const giftSubmissionList = await executeSqlQuery(
-            `SELECT id,vendor_name as vendorName,gift_amount as giftAmount,isEdit = 1 FROM ${SQL_TABLE.GIFT_SUBMISSION} order by id`,[]
+            `SELECT id,vendor_name as vendorName,gift_amount as giftAmount,isEdit = 1 FROM ${SQL_TABLE.GIFT_SUBMISSION} 
+            WHERE requestor_email = '${email}' order by id`,[]
         );
         if(giftSubmissionList instanceof Array && giftSubmissionList.length > 0) {
             for(const gift of giftSubmissionList) {

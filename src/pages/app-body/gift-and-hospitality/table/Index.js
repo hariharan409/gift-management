@@ -8,12 +8,13 @@ import { FullScreenLoader } from "../../../../components/Loader";
 
 const GiftAndHospitalityTable = ({navigation}) => {
     const isFocused = useIsFocused();
+    const loggedInEmail = localStorage.getItem("user-email")
     const [giftSubmissionList,setGiftSubmissionList] = useState([]);
     const [isMount,setMount] = useState(true);
 
     const loadDataOnInitialRender = async() => {
         try {
-            const responseList = await getGiftSubmissionAPI();
+            const responseList = await getGiftSubmissionAPI(loggedInEmail);
             if(responseList instanceof Array && responseList.length > 0) {
                 setGiftSubmissionList(responseList);
             }

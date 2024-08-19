@@ -18,9 +18,9 @@ exports.createGift = async(gift) => {
     }
 }
 
-exports.getGiftSubmission = async() => {
+exports.getGiftSubmission = async(email) => {
     try {
-        return await getGiftSubmission();
+        return await getGiftSubmission(email);
     } catch (error) {
         throw new Error(error.message);
     }
