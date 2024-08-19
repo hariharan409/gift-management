@@ -3,6 +3,7 @@ import { SafeAreaView} from 'react-native';
 import "@expo/metro-runtime";
 import {NavigationContainer} from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {Toaster} from "react-hot-toast";
 import Header from './src/pages/app-header/Header';
 import Welcome from './src/pages/app-body/welcome-screen/Welcome';
 import GiftAndHospitalityForm from './src/pages/app-body/gift-and-hospitality/form/Index';
@@ -27,6 +28,7 @@ export default function App() {
             <Stack.Screen name='gift-and-hospitality-table' component={GiftAndHospitalityTable} />
           </Stack.Navigator>
       </NavigationContainer>
+      <Toaster />
     </SafeAreaView>
   );
 }

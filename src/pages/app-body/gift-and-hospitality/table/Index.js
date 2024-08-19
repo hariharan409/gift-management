@@ -3,10 +3,13 @@ import { ScrollView, Text, View,StyleSheet, Button } from "react-native";
 import {Ionicons,FontAwesome5,MaterialIcons} from "@expo/vector-icons";
 import {getGiftSubmissionAPI} from "../../../../api/giftApi";
 import { useIsFocused } from "@react-navigation/native";
+import { FailureToast } from "../../../../components/Toast";
+import { FullScreenLoader } from "../../../../components/Loader";
 
 const GiftAndHospitalityTable = ({navigation}) => {
     const isFocused = useIsFocused();
     const [giftSubmissionList,setGiftSubmissionList] = useState([]);
+    const [isMount,setMount] = useState(true);
 
     const loadDataOnInitialRender = async() => {
         try {
@@ -15,7 +18,9 @@ const GiftAndHospitalityTable = ({navigation}) => {
                 setGiftSubmissionList(responseList);
             }
         } catch (error) {
-            console.log(error.message);
+            FailureToast("Oops! Something went wrong.")
+        } finally {
+            setMount(false);
         }
     }
 
@@ -24,6 +29,11 @@ const GiftAndHospitalityTable = ({navigation}) => {
             loadDataOnInitialRender();
         }
     },[isFocused]);
+
+    /* IT WILL RENDER ONCE THE UI IS MOUNTING */
+    if(isMount) {
+        return <FullScreenLoader />
+    };
 
     return(
         <ScrollView style={styles.rootElement}>

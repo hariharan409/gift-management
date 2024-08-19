@@ -6,11 +6,14 @@ import {Dropdown} from "react-native-element-dropdown";
 import * as ExpoImagePicker from "expo-image-picker";
 import ReceiptPicker from "./ReceiptPicker";
 import {createGiftAPI, getGiftCategoryAPI, getGiftSubmissionByIDAPI} from "../../../../api/giftApi";
+import { FailureToast, SuccessToast } from "../../../../components/Toast";
+import { FullScreenLoader } from "../../../../components/Loader";
+
 
 const GiftAndHospitalityForm = ({route,navigation}) => {
     const {giftID,canEdit} = route.params;
     const [giftCategoryList,setGiftCategoryList] = useState([]);
-    const [isLoading,setLoading] = useState(true);
+    const [isMount,setMount] = useState(true);
     const {control,handleSubmit,formState:{errors},getValues,watch,setValue} = useForm({
         defaultValues: {
             id: null,
@@ -72,9 +75,9 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
             };
             setGiftCategoryList(responseList);
         } catch (error) {
-            console.log(error.message);
+           FailureToast("Oops! Something went wrong.")
         } finally {
-            setLoading(false);
+            setMount(false);
         }
     }
 
@@ -85,9 +88,10 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
     const onFormSubmit = async(giftObject) => {
         try {
             await createGiftAPI(giftObject);
+            SuccessToast(`Your gift form has been ${giftID ? "updated" : "created"} successfully`);
             navigation.navigate("gift-and-hospitality-table");
         } catch (error) {
-            console.log(error.message);
+            FailureToast(error.message);
         }
     }
 
@@ -112,12 +116,8 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
     }
 
     /* IT WILL RENDER ONCE THE UI IS MOUNTING */
-    if(isLoading) {
-        return (
-            <View style={{flex: 1,justifyContent: "center"}}>
-                <ActivityIndicator size="large" color="#000" />
-            </View>
-        )
+    if(isMount) {
+        return <FullScreenLoader />
     };
 
     return(
