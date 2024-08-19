@@ -8,6 +8,7 @@ import Header from './src/pages/app-header/Header';
 import Welcome from './src/pages/app-body/welcome-screen/Welcome';
 import GiftAndHospitalityForm from './src/pages/app-body/gift-and-hospitality/form/Index';
 import GiftAndHospitalitySubmissionTable from './src/pages/app-body/gift-and-hospitality/table/gift-submission-table/Index';
+import GiftAndHospitalityApprovalTable from './src/pages/app-body/gift-and-hospitality/table/gift-approval-table/Index';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
             <Stack.Screen name='welcome-screen' component={Welcome} />
             <Stack.Screen name='gift-and-hospitality-form' component={GiftAndHospitalityForm} />
             <Stack.Screen name='gift-and-hospitality-submission-table' component={GiftAndHospitalitySubmissionTable} />
+            <Stack.Screen name='gift-and-hospitality-approval-table' component={GiftAndHospitalityApprovalTable} />
           </Stack.Navigator>
       </NavigationContainer>
       <Toaster />

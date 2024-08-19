@@ -9,7 +9,7 @@ const Welcome = ({navigation}) => {
     const currentYear = new Date().getFullYear();
     const {control,handleSubmit,formState:{errors},getValues,watch,setValue} = useForm({
         defaultValues: {
-            loginEmail: "",
+            loginEmail: localStorage.getItem("user-email"),
         }
     });
 

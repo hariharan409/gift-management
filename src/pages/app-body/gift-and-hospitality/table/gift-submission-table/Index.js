@@ -51,7 +51,7 @@ const GiftAndHospitalitySubmissionTable = ({navigation}) => {
                     {approvalCount > 0 &&
                         <View>
                             <Text style={styles.approvalTextElement}>{approvalCount}</Text>
-                            <Button onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: null,canEdit: true})} title="approval" touchSoundDisabled={false} />
+                            <Button onPress={() => navigation.navigate("gift-and-hospitality-approval-table",{giftID: null,canEdit: true})} title="approval" touchSoundDisabled={false} />
                         </View>
                     }  
                     <View style={{justifyContent: "flex-end"}}>
@@ -69,7 +69,7 @@ const GiftAndHospitalitySubmissionTable = ({navigation}) => {
             </View>
             {/* TABLE BODY */}
             <View style={styles.tableBody}>
-                {
+                {(giftSubmissionList instanceof Array && giftSubmissionList.length > 0) ?
                     giftSubmissionList.map((submission) => {
                         return(
                             <View key={submission.id} style={styles.tableBodyRow}>
@@ -94,7 +94,7 @@ const GiftAndHospitalitySubmissionTable = ({navigation}) => {
                                 <FontAwesome5 onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: submission.id,canEdit: submission.isEdit})} style={{...styles.bodyCell}} name= {submission.isEdit ? "edit" : "readme"} size={30} color="blue" />
                             </View>
                         )
-                    })
+                    }) : <Text style={{textAlign: "center",marginBottom: "10px"}}>no data available</Text>
                 }
             </View>
         </ScrollView>

@@ -28,7 +28,7 @@ export const createGiftAPI = async(giftObject) => {
 
 export const getGiftSubmissionAPI = async(email) => {
     try{
-        let value = await getRequest('/gift/get-gift',email);
+        let value = await getRequest('/gift/get-gift-submission',email);
         if(value.success === true) {
             return value.value;
         } else {
@@ -55,6 +55,19 @@ export const getGiftSubmissionByIDAPI = async(giftID) => {
 export const getGiftPendingApprovalCountAPI = async(email) => {
     try{
         let value = await getRequest('/gift/get-gift-pending-approval-count',email);
+        if(value.success === true) {
+            return value.value;
+        } else {
+            throw new Error("Something went wrong!. Please contact admin");
+        }
+    } catch(error) {
+        throw new Error(error.message);
+    }
+}
+
+export const getGiftApprovalAPI = async(email) => {
+    try{
+        let value = await getRequest('/gift/get-gift-approval',email);
         if(value.success === true) {
             return value.value;
         } else {
