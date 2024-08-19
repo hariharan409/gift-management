@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Image, Text, TextInput, View } from "react-native";
 import {useForm,Controller} from "react-hook-form";
 import BusinessGiftImage from "../../../../assets/pages/app-body/welcome-screen/business-gift-image.jpg";
-import { FailureToast } from "../../../components/Toast";
+import { FailureToast, SuccessToast } from "../../../components/Toast";
 
 
 const Welcome = ({navigation}) => {
@@ -16,6 +16,7 @@ const Welcome = ({navigation}) => {
     const onFormSubmit = async(user) => {
         try {
             localStorage.setItem("user-email",user.loginEmail);
+            SuccessToast(`Welcome ${user.loginEmail.split("@")[0]}`)
             navigation.navigate("gift-and-hospitality-table");
         } catch (error) {
             FailureToast(error.message);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View,StyleSheet, Button } from "react-native";
 import {Ionicons,FontAwesome5,MaterialIcons} from "@expo/vector-icons";
-import {getGiftSubmissionAPI} from "../../../../api/giftApi";
+import {getGiftPendingApprovalCountAPI, getGiftSubmissionAPI} from "../../../../api/giftApi";
 import { useIsFocused } from "@react-navigation/native";
 import { FailureToast } from "../../../../components/Toast";
 import { FullScreenLoader } from "../../../../components/Loader";
@@ -11,12 +11,17 @@ const GiftAndHospitalityTable = ({navigation}) => {
     const loggedInEmail = localStorage.getItem("user-email")
     const [giftSubmissionList,setGiftSubmissionList] = useState([]);
     const [isMount,setMount] = useState(true);
+    const [approvalCount,setApprovalCount] = useState(0);
 
     const loadDataOnInitialRender = async() => {
         try {
             const responseList = await getGiftSubmissionAPI(loggedInEmail);
             if(responseList instanceof Array && responseList.length > 0) {
                 setGiftSubmissionList(responseList);
+            }
+            const pendingApprovalCount = await getGiftPendingApprovalCountAPI(loggedInEmail);
+            if(pendingApprovalCount > 0) {
+                setApprovalCount(pendingApprovalCount);
             }
         } catch (error) {
             FailureToast("Oops! Something went wrong.")
@@ -42,8 +47,16 @@ const GiftAndHospitalityTable = ({navigation}) => {
             <View style={{display: "flex",flexDirection: "row",justifyContent: "space-between",alignItems: "center",borderBottomColor: "rgba(0,0,0,0.5)",borderBottomWidth: "1px"}}>
                 <Ionicons onPress={() => navigation.goBack(null)} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="black" />
                 <Text style={{fontWeight: "bold",textTransform: "uppercase",fontSize: "16px"}}>submission list</Text>
-                <View style={{width: "100px",marginVertical: 20}}>   
-                    <Button onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: null,canEdit: true})} title="ADD" touchSoundDisabled={false} />
+                <View style={{width: "150px",marginVertical: 20,display: "flex",flexDirection: "row",columnGap: "20px"}}> 
+                    {approvalCount > 0 &&
+                        <View>
+                            <Text style={styles.approvalTextElement}>{approvalCount}</Text>
+                            <Button onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: null,canEdit: true})} title="approval" touchSoundDisabled={false} />
+                        </View>
+                    }  
+                    <View style={{justifyContent: "flex-end"}}>
+                        <Button onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: null,canEdit: true})} title="add" touchSoundDisabled={false} />
+                    </View>
                 </View>
             </View>
             {/* TABLE HEADER */}
@@ -134,6 +147,18 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
+    },
+    approvalTextElement: {
+        backgroundColor: "#000",
+        color: "#FFF",
+        borderRadius: "50%",
+        width: "20px",
+        height: "20px",
+        alignSelf: "flex-end",
+        marginBottom: "-10px",
+        marginRight: "-10px",
+        textAlign: "center",
+        zIndex: 1
     }
 });
 

@@ -51,3 +51,16 @@ export const getGiftSubmissionByIDAPI = async(giftID) => {
         throw new Error(error.message);
     }
 }
+
+export const getGiftPendingApprovalCountAPI = async(email) => {
+    try{
+        let value = await getRequest('/gift/get-gift-pending-approval-count',email);
+        if(value.success === true) {
+            return value.value;
+        } else {
+            throw new Error("Something went wrong!. Please contact admin");
+        }
+    } catch(error) {
+        throw new Error(error.message);
+    }
+}

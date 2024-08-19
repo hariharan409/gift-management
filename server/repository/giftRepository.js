@@ -148,3 +148,15 @@ exports.getGiftSubmissionByID = async(giftID) => {
         throw new Error(error.message || error);
     }
 }
+
+exports.getGiftPendingApprovalCount = async(email) => {
+    try {
+        const giftApprovalCount = await executeSqlQuery(
+            `SELECT COUNT(*) as pendingApproval FROM ${SQL_TABLE.GIFT_APPROVAL} WHERE approver_email = '${email}'
+            `,[]
+        ).then((response) => response[0].pendingApproval); 
+        return giftApprovalCount;
+    } catch (error) {
+        throw new Error(error.message || error);
+    }
+}
