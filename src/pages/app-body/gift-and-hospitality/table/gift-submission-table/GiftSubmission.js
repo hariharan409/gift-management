@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View,StyleSheet, Button } from "react-native";
 import {Ionicons,FontAwesome5,MaterialIcons} from "@expo/vector-icons";
-import {getGiftPendingApprovalCountAPI, getGiftSubmissionAPI} from "../../../../../api/giftApi";
+import { getGiftPendingApprovalCountAPI } from "../../../../../api/giftApprovalApi";
+import { getGiftSubmissionAPI } from "../../../../../api/giftSubmissionApi";
 import { useIsFocused } from "@react-navigation/native";
 import { FailureToast } from "../../../../../components/Toast";
 import { FullScreenLoader } from "../../../../../components/Loader";
@@ -46,7 +47,7 @@ const GiftAndHospitalitySubmissionTable = ({navigation}) => {
             {/* PAGE TITLE */}
             <View style={{display: "flex",flexDirection: "row",justifyContent: "space-between",alignItems: "center",borderBottomColor: "rgba(0,0,0,0.5)",borderBottomWidth: "1px"}}>
                 <Ionicons onPress={() => navigation.goBack(null)} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="black" />
-                <Text style={{fontWeight: "bold",textTransform: "uppercase",fontSize: "16px"}}>submission list</Text>
+                <Text style={{fontWeight: "bold",textTransform: "uppercase",fontSize: "16px"}}>gift submission list</Text>
                 <View style={{width: "150px",marginVertical: 20,display: "flex",flexDirection: "row",columnGap: "20px",justifyContent: "flex-end"}}> 
                     {approvalCount > 0 &&
                         <View>

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Button, ScrollView, Text, TextInput, View, ActivityIndicator } from "react-native";
+import { Button, ScrollView, Text, TextInput, View } from "react-native";
 import {useForm,Controller} from "react-hook-form";
 import {Ionicons} from "@expo/vector-icons";
 import {Dropdown} from "react-native-element-dropdown";
 import * as ExpoImagePicker from "expo-image-picker";
 import ReceiptPicker from "./ReceiptPicker";
-import {createGiftAPI, getGiftCategoryAPI, getGiftSubmissionByIDAPI} from "../../../../api/giftApi";
+import {createGiftAPI, getGiftCategoryAPI, getGiftSubmissionByIDAPI} from "../../../../api/giftSubmissionApi";
 import { FailureToast, SuccessToast } from "../../../../components/Toast";
 import { FullScreenLoader } from "../../../../components/Loader";
 

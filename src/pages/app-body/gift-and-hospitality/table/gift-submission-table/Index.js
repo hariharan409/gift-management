@@ -29,7 +29,7 @@ const SubmissionTabView = () => {
                 name="submission-approved-table" 
                 component={GiftAndHospitalitySubmissionTable} 
                 options={{
-                    tabBarLabel: "submission approved",
+                    tabBarLabel: "approved submission",
                     tabBarItemStyle: {
                         borderColor: "grey",
                         borderWidth: "1px",
@@ -44,7 +44,7 @@ const SubmissionTabView = () => {
                 name="submission-rejected-table" 
                 component={GiftAndHospitalitySubmissionTable} 
                 options={{
-                    tabBarLabel: "submission rejected",
+                    tabBarLabel: "rejected submission",
                     tabBarItemStyle: {
                         borderColor: "grey",
                         borderWidth: "1px",
