@@ -17,7 +17,7 @@ const Welcome = ({navigation}) => {
         try {
             localStorage.setItem("user-email",user.loginEmail);
             SuccessToast(`Welcome ${user.loginEmail.split("@")[0]}`)
-            navigation.navigate("gift-and-hospitality-submission-table");
+            navigation.navigate("gift-and-hospitality-submission-tab");
         } catch (error) {
             FailureToast(error.message);
         }
