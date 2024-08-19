@@ -19,3 +19,4 @@ create table [dbo].[tbl_gift_submission](
 
 ALTER TABLE tbl_gift_submission ADD rejected_by varchar(255) NULL;
 ALTER TABLE tbl_gift_submission ADD is_approved tinyint not null default 0;
+ALTER TABLE tbl_gift_submission ADD created_at datetime not null default GETDATE();
