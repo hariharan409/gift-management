@@ -15,3 +15,7 @@ create table [dbo].[tbl_gift_submission](
 	rejection_reason varchar(max),
 	CONSTRAINT pk_tbl_gift_submission_id PRIMARY KEY CLUSTERED(id)
 );
+
+
+ALTER TABLE tbl_gift_submission ADD rejected_by varchar(255) NULL;
+ALTER TABLE tbl_gift_submission ADD is_approved tinyint not null default 0;
