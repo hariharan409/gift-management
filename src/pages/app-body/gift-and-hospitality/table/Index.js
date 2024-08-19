@@ -47,7 +47,7 @@ const GiftAndHospitalityTable = ({navigation}) => {
             <View style={{display: "flex",flexDirection: "row",justifyContent: "space-between",alignItems: "center",borderBottomColor: "rgba(0,0,0,0.5)",borderBottomWidth: "1px"}}>
                 <Ionicons onPress={() => navigation.goBack(null)} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="black" />
                 <Text style={{fontWeight: "bold",textTransform: "uppercase",fontSize: "16px"}}>submission list</Text>
-                <View style={{width: "150px",marginVertical: 20,display: "flex",flexDirection: "row",columnGap: "20px"}}> 
+                <View style={{width: "150px",marginVertical: 20,display: "flex",flexDirection: "row",columnGap: "20px",justifyContent: "flex-end"}}> 
                     {approvalCount > 0 &&
                         <View>
                             <Text style={styles.approvalTextElement}>{approvalCount}</Text>

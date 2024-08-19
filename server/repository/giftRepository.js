@@ -152,7 +152,8 @@ exports.getGiftSubmissionByID = async(giftID) => {
 exports.getGiftPendingApprovalCount = async(email) => {
     try {
         const giftApprovalCount = await executeSqlQuery(
-            `SELECT COUNT(*) as pendingApproval FROM ${SQL_TABLE.GIFT_APPROVAL} WHERE approver_email = '${email}'
+            `SELECT COUNT(*) as pendingApproval FROM ${SQL_TABLE.GIFT_APPROVAL} WHERE approver_email = '${email}' 
+            AND is_approved = 0 AND approval_required = 1
             `,[]
         ).then((response) => response[0].pendingApproval); 
         return giftApprovalCount;

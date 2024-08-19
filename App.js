@@ -7,7 +7,7 @@ import {Toaster} from "react-hot-toast";
 import Header from './src/pages/app-header/Header';
 import Welcome from './src/pages/app-body/welcome-screen/Welcome';
 import GiftAndHospitalityForm from './src/pages/app-body/gift-and-hospitality/form/Index';
-import GiftAndHospitalityTable from './src/pages/app-body/gift-and-hospitality/table/Index';
+import GiftAndHospitalitySubmissionTable from './src/pages/app-body/gift-and-hospitality/table/gift-submission-table/Index';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -25,7 +25,7 @@ export default function App() {
           <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='welcome-screen'>
             <Stack.Screen name='welcome-screen' component={Welcome} />
             <Stack.Screen name='gift-and-hospitality-form' component={GiftAndHospitalityForm} />
-            <Stack.Screen name='gift-and-hospitality-table' component={GiftAndHospitalityTable} />
+            <Stack.Screen name='gift-and-hospitality-submission-table' component={GiftAndHospitalitySubmissionTable} />
           </Stack.Navigator>
       </NavigationContainer>
       <Toaster />
