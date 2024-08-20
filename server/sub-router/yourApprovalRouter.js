@@ -1,10 +1,10 @@
 const app = require("express").Router();
-const {getGiftPendingApprovalCount,getGiftApproval,getGiftApprovedByYou,getGiftRejectedByYou,approveGift,rejectGift} = require("../controller/giftApprovalController");
+const {getYourPendingApprovalCount,getPendingApprovalByYou,getGiftApprovedByYou,getGiftRejectedByYou,approveGift,rejectGift} = require("../controller/yourApprovalController");
 
 module.exports = () => {
     // < ------------- GET REQUEST ------------------ > //
-    app.get("/get-gift-pending-approval-count",getGiftPendingApprovalCount);
-    app.get("/get-gift-approval",getGiftApproval);
+    app.get("/get-your-pending-approval-count",getYourPendingApprovalCount);
+    app.get("/get-pending-approval-by-you",getPendingApprovalByYou);
     app.get("/get-gift-approved-by-you",getGiftApprovedByYou);
     app.get("/get-gift-rejected-by-you",getGiftRejectedByYou);
     app.get("/approve-gift",approveGift);

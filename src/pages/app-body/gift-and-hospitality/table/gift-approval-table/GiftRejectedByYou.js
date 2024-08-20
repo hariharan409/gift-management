@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View,StyleSheet } from "react-native";
 import {Ionicons,FontAwesome5} from "@expo/vector-icons";
-import { getGiftRejectedByYouAPI } from "../../../../../api/giftApprovalApi";
+import { getGiftRejectedByYouAPI } from "../../../../../api/yourApprovalApi";
 import { useIsFocused } from "@react-navigation/native";
 import { FailureToast } from "../../../../../components/Toast";
 import { FullScreenLoader } from "../../../../../components/Loader";

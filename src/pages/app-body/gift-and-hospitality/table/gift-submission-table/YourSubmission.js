@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View,StyleSheet, Button } from "react-native";
 import {Ionicons,FontAwesome5,MaterialIcons} from "@expo/vector-icons";
-import { getGiftPendingApprovalCountAPI } from "../../../../../api/giftApprovalApi";
-import { getYourSubmissionAPI } from "../../../../../api/giftSubmissionApi";
+import { getYourPendingApprovalCountAPI } from "../../../../../api/yourApprovalApi";
+import { getYourSubmissionAPI } from "../../../../../api/yourSubmissionApi";
 import { useIsFocused } from "@react-navigation/native";
 import { FailureToast } from "../../../../../components/Toast";
 import { FullScreenLoader } from "../../../../../components/Loader";
@@ -20,7 +20,7 @@ const YourSubmission = ({navigation}) => {
             if(responseList instanceof Array && responseList.length > 0) {
                 setGiftSubmissionList(responseList);
             }
-            const pendingApprovalCount = await getGiftPendingApprovalCountAPI(loggedInEmail);
+            const pendingApprovalCount = await getYourPendingApprovalCountAPI(loggedInEmail);
             if(pendingApprovalCount > 0) {
                 setApprovalCount(pendingApprovalCount);
             }

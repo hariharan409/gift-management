@@ -1,5 +1,5 @@
 const {responseHelper} = require("../helper/utilityHelper");
-const { getGiftCategory,createGift,getYourSubmission,getGiftSubmissionByID,getYourApprovedSubmission,getYourRejectedSubmission} = require("../service/YourSubmissionService");
+const { getGiftCategory,createGift,getYourSubmission,getYourSubmissionByID,getYourApprovedSubmission,getYourRejectedSubmission} = require("../service/YourSubmissionService");
 
 exports.getGiftCategory = async(_,res) => {
     try {
@@ -37,13 +37,13 @@ exports.getYourSubmission = async(req,res) => {
     }
 }
 
-exports.getGiftSubmissionByID = async(req,res) => {
+exports.getYourSubmissionByID = async(req,res) => {
     try {
         const giftID = parseInt(req.query.payload);
         if(!giftID) {
             throw new Error("Something went wrong!.");
           } 
-        const responseData = await getGiftSubmissionByID(giftID);
+        const responseData = await getYourSubmissionByID(giftID);
         responseHelper(res,responseData,null);
     } catch (error) {
         responseHelper(res,null,error);

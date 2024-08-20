@@ -134,7 +134,7 @@ exports.getYourRejectedSubmission = async(email) => {
     }
 }
 
-exports.getGiftSubmissionByID = async(giftID) => {
+exports.getYourSubmissionByID = async(giftID) => {
     try {
         /* ID IS UNIQUE, SO IT IS ALWAYS GOING TO RETURN SINGLE OBJECT OF ARRAY */
         const giftSubmission = await executeSqlQuery(

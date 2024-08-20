@@ -65,9 +65,9 @@ export const getYourRejectedSubmissionAPI = async(email) => {
     }
 }
 
-export const getGiftSubmissionByIDAPI = async(giftID) => {
+export const getYourSubmissionByIDAPI = async(giftID) => {
     try{
-        let value = await getRequest('/gift/submission/get-gift-by-id',giftID);
+        let value = await getRequest('/gift/submission/get-your-submission-by-id',giftID);
         if(value.success === true) {
             return value.value;
         } else {

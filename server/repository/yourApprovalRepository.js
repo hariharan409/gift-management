@@ -1,7 +1,7 @@
 const { executeSqlQuery } = require("../config/sqlConnector");
 const { SQL_TABLE } = require("../config/sqlSchema");
 
-exports.getGiftPendingApprovalCount = async(email) => {
+exports.getYourPendingApprovalCount = async(email) => {
     try {
         const giftApprovalCount = await executeSqlQuery(
             `SELECT COUNT(*) as pendingApproval FROM ${SQL_TABLE.GIFT_APPROVAL} as ga LEFT JOIN ${SQL_TABLE.GIFT_SUBMISSION} as gs ON ga.gift_id = gs.id 
@@ -15,7 +15,7 @@ exports.getGiftPendingApprovalCount = async(email) => {
     }
 }
 
-exports.getGiftApproval = async(email) => {
+exports.getPendingApprovalByYou = async(email) => {
     try {
         const approvalList = await executeSqlQuery(
             `SELECT ga.id as approvalID,gs.id as giftID,gs.vendor_name as vendorName,gs.gift_amount as giftAmount

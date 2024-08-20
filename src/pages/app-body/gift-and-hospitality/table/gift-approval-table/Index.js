@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import {FontAwesome5} from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import GiftAndHospitalityApprovalTable from "./GiftApproval";
+import PendingApprovalByYou from "./PendingApprovalByYou";
 import GiftApprovedByYou from "./GiftApprovedByYou";
 import GiftRejectedByYou from "./GiftRejectedByYou";
 
@@ -14,7 +14,7 @@ const ApprovalTabView = () => {
         <Tab.Navigator initialRouteName="approval-table" screenOptions={{...styles.tabNavScreenOptions}}>
             <Tab.Screen 
                 name="approval-table" 
-                component={GiftAndHospitalityApprovalTable} 
+                component={PendingApprovalByYou} 
                 options={{
                     tabBarLabel: "pending approval by you",
                     tabBarItemStyle: {

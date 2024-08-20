@@ -1,26 +1,26 @@
 const {responseHelper} = require("../helper/utilityHelper");
-const { getGiftPendingApprovalCount,getGiftApproval,getGiftApprovedByYou,getGiftRejectedByYou,approveGift,rejectGift } = require("../service/giftApprovalService");
+const { getYourPendingApprovalCount,getPendingApprovalByYou,getGiftApprovedByYou,getGiftRejectedByYou,approveGift,rejectGift } = require("../service/yourApprovalService");
 
-exports.getGiftPendingApprovalCount = async(req,res) => {
+exports.getYourPendingApprovalCount = async(req,res) => {
     try {
         const email = req.query.payload;
         if(!email) {
             throw new Error("Something went wrong!.");
           } 
-        const responseData = await getGiftPendingApprovalCount(email);
+        const responseData = await getYourPendingApprovalCount(email);
         responseHelper(res,responseData,null);
     } catch (error) {
         responseHelper(res,null,error);
     }
 }
 
-exports.getGiftApproval = async(req,res) => {
+exports.getPendingApprovalByYou = async(req,res) => {
     try {
         const email = req.query.payload;
         if(!email) {
             throw new Error("Something went wrong!.");
           } 
-        const responseData = await getGiftApproval(email);
+        const responseData = await getPendingApprovalByYou(email);
         responseHelper(res,responseData,null);
     } catch (error) {
         responseHelper(res,null,error);

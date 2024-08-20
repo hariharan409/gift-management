@@ -1,8 +1,8 @@
 import { getRequest } from "./axiosCall";
 
-export const getGiftPendingApprovalCountAPI = async(email) => {
+export const getYourPendingApprovalCountAPI = async(email) => {
     try{
-        let value = await getRequest('/gift/approval/get-gift-pending-approval-count',email);
+        let value = await getRequest('/gift/approval/get-your-pending-approval-count',email);
         if(value.success === true) {
             return value.value;
         } else {
@@ -13,9 +13,9 @@ export const getGiftPendingApprovalCountAPI = async(email) => {
     }
 }
 
-export const getGiftApprovalAPI = async(email) => {
+export const getPendingApprovalByYouAPI = async(email) => {
     try{
-        let value = await getRequest('/gift/approval/get-gift-approval',email);
+        let value = await getRequest('/gift/approval/get-pending-approval-by-you',email);
         if(value.success === true) {
             return value.value;
         } else {

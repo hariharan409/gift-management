@@ -1,6 +1,6 @@
 const app = require("express").Router();
-const giftSubmissionRouter = require("./sub-router/YourSubmissionRouter");
-const giftApprovalRouter = require("./sub-router/giftApprovalRouter");
+const yourSubmissionRouter = require("./sub-router/YourSubmissionRouter");
+const yourApprovalRouter = require("./sub-router/yourApprovalRouter");
 
 const routeCheck = () => {
     app.get("/", (_,res) => res.send({ response: "Gift and hospitality APIs are ready to serve." }).status(200));
@@ -8,8 +8,8 @@ const routeCheck = () => {
 
 module.exports = () => {
     routeCheck();
-    app.use("/gift/submission",giftSubmissionRouter());
-    app.use("/gift/approval",giftApprovalRouter());
+    app.use("/gift/submission",yourSubmissionRouter());
+    app.use("/gift/approval",yourApprovalRouter());
 
     return app;
 };

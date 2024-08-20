@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View,StyleSheet, Button } from "react-native";
 import {Ionicons,FontAwesome5} from "@expo/vector-icons";
-import { getGiftApprovalAPI,approveGiftAPI,rejectGiftAPI } from "../../../../../api/giftApprovalApi";
+import { getPendingApprovalByYouAPI,approveGiftAPI,rejectGiftAPI } from "../../../../../api/yourApprovalApi";
 import { useIsFocused } from "@react-navigation/native";
 import { FailureToast, SuccessToast } from "../../../../../components/Toast";
 import { FullScreenLoader } from "../../../../../components/Loader";
 import GiftApproveModal from "./GiftApproveModal";
 import GiftRejectModal from "./GiftRejectModal";
 
-const GiftAndHospitalityApprovalTable = ({navigation}) => {
+const PendingApprovalByYou = ({navigation}) => {
     const isFocused = useIsFocused();
     const loggedInEmail = localStorage.getItem("user-email")
     const [giftApprovalList,setGiftApprovalList] = useState([]);
@@ -19,7 +19,7 @@ const GiftAndHospitalityApprovalTable = ({navigation}) => {
  
     const loadDataOnInitialRender = async() => {
         try {
-            const responseList = await getGiftApprovalAPI(loggedInEmail);
+            const responseList = await getPendingApprovalByYouAPI(loggedInEmail);
             if(responseList instanceof Array && responseList.length > 0) {
                 setGiftApprovalList(responseList);
             }
@@ -176,4 +176,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default GiftAndHospitalityApprovalTable;
+export default PendingApprovalByYou;

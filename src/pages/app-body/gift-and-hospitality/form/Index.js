@@ -5,7 +5,7 @@ import {Ionicons} from "@expo/vector-icons";
 import {Dropdown} from "react-native-element-dropdown";
 import * as ExpoImagePicker from "expo-image-picker";
 import ReceiptPicker from "./ReceiptPicker";
-import {createGiftAPI, getGiftCategoryAPI, getGiftSubmissionByIDAPI} from "../../../../api/giftSubmissionApi";
+import {createGiftAPI, getGiftCategoryAPI, getYourSubmissionByIDAPI} from "../../../../api/yourSubmissionApi";
 import { FailureToast, SuccessToast } from "../../../../components/Toast";
 import { FullScreenLoader } from "../../../../components/Loader";
 
@@ -70,7 +70,7 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
             const responseList = await getGiftCategoryAPI();
             /* IF GIFT IS NOT NULL, USER IS TRYING TO EDIT THE FORM*/
             if(giftID) {
-                const responseObj = await getGiftSubmissionByIDAPI(giftID);
+                const responseObj = await getYourSubmissionByIDAPI(giftID);
                 if(responseObj) {
                     Object.keys(responseObj).forEach((key) => {
                         setValue(key,responseObj[key]);

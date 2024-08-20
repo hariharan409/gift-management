@@ -4,7 +4,7 @@ import {Ionicons,FontAwesome5} from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 import { FailureToast } from "../../../../../components/Toast";
 import { FullScreenLoader } from "../../../../../components/Loader";
-import { getYourRejectedSubmissionAPI } from "../../../../../api/giftSubmissionApi";
+import { getYourRejectedSubmissionAPI } from "../../../../../api/yourSubmissionApi";
 
 const YourRejectedSubmission = ({navigation}) => {
     const isFocused = useIsFocused();
