@@ -31,8 +31,9 @@ exports.createGift = async(gift) => {
         if(giftID && gift.emailAcknowledgements instanceof Array && gift.emailAcknowledgements.length > 0) {
             for(const approval of gift.emailAcknowledgements) {
                 await executeSqlQuery(
-                    `INSERT INTO ${SQL_TABLE.GIFT_APPROVAL} (gift_id,approver_email,approval_sequence,is_approved,approval_required)
-                    VALUES (${giftID},'${approval.email}',${approval.approvalSequence},${approval.isApproved},${approval.email ? 1 : 0});
+                    `INSERT INTO ${SQL_TABLE.GIFT_APPROVAL} (gift_id,approver_email,approval_sequence,is_approved,approval_required,can_approve)
+                    VALUES (${giftID},'${approval.email}',${approval.approvalSequence},${approval.isApproved},${approval.email ? 1 : 0},
+                    ${approval.canApprove});
                     `,[]
                 );
             }
@@ -70,8 +71,9 @@ exports.updateGift = async(gift) => {
         if(gift.emailAcknowledgements instanceof Array && gift.emailAcknowledgements.length > 0) {
             for(const approval of gift.emailAcknowledgements) {
                 await executeSqlQuery(
-                    `INSERT INTO ${SQL_TABLE.GIFT_APPROVAL} (gift_id,approver_email,approval_sequence,is_approved,approval_required)
-                    VALUES (${gift.id},'${approval.email}',${approval.approvalSequence},${approval.isApproved},${approval.email ? 1 : 0});
+                    `INSERT INTO ${SQL_TABLE.GIFT_APPROVAL} (gift_id,approver_email,approval_sequence,is_approved,approval_required,can_approve)
+                    VALUES (${gift.id},'${approval.email}',${approval.approvalSequence},${approval.isApproved},${approval.email ? 1 : 0},
+                    ${approval.canApprove});
                     `,[]
                 );
             }
@@ -91,9 +93,9 @@ exports.getGiftSubmission = async(email) => {
         if(giftSubmissionList instanceof Array && giftSubmissionList.length > 0) {
             for(const gift of giftSubmissionList) {
                 const giftApprovalList = await executeSqlQuery(
-                    `SELECT id,approver_email as approverEmail,approval_sequence as approvalSequence,is_approved as isApproved
-                    FROM ${SQL_TABLE.GIFT_APPROVAL} WHERE gift_id = ${gift.id} AND approval_required = 1 ORDER BY approvalSequence asc
-                    `,[]
+                    `SELECT id,approver_email as approverEmail,approval_sequence as approvalSequence,is_approved as isApproved,
+                    can_approve as canApprove FROM ${SQL_TABLE.GIFT_APPROVAL} WHERE gift_id = ${gift.id} AND approval_required = 1 
+                    ORDER BY approvalSequence asc`,[]
                 );
                 gift.approvalList = giftApprovalList;
                 /* IF ANY ONE OF THE APPROVERS HAS APPROVED THE FORM, WE SHOULD RESTRICT USER TO EDIT THE FORM*/
@@ -136,8 +138,8 @@ exports.getGiftSubmissionByID = async(giftID) => {
         if(giftSubmission) {
             const giftApprovalList = await executeSqlQuery(
                 `SELECT id,approver_email as email,approval_sequence as approvalSequence,is_approved as isApproved, 
-                approval_required as approvalRequired FROM ${SQL_TABLE.GIFT_APPROVAL} WHERE gift_id = ${giftSubmission.id}
-                ORDER BY approvalSequence asc`,[]
+                approval_required as approvalRequired,can_approve as canApprove FROM ${SQL_TABLE.GIFT_APPROVAL} WHERE 
+                gift_id = ${giftSubmission.id} ORDER BY approvalSequence asc`,[]
             ); 
             if(giftApprovalList instanceof Array && giftApprovalList.length > 0) {
                 giftSubmission.emailAcknowledgements = giftApprovalList;

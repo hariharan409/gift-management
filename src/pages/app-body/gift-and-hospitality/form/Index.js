@@ -33,28 +33,32 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
                     email: "",
                     approvalSequence: 1,
                     isApproved: 0,
-                    approvalRequired: 0
+                    approvalRequired: 0,
+                    canApprove: 1,
                 },
                 {
                     position: "BU",
                     email: "",
                     approvalSequence: 2,
                     isApproved: 0,
-                    approvalRequired: 0
+                    approvalRequired: 0,
+                    canApprove: 0,
                 },
                 {
                     position: "compliance",
                     email: "",
                     approvalSequence: 3,
                     isApproved: 0,
-                    approvalRequired: 0
+                    approvalRequired: 0,
+                    canApprove: 0,
                 },
                 {
                     position: "CEO",
                     email: "",
                     approvalSequence: 4,
                     isApproved: 0,
-                    approvalRequired: 0
+                    approvalRequired: 0,
+                    canApprove: 0,
                 },  
             ],
             receiptImage: null,
