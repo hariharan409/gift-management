@@ -9,3 +9,4 @@ create table [dbo].[tbl_gift_approval](
 
 ALTER TABLE tbl_gift_approval add approval_required tinyint not null default 0;
 ALTER TABLE tbl_gift_approval ADD approved_at datetime;
+ALTER TABLE tbl_gift_approval add can_approve tinyint not null default 0;
