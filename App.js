@@ -1,5 +1,5 @@
 
-import { SafeAreaView} from 'react-native';
+import { Platform, SafeAreaView} from 'react-native';
 import "@expo/metro-runtime";
 import {NavigationContainer} from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -22,7 +22,7 @@ export default function App() {
 
   return (
     <SafeAreaView style={{width: "100%",height: "100%",backgroundColor: "#FFF"}}>
-      <Header />
+      {Platform.OS !== "web" && <Header />}
       <NavigationContainer theme={NavigationContainerTheme}>
           <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='welcome-screen'>
             <Stack.Screen name='welcome-screen' component={Welcome} />

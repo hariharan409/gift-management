@@ -1,4 +1,4 @@
-const { getGiftPendingApprovalCount,getGiftApproval,approveGift,rejectGift } = require("../repository/giftApprovalRepository");
+const { getGiftPendingApprovalCount,getGiftApproval,getGiftApprovedByYou,getGiftRejectedByYou,approveGift,rejectGift } = require("../repository/giftApprovalRepository");
 
 exports.getGiftPendingApprovalCount = async(email) => {
     try {
@@ -11,6 +11,22 @@ exports.getGiftPendingApprovalCount = async(email) => {
 exports.getGiftApproval = async(email) => {
     try {
         return await getGiftApproval(email);
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
+
+exports.getGiftApprovedByYou = async(email) => {
+    try {
+        return await getGiftApprovedByYou(email);
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
+
+exports.getGiftRejectedByYou = async(email) => {
+    try {
+        return await getGiftRejectedByYou(email);
     } catch (error) {
         throw new Error(error.message);
     }

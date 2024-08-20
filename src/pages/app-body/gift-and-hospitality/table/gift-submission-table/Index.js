@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import {Ionicons,FontAwesome5,MaterialIcons} from "@expo/vector-icons";
+import {FontAwesome5} from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import GiftAndHospitalitySubmissionTable from "./GiftSubmission";
 import RejectedGiftSubmission from "./RejectedGiftSubmission";

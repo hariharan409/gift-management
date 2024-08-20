@@ -20,10 +20,38 @@ exports.getGiftApproval = async(email) => {
         const approvalList = await executeSqlQuery(
             `SELECT ga.id as approvalID,gs.id as giftID,gs.vendor_name as vendorName,gs.gift_amount as giftAmount
             FROM ${SQL_TABLE.GIFT_APPROVAL} as ga LEFT JOIN ${SQL_TABLE.GIFT_SUBMISSION} as gs ON ga.gift_id = gs.id WHERE
-            ga.approver_email = '${email}' AND ga.is_approved = 0 AND ga.approval_required = 1 AND ga.can_approve = 1 AND gs.is_rejected = 0 AND gs.is_approved = 0 ORDER BY giftID ASC
+            ga.approver_email = '${email}' AND ga.is_approved = 0 AND ga.approval_required = 1 AND ga.can_approve = 1 AND gs.is_rejected = 0 AND gs.is_approved = 0 ORDER BY giftID DESC
             `,[]
         );
         return approvalList;
+    } catch (error) {
+        throw new Error(error.message || error);
+    }
+}
+
+exports.getGiftApprovedByYou = async(email) => {
+    try {
+        const giftApprovedList = await executeSqlQuery(
+            `SELECT ga.id as approvalID,gs.id as giftID,gs.vendor_name as vendorName,gs.gift_amount as giftAmount
+            FROM ${SQL_TABLE.GIFT_APPROVAL} as ga LEFT JOIN ${SQL_TABLE.GIFT_SUBMISSION} as gs ON ga.gift_id = gs.id WHERE
+            ga.approver_email = '${email}' AND ga.is_approved = 1 AND ga.approval_required = 1 AND gs.is_rejected = 0 ORDER BY giftID DESC
+            `,[]
+        );
+        return giftApprovedList;
+    } catch (error) {
+        throw new Error(error.message || error);
+    }
+}
+
+exports.getGiftRejectedByYou = async(email) => {
+    try {
+        const giftRejectedList = await executeSqlQuery(
+            `SELECT ga.id as approvalID,gs.id as giftID,gs.rejection_reason as rejectedReason,gs.requestor_email as requestedBy
+            FROM ${SQL_TABLE.GIFT_APPROVAL} as ga LEFT JOIN ${SQL_TABLE.GIFT_SUBMISSION} as gs ON ga.gift_id = gs.id WHERE
+            ga.approver_email = '${email}' and gs.is_rejected = 1 and gs.rejected_by = '${email}' ORDER BY giftID DESC
+            `,[]
+        );
+        return giftRejectedList;
     } catch (error) {
         throw new Error(error.message || error);
     }
