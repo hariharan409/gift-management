@@ -77,7 +77,7 @@ exports.approveGift = async(giftID,approvalID,approverEmail) => {
                 `UPDATE ${SQL_TABLE.GIFT_SUBMISSION} SET is_approved = 1 WHERE id = ${giftID}`,[]
             );
         }
-        return await this.getGiftApproval(approverEmail);
+        return await this.getPendingApprovalByYou(approverEmail);
     } catch (error) {
         throw new Error(error.message || error);
     }
@@ -90,7 +90,7 @@ exports.rejectGift = async(giftID,rejectionReason,rejecterEmail) => {
             WHERE id = ${giftID}
             `,[]
         );
-        return await this.getGiftApproval(rejecterEmail);
+        return await this.getPendingApprovalByYou(rejecterEmail);
     } catch (error) {
         throw new Error(error.message || error);
     }

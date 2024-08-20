@@ -54,7 +54,7 @@ const YourSubmission = ({navigation}) => {
                         <Button onPress={() => navigation.navigate("gift-and-hospitality-approval-tab",{giftID: null,canEdit: true})} title="approve" touchSoundDisabled={false} />
                     </View>
                     <View style={{justifyContent: "flex-end"}}>
-                        <Button onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: null,canEdit: true})} title="add" touchSoundDisabled={false} />
+                        <Button onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: null,canEdit: true})} title="new submission" touchSoundDisabled={false} />
                     </View>
                 </View>
             </View>
