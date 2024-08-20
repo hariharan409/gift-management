@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View,StyleSheet, Button } from "react-native";
 import {Ionicons,FontAwesome5} from "@expo/vector-icons";
-import { getGiftApprovalAPI,approveGiftAPI } from "../../../../../api/giftApprovalApi";
+import { getGiftApprovalAPI,approveGiftAPI,rejectGiftAPI } from "../../../../../api/giftApprovalApi";
 import { useIsFocused } from "@react-navigation/native";
 import { FailureToast, SuccessToast } from "../../../../../components/Toast";
 import { FullScreenLoader } from "../../../../../components/Loader";
 import GiftApproveModal from "./GiftApproveModal";
+import GiftRejectModal from "./GiftRejectModal";
 
 const GiftAndHospitalityApprovalTable = ({navigation}) => {
     const isFocused = useIsFocused();
@@ -55,6 +56,26 @@ const GiftAndHospitalityApprovalTable = ({navigation}) => {
         }
     }
 
+    const onRejectModalOpen = (rejectionObject) => {
+        try {
+            setGiftObject(rejectionObject);
+            setRejectModalVisible(!rejectModalVisible);
+        } catch (error) {
+            FailureToast("Oops! Something went wrong.")
+        }
+    }
+
+    const onReject = async(giftObject,rejectionReason) => {
+        try {
+            const responseList = await rejectGiftAPI(giftObject.giftID,rejectionReason,loggedInEmail);
+            setGiftApprovalList(responseList);
+            SuccessToast("The gift has been rejected successfully!");
+            setRejectModalVisible(false);
+        } catch (error) {
+            FailureToast("Oops! Something went wrong.")
+        }
+    }
+
 
 
     /* IT WILL RENDER ONCE THE UI IS MOUNTING */
@@ -97,7 +118,7 @@ const GiftAndHospitalityApprovalTable = ({navigation}) => {
                                     </View>
 
                                     <View style={{flex: 1}}>
-                                        <Button title="reject" touchSoundDisabled={false} color="red" />
+                                        <Button title="reject" touchSoundDisabled={false} color="red" onPress={() => onRejectModalOpen(approval)} />
                                     </View>
                                 </View>
                             </View>
@@ -106,6 +127,7 @@ const GiftAndHospitalityApprovalTable = ({navigation}) => {
                 }
             </View>
             <GiftApproveModal  approveModalVisible={approveModalVisible} setApproveModalVisible={setApproveModalVisible} giftObject={giftObject} onApprove={onApprove} />
+            <GiftRejectModal rejectModalVisible={rejectModalVisible} setRejectModalVisible={setRejectModalVisible} giftObject={giftObject} onReject={onReject} />
         </ScrollView>
     )
 }
