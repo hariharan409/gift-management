@@ -39,6 +39,32 @@ export const getGiftSubmissionAPI = async(email) => {
     }
 }
 
+export const getApprovedGiftSubmissionAPI = async(email) => {
+    try{
+        let value = await getRequest('/gift/submission/get-approved-gift-submission',email);
+        if(value.success === true) {
+            return value.value;
+        } else {
+            throw new Error("Something went wrong!. Please contact admin");
+        }
+    } catch(error) {
+        throw new Error(error.message);
+    }
+}
+
+export const getRejectedGiftSubmissionAPI = async(email) => {
+    try{
+        let value = await getRequest('/gift/submission/get-rejected-gift-submission',email);
+        if(value.success === true) {
+            return value.value;
+        } else {
+            throw new Error("Something went wrong!. Please contact admin");
+        }
+    } catch(error) {
+        throw new Error(error.message);
+    }
+}
+
 export const getGiftSubmissionByIDAPI = async(giftID) => {
     try{
         let value = await getRequest('/gift/submission/get-gift-by-id',giftID);

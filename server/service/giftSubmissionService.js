@@ -1,4 +1,4 @@
-const { getGiftCategory,createGift,updateGift,getGiftSubmission,getGiftSubmissionByID,getGiftPendingApprovalCount,getGiftApproval } = require("../repository/giftSubmissionRepository");
+const { getGiftCategory,createGift,updateGift,getGiftSubmission,getGiftSubmissionByID,getApprovedGiftSubmission,getRejectedGiftSubmission } = require("../repository/giftSubmissionRepository");
 
 
 exports.getGiftCategory = async() => {
@@ -29,6 +29,22 @@ exports.getGiftSubmission = async(email) => {
 exports.getGiftSubmissionByID = async(giftID) => {
     try {
         return await getGiftSubmissionByID(giftID);
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
+
+exports.getApprovedGiftSubmission = async(email) => {
+    try {
+        return await getApprovedGiftSubmission(email);
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
+
+exports.getRejectedGiftSubmission = async(email) => {
+    try {
+        return await getRejectedGiftSubmission(email);
     } catch (error) {
         throw new Error(error.message);
     }

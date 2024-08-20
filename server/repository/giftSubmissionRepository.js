@@ -88,7 +88,7 @@ exports.getGiftSubmission = async(email) => {
     try {
         const giftSubmissionList = await executeSqlQuery(
             `SELECT id,vendor_name as vendorName,gift_amount as giftAmount,isEdit = 1 FROM ${SQL_TABLE.GIFT_SUBMISSION} 
-            WHERE requestor_email = '${email}' order by id`,[]
+            WHERE requestor_email = '${email}' AND is_rejected = 0 AND is_approved = 0 order by id`,[]
         );
         if(giftSubmissionList instanceof Array && giftSubmissionList.length > 0) {
             for(const gift of giftSubmissionList) {
@@ -146,6 +146,30 @@ exports.getGiftSubmissionByID = async(giftID) => {
             }
         }
         return giftSubmission;
+    } catch (error) {
+        throw new Error(error.message || error);
+    }
+}
+
+exports.getApprovedGiftSubmission = async(email) => {
+    try {
+        const giftApprovedSubmissionList = await executeSqlQuery(
+            `SELECT id,gift_amount as giftValue,vendor_name as vendor FROM ${SQL_TABLE.GIFT_SUBMISSION} 
+            WHERE requestor_email = '${email}' AND is_approved = 1 order by id`,[]
+        );
+        return giftApprovedSubmissionList;
+    } catch (error) {
+        throw new Error(error.message || error);
+    }
+}
+
+exports.getRejectedGiftSubmission = async(email) => {
+    try {
+        const giftRejectedSubmissionList = await executeSqlQuery(
+            `SELECT id,rejection_reason as rejectedReason,rejected_by as rejectedBY FROM ${SQL_TABLE.GIFT_SUBMISSION} 
+            WHERE requestor_email = '${email}' AND is_rejected = 1 order by id`,[]
+        );
+        return giftRejectedSubmissionList;
     } catch (error) {
         throw new Error(error.message || error);
     }

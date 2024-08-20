@@ -3,6 +3,8 @@ import { StyleSheet } from "react-native";
 import {Ionicons,FontAwesome5,MaterialIcons} from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import GiftAndHospitalitySubmissionTable from "./GiftSubmission";
+import RejectedGiftSubmission from "./RejectedGiftSubmission";
+import ApprovedGiftSubmission from "./ApprovedGiftSubmission";
 
 const Tab = createBottomTabNavigator();
 
@@ -27,7 +29,7 @@ const SubmissionTabView = () => {
             />
             <Tab.Screen 
                 name="submission-approved-table" 
-                component={GiftAndHospitalitySubmissionTable} 
+                component={ApprovedGiftSubmission} 
                 options={{
                     tabBarLabel: "approved submission",
                     tabBarItemStyle: {
@@ -42,7 +44,7 @@ const SubmissionTabView = () => {
             />
             <Tab.Screen 
                 name="submission-rejected-table" 
-                component={GiftAndHospitalitySubmissionTable} 
+                component={RejectedGiftSubmission} 
                 options={{
                     tabBarLabel: "rejected submission",
                     tabBarItemStyle: {
