@@ -27,3 +27,29 @@ exports.getGiftApproval = async(email) => {
         throw new Error(error.message || error);
     }
 }
+
+exports.approveGift = async(giftID,approvalID,approverEmail) => {
+    try {
+        await executeSqlQuery(
+            `UPDATE ${SQL_TABLE.GIFT_APPROVAL} SET is_approved = 1,can_approve = 0,approved_at = GETDATE() WHERE id = ${approvalID}`,[]
+        );
+        const nextApproverList = await executeSqlQuery(
+            `SELECT TOP(1) * FROM ${SQL_TABLE.GIFT_APPROVAL} WHERE approval_required = 1 AND is_approved = 0 
+            AND can_approve = 0 AND gift_id = ${giftID} ORDER BY approval_sequence ASC
+            `,[]
+        );
+        if(nextApproverList instanceof Array && nextApproverList.length > 0) {
+            await executeSqlQuery(
+                `UPDATE ${SQL_TABLE.GIFT_APPROVAL} SET can_approve = 1 WHERE id = ${nextApproverList[0].id}
+                `,[]
+            )
+        } else {
+            await executeSqlQuery(
+                `UPDATE ${SQL_TABLE.GIFT_SUBMISSION} SET is_approved = 1 WHERE id = ${giftID}`,[]
+            );
+        }
+        return await this.getGiftApproval(approverEmail);
+    } catch (error) {
+        throw new Error(error.message || error);
+    }
+}

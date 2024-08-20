@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View,StyleSheet, Button } from "react-native";
-import {Ionicons,FontAwesome5,MaterialIcons} from "@expo/vector-icons";
-import { getGiftApprovalAPI } from "../../../../../api/giftApprovalApi";
+import {Ionicons,FontAwesome5} from "@expo/vector-icons";
+import { getGiftApprovalAPI,approveGiftAPI } from "../../../../../api/giftApprovalApi";
 import { useIsFocused } from "@react-navigation/native";
-import { FailureToast } from "../../../../../components/Toast";
+import { FailureToast, SuccessToast } from "../../../../../components/Toast";
 import { FullScreenLoader } from "../../../../../components/Loader";
+import GiftApproveModal from "./GiftApproveModal";
 
 const GiftAndHospitalityApprovalTable = ({navigation}) => {
     const isFocused = useIsFocused();
     const loggedInEmail = localStorage.getItem("user-email")
     const [giftApprovalList,setGiftApprovalList] = useState([]);
     const [isMount,setMount] = useState(true);
-
+    const [approveModalVisible,setApproveModalVisible] = useState(false);
+    const [rejectModalVisible,setRejectModalVisible] = useState(false);
+    const [giftObject,setGiftObject] = useState({});
+ 
     const loadDataOnInitialRender = async() => {
         try {
             const responseList = await getGiftApprovalAPI(loggedInEmail);
@@ -30,6 +34,28 @@ const GiftAndHospitalityApprovalTable = ({navigation}) => {
             loadDataOnInitialRender();
         }
     },[isFocused]);
+
+    const onApproveModalOpen = (approvalObject) => {
+        try {
+            setGiftObject(approvalObject);
+            setApproveModalVisible(!approveModalVisible);
+        } catch (error) {
+            FailureToast("Oops! Something went wrong.")
+        }
+    }
+
+    const onApprove = async(giftObject) => {
+        try {
+            const responseList = await approveGiftAPI(giftObject.giftID,giftObject.approvalID,loggedInEmail);
+            setGiftApprovalList(responseList);
+            SuccessToast("The gift has been approved successfully!");
+            setApproveModalVisible(false);
+        } catch (error) {
+            FailureToast("Oops! Something went wrong.")
+        }
+    }
+
+
 
     /* IT WILL RENDER ONCE THE UI IS MOUNTING */
     if(isMount) {
@@ -67,8 +93,9 @@ const GiftAndHospitalityApprovalTable = ({navigation}) => {
                                 <FontAwesome5 onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: approval.giftID,canEdit: false})} style={{...styles.bodyCell}} name="readme" size={30} color="blue" />
                                 <View style={{...styles.bodyCell,flexDirection: "row",columnGap: "20px"}}>
                                     <View style={{flex: 1}}>
-                                        <Button title="approve" touchSoundDisabled={false} />
+                                        <Button title="approve" touchSoundDisabled={false} onPress={() => onApproveModalOpen(approval)} />
                                     </View>
+
                                     <View style={{flex: 1}}>
                                         <Button title="reject" touchSoundDisabled={false} color="red" />
                                     </View>
@@ -78,6 +105,7 @@ const GiftAndHospitalityApprovalTable = ({navigation}) => {
                     }) : <Text style={{textAlign: "center",marginBottom: "10px"}}>no data available</Text>
                 }
             </View>
+            <GiftApproveModal  approveModalVisible={approveModalVisible} setApproveModalVisible={setApproveModalVisible} giftObject={giftObject} onApprove={onApprove} />
         </ScrollView>
     )
 }
