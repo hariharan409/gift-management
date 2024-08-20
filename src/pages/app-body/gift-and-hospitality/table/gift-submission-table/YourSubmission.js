@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View,StyleSheet, Button } from "react-native";
 import {Ionicons,FontAwesome5,MaterialIcons} from "@expo/vector-icons";
+import {DataTable} from "react-native-paper";
 import { getYourPendingApprovalCountAPI } from "../../../../../api/yourApprovalApi";
 import { getYourSubmissionAPI } from "../../../../../api/yourSubmissionApi";
 import { useIsFocused } from "@react-navigation/native";
@@ -58,44 +59,46 @@ const YourSubmission = ({navigation}) => {
                     </View>
                 </View>
             </View>
-            {/* TABLE HEADER */}
-            <View style={styles.tableHeader}>
-                <Text style={styles.headerCell}>form id</Text>
-                <Text style={styles.headerCell}>vendor name</Text>
-                <Text style={styles.headerCell}>gift value</Text>
-                <Text style={styles.headerCell}>approval details</Text>
-                <Text style={styles.headerCell}>action</Text>
-            </View>
-            {/* TABLE BODY */}
-            <View style={styles.tableBody}>
+            <DataTable style={styles.dataTable}>
+                {/* TABLE HEADER */}
+                <DataTable.Header style={styles.tableHeader}>
+                    <DataTable.Title><Text style={styles.tableHeaderTitleContent}>form id</Text></DataTable.Title>
+                    <DataTable.Title><Text style={styles.tableHeaderTitleContent}>vendor name</Text></DataTable.Title>
+                    <DataTable.Title><Text style={styles.tableHeaderTitleContent}>gift value</Text></DataTable.Title>
+                    <DataTable.Title><Text style={styles.tableHeaderTitleContent}>approval details</Text></DataTable.Title>
+                    <DataTable.Title><Text style={styles.tableHeaderTitleContent}>action</Text></DataTable.Title>
+                </DataTable.Header>
+                {/* TABLE BODY */}
                 {(giftSubmissionList instanceof Array && giftSubmissionList.length > 0) ?
                     giftSubmissionList.map((submission) => {
                         return(
-                            <View key={submission.id} style={styles.tableBodyRow}>
-                                <Text style={styles.bodyCell}>#GH-{submission.id}</Text>
-                                <Text style={styles.bodyCell}>{submission.vendorName}</Text>
-                                <Text style={styles.bodyCell}>
+                            <DataTable.Row key={submission.id} style={styles.dataTableBody}>
+                                <DataTable.Cell>#GH-{submission.id}</DataTable.Cell>
+                                <DataTable.Cell>{submission.vendorName}</DataTable.Cell>
+                                <DataTable.Cell>
                                     <FontAwesome5 name="dollar-sign" size={15} color="black" style={{marginRight: "2px"}}  />
                                     {submission.giftAmount}
-                                </Text>
-                                <View style={styles.bodyCell}>
+                                </DataTable.Cell>
+                                <DataTable.Cell>
                                     {
                                         submission?.approvalList.map((approval) => {
                                             return(
                                                 <View key={approval.id} style={styles.approverDetailsElement}>
-                                                    <Text style={{...styles.bodyCell,width: "70%",minWidth: "150px"}}>{approval.approverEmail}</Text>
+                                                    <Text style={{...styles.approverDetailsElementText,width: "100%"}}>{approval.approverEmail}</Text>
                                                     <MaterialIcons name= {approval.isApproved && "verified-user"} size={30} color={approval.isApproved && "green"} />
                                                 </View>
                                             )
                                         })
                                     }
-                                </View>
-                                <FontAwesome5 onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: submission.id,canEdit: submission.isEdit})} style={{...styles.bodyCell}} name= {submission.isEdit ? "edit" : "readme"} size={30} color="blue" />
-                            </View>
+                                </DataTable.Cell>
+                                <DataTable.Cell>
+                                    <FontAwesome5 onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: submission.id,canEdit: submission.isEdit})} name= {submission.isEdit ? "edit" : "readme"} size={30} color="blue" />
+                                </DataTable.Cell>
+                            </DataTable.Row>
                         )
-                    }) : <Text style={{textAlign: "center",marginBottom: "10px"}}>no data available</Text>
+                    }) : <Text style={{textAlign: "center",marginVertical: "10px",textTransform: "uppercase"}}>no data available</Text>
                 }
-            </View>
+            </DataTable>
         </ScrollView>
     )
 }
@@ -103,35 +106,30 @@ const YourSubmission = ({navigation}) => {
 const styles = StyleSheet.create({
     rootElement: {
         paddingTop: 5,
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
+    },
+    dataTable: {
+        borderWidth: 1,
+        borderColor: "rgba(0,0,0,0.3)"
     },
     tableHeader: {
+        borderBottomWidth: 5,
+        borderColor: "rgba(0,0,0,0.3)"
+    },
+    tableHeaderTitleContent: {
+        textTransform: "uppercase",
+        color: "blue",
+        fontWeight: "bold"
+    },
+    dataTableBody: {
+        padding: "10px"
+    },
+    approverDetailsElement: {
         display: "flex",
         flexDirection: "row",
-        marginTop: "20px",
-        overflow: "scroll"
+        alignItems: "center",
     },
-    headerCell: {
-        width: "50%",
-        textAlign: "center",
-        textTransform: "uppercase",
-        fontWeight: "500",
-        borderWidth: "2px",
-        borderColor: "rgba(0,0,0,0.3)",
-        marginHorizontal: "3px",
-        padding: "5px",
-        minWidth: "200px"
-    },
-    tableBody: {
-        marginTop: "10px",
-        overflow: "scroll"
-    },
-    tableBodyRow: {
-        display: "flex",
-        flexDirection: "row"
-    },
-    bodyCell: {
-        width: "20%",
+    approverDetailsElementText: {
         textAlign: "center",
         fontWeight: "500",
         borderWidth: "1px",
@@ -141,11 +139,6 @@ const styles = StyleSheet.create({
         padding: "5px",
         minWidth: "200px",
         alignContent: 'center',
-    },
-    approverDetailsElement: {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
     },
     approvalTextElement: {
         backgroundColor: "#000",
