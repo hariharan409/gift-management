@@ -89,6 +89,7 @@ const YourSubmission = ({navigation}) => {
                                             return(
                                                 <View key={approval.id} style={styles.approverDetailsElement}>
                                                     <Text style={{...styles.approverDetailsElementText,width: "100%"}}>{approval.approverEmail}</Text>
+                                                    {approval.canApprove ? <Text style={{color: "green"}}>current active approver</Text> : null}
                                                     <MaterialIcons name= {approval.isApproved && "verified-user"} size={30} color={approval.isApproved && "green"} />
                                                 </View>
                                             )
