@@ -14,6 +14,10 @@ const YourSubmission = ({navigation}) => {
     const [giftSubmissionList,setGiftSubmissionList] = useState([]);
     const [isMount,setMount] = useState(true);
     const [approvalCount,setApprovalCount] = useState(0);
+    const [page,setPage] = useState(0);
+    const [itemsPerPage,setItemsPerPage] = useState(6);
+    const fromCount = page * itemsPerPage;
+    const toCount = Math.min((page + 1) * itemsPerPage,giftSubmissionList.length);
 
     const loadDataOnInitialRender = async() => {
         try {
@@ -65,12 +69,12 @@ const YourSubmission = ({navigation}) => {
                     <DataTable.Title><Text style={styles.tableHeaderTitleContent}>form id</Text></DataTable.Title>
                     <DataTable.Title><Text style={styles.tableHeaderTitleContent}>vendor name</Text></DataTable.Title>
                     <DataTable.Title><Text style={styles.tableHeaderTitleContent}>gift value</Text></DataTable.Title>
-                    <DataTable.Title><Text style={styles.tableHeaderTitleContent}>approval details</Text></DataTable.Title>
+                    <DataTable.Title style={{flex: 2}}><Text style={{...styles.tableHeaderTitleContent}}>approval details</Text></DataTable.Title>
                     <DataTable.Title><Text style={styles.tableHeaderTitleContent}>action</Text></DataTable.Title>
                 </DataTable.Header>
                 {/* TABLE BODY */}
                 {(giftSubmissionList instanceof Array && giftSubmissionList.length > 0) ?
-                    giftSubmissionList.map((submission) => {
+                    giftSubmissionList.slice(fromCount,toCount).map((submission) => {
                         return(
                             <DataTable.Row key={submission.id} style={styles.dataTableBody}>
                                 <DataTable.Cell>#GH-{submission.id}</DataTable.Cell>
@@ -79,7 +83,7 @@ const YourSubmission = ({navigation}) => {
                                     <FontAwesome5 name="dollar-sign" size={15} color="black" style={{marginRight: "2px"}}  />
                                     {submission.giftAmount}
                                 </DataTable.Cell>
-                                <DataTable.Cell>
+                                <DataTable.Cell style={{flex: 2}}>
                                     {
                                         submission?.approvalList.map((approval) => {
                                             return(
@@ -98,6 +102,19 @@ const YourSubmission = ({navigation}) => {
                         )
                     }) : <Text style={{textAlign: "center",marginVertical: "10px",textTransform: "uppercase"}}>no data available</Text>
                 }
+                {/* TABLE PAGINATION */}
+                <DataTable.Pagination 
+                    style={styles.pagination}
+                    page={page}
+                    numberOfPages={Math.ceil(giftSubmissionList.length / itemsPerPage)}
+                    onPageChange={(page) => setPage(page)}
+                    label={`${fromCount + 1}-${toCount} of ${giftSubmissionList.length}`}
+                    showFastPaginationControls
+                    optionsPerPage={[2, 3, 4]}
+                    itemsPerPage={itemsPerPage}
+                    setItemsPerPage={setItemsPerPage}
+
+                />
             </DataTable>
         </ScrollView>
     )
@@ -110,7 +127,8 @@ const styles = StyleSheet.create({
     },
     dataTable: {
         borderWidth: 1,
-        borderColor: "rgba(0,0,0,0.3)"
+        borderTopColor: "rgba(0,0,0,1)",
+        borderColor: "rgba(0,0,0,0.3)",
     },
     tableHeader: {
         borderBottomWidth: 5,
@@ -151,6 +169,10 @@ const styles = StyleSheet.create({
         marginRight: "-10px",
         textAlign: "center",
         zIndex: 1
+    },
+    pagination: {
+        borderTopWidth: 1,
+        borderTopColor: "rgba(0,0,0,0.3)"
     }
 });
 
