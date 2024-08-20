@@ -112,23 +112,6 @@ const styles = StyleSheet.create({
         minWidth: "200px",
         alignContent: 'center',
     },
-    approverDetailsElement: {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    approvalTextElement: {
-        backgroundColor: "#000",
-        color: "#FFF",
-        borderRadius: "50%",
-        width: "20px",
-        height: "20px",
-        alignSelf: "flex-end",
-        marginBottom: "-10px",
-        marginRight: "-10px",
-        textAlign: "center",
-        zIndex: 1
-    }
 });
 
 export default ApprovedGiftSubmission;

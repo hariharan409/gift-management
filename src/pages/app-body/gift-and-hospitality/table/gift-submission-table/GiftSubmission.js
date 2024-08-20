@@ -49,12 +49,10 @@ const GiftAndHospitalitySubmissionTable = ({navigation}) => {
                 <Ionicons onPress={() => navigation.goBack(null)} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="black" />
                 <Text style={{fontWeight: "bold",textTransform: "uppercase",fontSize: "16px"}}>gift submission list</Text>
                 <View style={{width: "150px",marginVertical: 20,display: "flex",flexDirection: "row",columnGap: "20px",justifyContent: "flex-end"}}> 
-                    {approvalCount > 0 &&
-                        <View>
-                            <Text style={styles.approvalTextElement}>{approvalCount}</Text>
-                            <Button onPress={() => navigation.navigate("gift-and-hospitality-approval-table",{giftID: null,canEdit: true})} title="approval" touchSoundDisabled={false} />
-                        </View>
-                    }  
+                    <View>
+                        <Text style={styles.approvalTextElement}>{approvalCount}</Text>
+                        <Button onPress={() => navigation.navigate("gift-and-hospitality-approval-table",{giftID: null,canEdit: true})} title="approve" touchSoundDisabled={false} />
+                    </View>
                     <View style={{justifyContent: "flex-end"}}>
                         <Button onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: null,canEdit: true})} title="add" touchSoundDisabled={false} />
                     </View>

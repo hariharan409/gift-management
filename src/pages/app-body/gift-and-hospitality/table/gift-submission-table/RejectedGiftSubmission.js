@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Text, View,StyleSheet, Button } from "react-native";
+import { ScrollView, Text, View,StyleSheet } from "react-native";
 import {Ionicons,FontAwesome5} from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
-import { FailureToast, SuccessToast } from "../../../../../components/Toast";
+import { FailureToast } from "../../../../../components/Toast";
 import { FullScreenLoader } from "../../../../../components/Loader";
 import { getRejectedGiftSubmissionAPI } from "../../../../../api/giftSubmissionApi";
 
@@ -111,23 +111,6 @@ const styles = StyleSheet.create({
         padding: "5px",
         minWidth: "200px",
         alignContent: 'center',
-    },
-    approverDetailsElement: {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    approvalTextElement: {
-        backgroundColor: "#000",
-        color: "#FFF",
-        borderRadius: "50%",
-        width: "20px",
-        height: "20px",
-        alignSelf: "flex-end",
-        marginBottom: "-10px",
-        marginRight: "-10px",
-        textAlign: "center",
-        zIndex: 1
     }
 });
 
