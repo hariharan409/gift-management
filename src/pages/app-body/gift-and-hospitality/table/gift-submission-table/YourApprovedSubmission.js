@@ -4,19 +4,19 @@ import {Ionicons,FontAwesome5} from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 import { FailureToast } from "../../../../../components/Toast";
 import { FullScreenLoader } from "../../../../../components/Loader";
-import { getRejectedGiftSubmissionAPI } from "../../../../../api/giftSubmissionApi";
+import { getYourApprovedSubmissionAPI } from "../../../../../api/giftSubmissionApi";
 
-const RejectedGiftSubmission = ({navigation}) => {
+const YourApprovedSubmission = ({navigation}) => {
     const isFocused = useIsFocused();
     const loggedInEmail = localStorage.getItem("user-email")
-    const [rejectedGiftSubmissionList,setRejectedGiftSubmissionList] = useState([]);
+    const [approvedGiftSubmissionList,setApprovedGiftSubmissionList] = useState([]);
     const [isMount,setMount] = useState(true);
  
     const loadDataOnInitialRender = async() => {
         try {
-            const responseList = await getRejectedGiftSubmissionAPI(loggedInEmail);
+            const responseList = await getYourApprovedSubmissionAPI(loggedInEmail);
             if(responseList instanceof Array && responseList.length > 0) {
-                setRejectedGiftSubmissionList(responseList);
+                setApprovedGiftSubmissionList(responseList);
             }
         } catch (error) {
             FailureToast("Oops! Something went wrong.")
@@ -41,26 +41,26 @@ const RejectedGiftSubmission = ({navigation}) => {
             {/* PAGE TITLE */}
             <View style={{display: "flex",flexDirection: "row",justifyContent: "space-between",alignItems: "center",borderBottomColor: "rgba(0,0,0,0.5)",borderBottomWidth: "1px"}}>
                 <Ionicons onPress={() => navigation.goBack(null)} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="black" />
-                <Text style={{fontWeight: "bold",textTransform: "uppercase",fontSize: "16px"}}>rejected gift submission list - {loggedInEmail}</Text>
+                <Text style={{fontWeight: "bold",textTransform: "uppercase",fontSize: "16px"}}>your approved gift submission list</Text>
                 <View />
             </View>
             {/* TABLE HEADER */}
             <View style={styles.tableHeader}>
                 <Text style={styles.headerCell}>form id</Text>
-                <Text style={styles.headerCell}>rejection reason</Text>
-                <Text style={styles.headerCell}>rejected by</Text>
+                <Text style={styles.headerCell}>gift value</Text>
+                <Text style={styles.headerCell}>vendor name</Text>
                 <Text style={styles.headerCell}>view form</Text>
             </View>
             {/* TABLE BODY */}
             <View style={styles.tableBody}>
-                {(rejectedGiftSubmissionList instanceof Array && rejectedGiftSubmissionList.length > 0) ?
-                    rejectedGiftSubmissionList.map((rejection) => {
+                {(approvedGiftSubmissionList instanceof Array && approvedGiftSubmissionList.length > 0) ?
+                    approvedGiftSubmissionList.map((approved) => {
                         return(
-                            <View key={rejection.id} style={styles.tableBodyRow}>
-                                <Text style={styles.bodyCell}>#GH-{rejection.id}</Text>
-                                <Text style={styles.bodyCell}>{rejection.rejectedReason}</Text>
-                                <Text style={styles.bodyCell}>{rejection.rejectedBY}</Text>
-                                <FontAwesome5 onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: rejection.id,canEdit: false})} style={{...styles.bodyCell}} name="readme" size={30} color="blue" />
+                            <View key={approved.id} style={styles.tableBodyRow}>
+                                <Text style={styles.bodyCell}>#GH-{approved.id}</Text>
+                                <Text style={styles.bodyCell}>{approved.giftValue}</Text>
+                                <Text style={styles.bodyCell}>{approved.vendor}</Text>
+                                <FontAwesome5 onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: approved.id,canEdit: false})} style={{...styles.bodyCell}} name="readme" size={30} color="blue" />
                             </View>
                         )
                     }) : <Text style={{textAlign: "center",marginBottom: "10px"}}>no data available</Text>
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
         padding: "5px",
         minWidth: "200px",
         alignContent: 'center',
-    }
+    },
 });
 
-export default RejectedGiftSubmission;
+export default YourApprovedSubmission;

@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View,StyleSheet, Button } from "react-native";
 import {Ionicons,FontAwesome5,MaterialIcons} from "@expo/vector-icons";
 import { getGiftPendingApprovalCountAPI } from "../../../../../api/giftApprovalApi";
-import { getGiftSubmissionAPI } from "../../../../../api/giftSubmissionApi";
+import { getYourSubmissionAPI } from "../../../../../api/giftSubmissionApi";
 import { useIsFocused } from "@react-navigation/native";
 import { FailureToast } from "../../../../../components/Toast";
 import { FullScreenLoader } from "../../../../../components/Loader";
 
-const GiftAndHospitalitySubmissionTable = ({navigation}) => {
+const YourSubmission = ({navigation}) => {
     const isFocused = useIsFocused();
     const loggedInEmail = localStorage.getItem("user-email")
     const [giftSubmissionList,setGiftSubmissionList] = useState([]);
@@ -16,7 +16,7 @@ const GiftAndHospitalitySubmissionTable = ({navigation}) => {
 
     const loadDataOnInitialRender = async() => {
         try {
-            const responseList = await getGiftSubmissionAPI(loggedInEmail);
+            const responseList = await getYourSubmissionAPI(loggedInEmail);
             if(responseList instanceof Array && responseList.length > 0) {
                 setGiftSubmissionList(responseList);
             }
@@ -47,11 +47,11 @@ const GiftAndHospitalitySubmissionTable = ({navigation}) => {
             {/* PAGE TITLE */}
             <View style={{display: "flex",flexDirection: "row",justifyContent: "space-between",alignItems: "center",borderBottomColor: "rgba(0,0,0,0.5)",borderBottomWidth: "1px"}}>
                 <Ionicons onPress={() => navigation.goBack(null)} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="black" />
-                <Text style={{fontWeight: "bold",textTransform: "uppercase",fontSize: "16px"}}>gift submission list</Text>
+                <Text style={{fontWeight: "bold",textTransform: "uppercase",fontSize: "16px"}}>your gift submission list</Text>
                 <View style={{width: "150px",marginVertical: 20,display: "flex",flexDirection: "row",columnGap: "20px",justifyContent: "flex-end"}}> 
                     <View>
                         <Text style={styles.approvalTextElement}>{approvalCount}</Text>
-                        <Button onPress={() => navigation.navigate("gift-and-hospitality-approval-table",{giftID: null,canEdit: true})} title="approve" touchSoundDisabled={false} />
+                        <Button onPress={() => navigation.navigate("gift-and-hospitality-approval-tab",{giftID: null,canEdit: true})} title="approve" touchSoundDisabled={false} />
                     </View>
                     <View style={{justifyContent: "flex-end"}}>
                         <Button onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: null,canEdit: true})} title="add" touchSoundDisabled={false} />
@@ -161,4 +161,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default GiftAndHospitalitySubmissionTable;
+export default YourSubmission;

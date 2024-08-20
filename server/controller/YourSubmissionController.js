@@ -1,5 +1,5 @@
 const {responseHelper} = require("../helper/utilityHelper");
-const { getGiftCategory,createGift,getGiftSubmission,getGiftSubmissionByID,getApprovedGiftSubmission,getRejectedGiftSubmission} = require("../service/giftSubmissionService");
+const { getGiftCategory,createGift,getYourSubmission,getGiftSubmissionByID,getYourApprovedSubmission,getYourRejectedSubmission} = require("../service/YourSubmissionService");
 
 exports.getGiftCategory = async(_,res) => {
     try {
@@ -24,13 +24,13 @@ exports.createGift = async(req,res) => {
     }
 }
 
-exports.getGiftSubmission = async(req,res) => {
+exports.getYourSubmission = async(req,res) => {
     try {
         const email = req.query.payload;
         if(!email) {
             throw new Error("Something went wrong!.");
           } 
-        const responseData = await getGiftSubmission(email);
+        const responseData = await getYourSubmission(email);
         responseHelper(res,responseData,null);
     } catch (error) {
         responseHelper(res,null,error);
@@ -50,26 +50,26 @@ exports.getGiftSubmissionByID = async(req,res) => {
     }
 }
 
-exports.getApprovedGiftSubmission = async(req,res) => {
+exports.getYourApprovedSubmission = async(req,res) => {
     try {
         const email = req.query.payload;
         if(!email) {
             throw new Error("Something went wrong!.");
         }
-        const responseData = await getApprovedGiftSubmission(email);
+        const responseData = await getYourApprovedSubmission(email);
         responseHelper(res,responseData,null);
     } catch (error) {
         responseHelper(res,null,error);
     }
 }
 
-exports.getRejectedGiftSubmission = async(req,res) => {
+exports.getYourRejectedSubmission = async(req,res) => {
     try {
         const email = req.query.payload;
         if(!email) {
             throw new Error("Something went wrong!.");
         }
-        const responseData = await getRejectedGiftSubmission(email);
+        const responseData = await getYourRejectedSubmission(email);
         responseHelper(res,responseData,null);
     } catch (error) {
         responseHelper(res,null,error);

@@ -2,9 +2,9 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import {FontAwesome5} from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import GiftAndHospitalitySubmissionTable from "./GiftSubmission";
-import RejectedGiftSubmission from "./RejectedGiftSubmission";
-import ApprovedGiftSubmission from "./ApprovedGiftSubmission";
+import YourSubmission from "./YourSubmission";
+import RejectedGiftSubmission from "./YourRejectedSubmission";
+import ApprovedGiftSubmission from "./YourApprovedSubmission";
 
 const Tab = createBottomTabNavigator();
 
@@ -14,9 +14,9 @@ const SubmissionTabView = () => {
         <Tab.Navigator initialRouteName="submission-table" screenOptions={{...styles.tabNavScreenOptions}}>
             <Tab.Screen 
                 name="submission-table" 
-                component={GiftAndHospitalitySubmissionTable} 
+                component={YourSubmission} 
                 options={{
-                    tabBarLabel: "gift submission",
+                    tabBarLabel: "your submission",
                     tabBarItemStyle: {
                         borderColor: "grey",
                         borderWidth: "1px",
@@ -31,7 +31,7 @@ const SubmissionTabView = () => {
                 name="submission-approved-table" 
                 component={ApprovedGiftSubmission} 
                 options={{
-                    tabBarLabel: "approved submission",
+                    tabBarLabel: "your approved submission",
                     tabBarItemStyle: {
                         borderColor: "grey",
                         borderWidth: "1px",
@@ -46,7 +46,7 @@ const SubmissionTabView = () => {
                 name="submission-rejected-table" 
                 component={RejectedGiftSubmission} 
                 options={{
-                    tabBarLabel: "rejected submission",
+                    tabBarLabel: "your rejected submission",
                     tabBarItemStyle: {
                         borderColor: "grey",
                         borderWidth: "1px",

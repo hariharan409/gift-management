@@ -16,7 +16,7 @@ const ApprovalTabView = () => {
                 name="approval-table" 
                 component={GiftAndHospitalityApprovalTable} 
                 options={{
-                    tabBarLabel: "gift approval",
+                    tabBarLabel: "pending approval by you",
                     tabBarItemStyle: {
                         borderColor: "grey",
                         borderWidth: "1px",

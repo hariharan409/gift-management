@@ -26,9 +26,9 @@ export const createGiftAPI = async(giftObject) => {
     }
 }
 
-export const getGiftSubmissionAPI = async(email) => {
+export const getYourSubmissionAPI = async(email) => {
     try{
-        let value = await getRequest('/gift/submission/get-gift-submission',email);
+        let value = await getRequest('/gift/submission/get-your-gift-submission',email);
         if(value.success === true) {
             return value.value;
         } else {
@@ -39,9 +39,9 @@ export const getGiftSubmissionAPI = async(email) => {
     }
 }
 
-export const getApprovedGiftSubmissionAPI = async(email) => {
+export const getYourApprovedSubmissionAPI = async(email) => {
     try{
-        let value = await getRequest('/gift/submission/get-approved-gift-submission',email);
+        let value = await getRequest('/gift/submission/get-your-approved-gift-submission',email);
         if(value.success === true) {
             return value.value;
         } else {
@@ -52,9 +52,9 @@ export const getApprovedGiftSubmissionAPI = async(email) => {
     }
 }
 
-export const getRejectedGiftSubmissionAPI = async(email) => {
+export const getYourRejectedSubmissionAPI = async(email) => {
     try{
-        let value = await getRequest('/gift/submission/get-rejected-gift-submission',email);
+        let value = await getRequest('/gift/submission/get-your-rejected-gift-submission',email);
         if(value.success === true) {
             return value.value;
         } else {

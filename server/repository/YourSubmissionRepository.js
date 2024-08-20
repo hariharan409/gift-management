@@ -84,7 +84,7 @@ exports.updateGift = async(gift) => {
     }
 }
 
-exports.getGiftSubmission = async(email) => {
+exports.getYourSubmission = async(email) => {
     try {
         const giftSubmissionList = await executeSqlQuery(
             `SELECT id,vendor_name as vendorName,gift_amount as giftAmount,isEdit = 1 FROM ${SQL_TABLE.GIFT_SUBMISSION} 
@@ -110,7 +110,7 @@ exports.getGiftSubmission = async(email) => {
     }
 }
 
-exports.getApprovedGiftSubmission = async(email) => {
+exports.getYourApprovedSubmission = async(email) => {
     try {
         const giftApprovedSubmissionList = await executeSqlQuery(
             `SELECT id,gift_amount as giftValue,vendor_name as vendor FROM ${SQL_TABLE.GIFT_SUBMISSION} 
@@ -122,7 +122,7 @@ exports.getApprovedGiftSubmission = async(email) => {
     }
 }
 
-exports.getRejectedGiftSubmission = async(email) => {
+exports.getYourRejectedSubmission = async(email) => {
     try {
         const giftRejectedSubmissionList = await executeSqlQuery(
             `SELECT id,rejection_reason as rejectedReason,rejected_by as rejectedBY FROM ${SQL_TABLE.GIFT_SUBMISSION} 
