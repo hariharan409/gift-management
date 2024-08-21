@@ -107,13 +107,23 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
 
     const onPickImage = async() => {
         let result = await ExpoImagePicker.launchImageLibraryAsync({
-            mediaTypes: ExpoImagePicker.MediaTypeOptions.All,
+            mediaTypes: ExpoImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [4,3],
             quality: 1
         });
 
         if(!result.canceled) {
+            const allowedFormats = [
+                'image/jpeg', // JPEG/JPG
+                'image/png',  // PNG
+                'image/heic', // HEIC (High Efficiency Image Coding)
+                'image/heif', // HEIF (High Efficiency Image Format)
+            ];
+            if(!allowedFormats.includes(result.assets[0].mimeType)) {
+                FailureToast("Invalid Format");
+                return;
+            }
            setValue("receiptImage",result.assets[0].uri);
         }
         
