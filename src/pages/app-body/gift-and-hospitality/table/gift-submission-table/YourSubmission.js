@@ -50,7 +50,7 @@ const YourSubmission = ({navigation}) => {
     return(
         <ScrollView style={styles.rootElement}>
             {/* PAGE TITLE */}
-            <View style={{display: "flex",flexDirection: "row",justifyContent: "space-between",alignItems: "center",borderBottomColor: "rgba(0,0,0,0.5)",borderBottomWidth: "1px"}}>
+            <View style={{display: "flex",flexDirection: "row",justifyContent: "space-between",alignItems: "center",borderBottomColor: "rgba(0,0,0,0.5)",borderBottomWidth: "1px",backgroundColor: "#003eff",paddingHorizontal: "5px"}}>
                 <Ionicons onPress={() => navigation.goBack(null)} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="black" />
                 <Text style={{fontWeight: "bold",textTransform: "uppercase",fontSize: "16px"}}>your gift submission list</Text>
                 <View style={{width: "150px",marginVertical: 20,display: "flex",flexDirection: "row",columnGap: "20px",justifyContent: "flex-end"}}> 
@@ -127,9 +127,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     dataTable: {
+        marginTop: "10px",
         borderWidth: 1,
         borderTopColor: "rgba(0,0,0,1)",
         borderColor: "rgba(0,0,0,0.3)",
+        backgroundColor: "rgba(255,255,240,1)"
     },
     tableHeader: {
         borderBottomWidth: 5,

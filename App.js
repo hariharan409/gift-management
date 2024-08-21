@@ -21,7 +21,7 @@ export default function App() {
 
   return (
     <SafeAreaView style={{width: "100%",height: "100%",backgroundColor: "#FFF"}}>
-      {Platform.OS !== "web" && <Header />}
+      <Header />
       <NavigationContainer theme={NavigationContainerTheme}>
           <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='welcome-screen'>
             <Stack.Screen name='welcome-screen' component={Welcome} />

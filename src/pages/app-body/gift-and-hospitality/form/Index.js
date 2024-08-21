@@ -107,7 +107,7 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
 
     const onPickImage = async() => {
         let result = await ExpoImagePicker.launchImageLibraryAsync({
-            mediaTypes: ExpoImagePicker.MediaTypeOptions.Images,
+            mediaTypes: ExpoImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
             aspect: [4,3],
             quality: 1

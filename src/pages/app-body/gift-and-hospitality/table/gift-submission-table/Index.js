@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         tabBarActiveBackgroundColor: "#000",
         headerShown: false,
         tabBarStyle: {
-            borderWidth: 0,
+            borderWidth: 0
         },
         tabBarLabelStyle: {
             fontSize: "12px",
