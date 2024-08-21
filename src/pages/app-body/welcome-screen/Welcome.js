@@ -3,6 +3,7 @@ import { Button, Image, Text, TextInput, View } from "react-native";
 import {useForm,Controller} from "react-hook-form";
 import BusinessGiftImage from "../../../../assets/pages/app-body/welcome-screen/business-gift-image.jpg";
 import { FailureToast, SuccessToast } from "../../../components/Toast";
+import FadeInOutText from "../../../components/animation/FadeInOutText";
 
 
 const Welcome = ({navigation}) => {
@@ -32,7 +33,7 @@ const Welcome = ({navigation}) => {
     return(
         <View style={{width: "100%",height: "100%",display: "flex",flexDirection: "column",justifyContent: "center",rowGap: "20px",paddingHorizontal: 20}}>
             <Image style={{height: "40%",width: "100%",resizeMode: "contain",borderRadius: "10px",shadowColor: "green"}} source={BusinessGiftImage} />
-            <Text style={{fontWeight: "bold",textTransform: "capitalize",fontSize: "20px",textAlign: "center"}}>welcome to gift & hospitality management!</Text>
+            <FadeInOutText text="welcome to gift & hospitality management!" style={{fontSize: "20px",textAlign: "center"}} />
             <Text style={{color: "rgba(0,0,0,0.5)",fontSize: "12px",textAlign: "center",fontWeight: "bold"}}>
                 It is designed to streamline the process of managing corporate gifts, ensuring that businesses can efficiently track,
                 organize and distribute gifts to clients,partners and employees
