@@ -51,7 +51,7 @@ const YourSubmission = ({navigation}) => {
         <ScrollView style={styles.rootElement}>
             {/* PAGE TITLE */}
             <View style={{display: "flex",flexDirection: "row",justifyContent: "space-between",alignItems: "center",borderBottomColor: "rgba(0,0,0,0.5)",borderBottomWidth: "1px",backgroundColor: "#003eff",paddingHorizontal: "5px"}}>
-                <Ionicons onPress={() => navigation.goBack(null)} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="black" />
+                <Ionicons onPress={() => navigation.goBack(null)} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="#FFF" />
                 <Text style={{fontWeight: "bold",textTransform: "uppercase",fontSize: "16px"}}>your gift submission list</Text>
                 <View style={{width: "150px",marginVertical: 20,display: "flex",flexDirection: "row",columnGap: "20px",justifyContent: "flex-end"}}> 
                     <View>
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderTopColor: "rgba(0,0,0,1)",
         borderColor: "rgba(0,0,0,0.3)",
-        backgroundColor: "rgba(255,255,240,1)"
+        backgroundColor: "#FAF9F6"
     },
     tableHeader: {
         borderBottomWidth: 5,
@@ -143,7 +143,9 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     dataTableBody: {
-        padding: "10px"
+        padding: "10px",
+        borderBottomColor: "rgba(0,0,0,0.3)",
+        borderBottomWidth: 1
     },
     approverDetailsElement: {
         display: "flex",
