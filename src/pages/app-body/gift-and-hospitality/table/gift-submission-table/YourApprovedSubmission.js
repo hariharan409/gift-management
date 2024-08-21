@@ -20,7 +20,7 @@ const YourApprovedSubmission = ({navigation}) => {
     const loadDataOnInitialRender = async() => {
         try {
             const responseList = await getYourApprovedSubmissionAPI(loggedInEmail);
-            if(responseList instanceof Array && responseList.length > 0) {
+            if(responseList instanceof Array) {
                 setApprovedGiftSubmissionList(responseList);
             }
         } catch (error) {

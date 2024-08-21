@@ -20,7 +20,7 @@ const YourRejectedSubmission = ({navigation}) => {
     const loadDataOnInitialRender = async() => {
         try {
             const responseList = await getYourRejectedSubmissionAPI(loggedInEmail);
-            if(responseList instanceof Array && responseList.length > 0) {
+            if(responseList instanceof Array) {
                 setRejectedGiftSubmissionList(responseList);
             }
         } catch (error) {

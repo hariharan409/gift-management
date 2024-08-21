@@ -20,7 +20,7 @@ const GiftRejectedByYou = ({navigation}) => {
     const loadDataOnInitialRender = async() => {
         try {
             const responseList = await getGiftRejectedByYouAPI(loggedInEmail);
-            if(responseList instanceof Array && responseList.length > 0) {
+            if(responseList instanceof Array) {
                 setGiftRejectedList(responseList);
             }
         } catch (error) {

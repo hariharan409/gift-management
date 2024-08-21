@@ -22,7 +22,7 @@ const YourSubmission = ({navigation}) => {
     const loadDataOnInitialRender = async() => {
         try {
             const responseList = await getYourSubmissionAPI(loggedInEmail);
-            if(responseList instanceof Array && responseList.length > 0) {
+            if(responseList instanceof Array) {
                 setGiftSubmissionList(responseList);
             }
             const pendingApprovalCount = await getYourPendingApprovalCountAPI(loggedInEmail);

@@ -25,7 +25,7 @@ const PendingApprovalByYou = ({navigation}) => {
     const loadDataOnInitialRender = async() => {
         try {
             const responseList = await getPendingApprovalByYouAPI(loggedInEmail);
-            if(responseList instanceof Array && responseList.length > 0) {
+            if(responseList instanceof Array) {
                 setGiftApprovalList(responseList);
             }
         } catch (error) {

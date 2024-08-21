@@ -20,7 +20,7 @@ const GiftApprovedByYou = ({navigation}) => {
     const loadDataOnInitialRender = async() => {
         try {
             const responseList = await getGiftApprovedByYouAPI(loggedInEmail);
-            if(responseList instanceof Array && responseList.length > 0) {
+            if(responseList instanceof Array) {
                 setGiftApprovedList(responseList);
             }
         } catch (error) {
