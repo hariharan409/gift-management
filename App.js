@@ -20,11 +20,15 @@ export default App = () => {
     }
   }
 
+  const linking = {
+      prefixes: ["http://localhost:8081"]
+  };
+
   return (
     <PaperProvider>
       <SafeAreaView style={{width: "100%",height: "100%",backgroundColor: "#FFF"}}>
         <Header />
-        <NavigationContainer theme={NavigationContainerTheme}>
+        <NavigationContainer theme={NavigationContainerTheme} linking={linking}>
             <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='welcome-screen'>
               <Stack.Screen name='welcome-screen' component={Welcome} />
               <Stack.Screen name='gift-and-hospitality-form' component={GiftAndHospitalityForm} />
