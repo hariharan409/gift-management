@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View,StyleSheet, Button } from "react-native";
 import {Ionicons,FontAwesome5,MaterialIcons} from "@expo/vector-icons";
-import {DataTable} from "react-native-paper";
+import {DataTable, Tooltip} from "react-native-paper";
 import { getYourPendingApprovalCountAPI } from "../../../../../api/yourApprovalApi";
 import { getYourSubmissionAPI } from "../../../../../api/yourSubmissionApi";
 import { useIsFocused } from "@react-navigation/native";
@@ -50,7 +50,7 @@ const YourSubmission = ({navigation}) => {
     return(
         <ScrollView style={styles.rootElement}>
             {/* PAGE TITLE */}
-            <View style={{display: "flex",flexDirection: "row",justifyContent: "space-between",alignItems: "center",borderBottomColor: "rgba(0,0,0,0.5)",borderBottomWidth: "1px",backgroundColor: "#003eff",paddingHorizontal: "5px"}}>
+            <View style={styles.topRowView}>
                 <Ionicons onPress={() => navigation.goBack(null)} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="#FFF" />
                 <Text style={{fontWeight: "bold",textTransform: "uppercase",fontSize: "16px"}}>your gift submission list</Text>
                 <View style={{width: "150px",marginVertical: 20,display: "flex",flexDirection: "row",columnGap: "20px",justifyContent: "flex-end"}}> 
@@ -89,8 +89,14 @@ const YourSubmission = ({navigation}) => {
                                             return(
                                                 <View key={approval.id} style={styles.approverDetailsElement}>
                                                     <Text style={{...styles.approverDetailsElementText,width: "100%"}}>{approval.approverEmail}</Text>
-                                                    {approval.canApprove ? <Text style={{color: "green"}}>current active approver</Text> : null}
-                                                    <MaterialIcons name= {approval.isApproved && "verified-user"} size={30} color={approval.isApproved && "green"} />
+                                                    {approval.canApprove ? 
+                                                    <Tooltip title="pending-approval">
+                                                        <MaterialIcons name="pending-actions" size={25} color="orange" />
+                                                    </Tooltip> : 
+                                                    null}
+                                                    <Tooltip title="approved">
+                                                        <MaterialIcons name= {approval.isApproved && "verified-user"} size={25} color={approval.isApproved && "green"} />
+                                                    </Tooltip>
                                                 </View>
                                             )
                                         })
@@ -114,7 +120,6 @@ const YourSubmission = ({navigation}) => {
                     optionsPerPage={[2, 3, 4]}
                     itemsPerPage={itemsPerPage}
                     setItemsPerPage={setItemsPerPage}
-
                 />
             </DataTable>
         </ScrollView>
@@ -126,6 +131,14 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         paddingHorizontal: 20,
     },
+    topRowView: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: "#003eff",
+        paddingHorizontal: "5px"
+    },  
     dataTable: {
         marginTop: "10px",
         borderWidth: 1,
@@ -160,7 +173,7 @@ const styles = StyleSheet.create({
         marginHorizontal: "3px",
         marginTop: "3px",
         padding: "5px",
-        minWidth: "200px",
+        minWidth: "250px",
         alignContent: 'center',
     },
     approvalTextElement: {
