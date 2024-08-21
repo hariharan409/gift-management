@@ -28,10 +28,10 @@ const FadeInOutText = ({text,style}) => {
 
 const styles = StyleSheet.create({
     appNameText: {
-        textTransform: "uppercase",
-        fontSize: "14px",
+        textTransform: "capitalize",
+        fontSize: "16px",
         fontWeight: "bold",
-        color: "#003eff"
+        color: "#000"
     }
 });
 

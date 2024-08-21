@@ -1,5 +1,5 @@
 import React from "react";
-import { Image,StyleSheet,View } from "react-native";
+import { Image,StyleSheet,Text,View } from "react-native";
 import CompanyLogo from "../../../assets/pages/app-header/company-logo.png";
 import FadeInOutText from "../../components/animation/FadeInOutText";
 import HeaderMenu from "./HeaderMenu";
@@ -9,7 +9,7 @@ const Header = () => {
     return(
         <View style={styles.rootElement}>
             <Image style={{width: "130px",resizeMode: "contain"}} source={CompanyLogo} />
-            <FadeInOutText text="gift and hospitality" style={{}} />
+            <Text style={{fontWeight: "bold",textTransform: "uppercase",fontSize: "14px",color: "#003eff"}}>gift and hospitality</Text>
             <HeaderMenu />
         </View>  
     )

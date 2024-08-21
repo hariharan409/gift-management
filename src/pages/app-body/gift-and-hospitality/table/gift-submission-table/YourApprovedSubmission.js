@@ -6,6 +6,7 @@ import { FailureToast } from "../../../../../components/Toast";
 import { FullScreenLoader } from "../../../../../components/Loader";
 import { getYourApprovedSubmissionAPI } from "../../../../../api/yourSubmissionApi";
 import { DataTable } from "react-native-paper";
+import FadeInOutText from "../../../../../components/animation/FadeInOutText";
 
 const YourApprovedSubmission = ({navigation}) => {
     const isFocused = useIsFocused();
@@ -46,7 +47,7 @@ const YourApprovedSubmission = ({navigation}) => {
             {/* PAGE TITLE */}
             <View style={styles.topRowView}>
                 <Ionicons onPress={() => navigation.goBack(null)} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="#FFF" />
-                <Text style={{fontWeight: "bold",textTransform: "capitalize",fontSize: "16px"}}>your approved gift submission list</Text>
+                <FadeInOutText text="your approved gift submission list" />
                 <View />
             </View>
             {/* TABLE HEADER */}

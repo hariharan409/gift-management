@@ -8,6 +8,7 @@ import { FullScreenLoader } from "../../../../../components/Loader";
 import GiftApproveModal from "./GiftApproveModal";
 import GiftRejectModal from "./GiftRejectModal";
 import { DataTable } from "react-native-paper";
+import FadeInOutText from "../../../../../components/animation/FadeInOutText";
 
 const PendingApprovalByYou = ({navigation}) => {
     const isFocused = useIsFocused();
@@ -93,7 +94,7 @@ const PendingApprovalByYou = ({navigation}) => {
             {/* PAGE TITLE */}
             <View style={styles.topRowView}>
                 <Ionicons onPress={() => navigation.navigate("gift-and-hospitality-submission-tab")} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="#FFF" />
-                <Text style={{fontWeight: "bold",textTransform: "capitalize",fontSize: "16px"}}>approval pending list</Text>
+                <FadeInOutText text="approval pending list" />
                 <View />
             </View>
             <DataTable style={styles.dataTable}>

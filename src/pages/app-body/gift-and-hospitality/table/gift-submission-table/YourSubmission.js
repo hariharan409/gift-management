@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Text, View,StyleSheet, Button } from "react-native";
-import {Ionicons,FontAwesome5,MaterialIcons} from "@expo/vector-icons";
-import {DataTable, Tooltip} from "react-native-paper";
+import { ScrollView, Text, View, StyleSheet, Button } from "react-native";
+import { Ionicons, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
+import { DataTable, Tooltip } from "react-native-paper";
 import { getYourPendingApprovalCountAPI } from "../../../../../api/yourApprovalApi";
 import { getYourSubmissionAPI } from "../../../../../api/yourSubmissionApi";
 import { useIsFocused } from "@react-navigation/native";
 import { FailureToast } from "../../../../../components/Toast";
 import { FullScreenLoader } from "../../../../../components/Loader";
+import FadeInOutText from "../../../../../components/animation/FadeInOutText";
 
-const YourSubmission = ({navigation}) => {
+const YourSubmission = ({ navigation }) => {
     const isFocused = useIsFocused();
     const loggedInEmail = localStorage.getItem("user-email")
-    const [giftSubmissionList,setGiftSubmissionList] = useState([]);
-    const [isMount,setMount] = useState(true);
-    const [approvalCount,setApprovalCount] = useState(0);
-    const [page,setPage] = useState(0);
-    const [itemsPerPage,setItemsPerPage] = useState(6);
+    const [giftSubmissionList, setGiftSubmissionList] = useState([]);
+    const [isMount, setMount] = useState(true);
+    const [approvalCount, setApprovalCount] = useState(0);
+    const [page, setPage] = useState(0);
+    const [itemsPerPage, setItemsPerPage] = useState(6);
     const fromCount = page * itemsPerPage;
-    const toCount = Math.min((page + 1) * itemsPerPage,giftSubmissionList.length);
+    const toCount = Math.min((page + 1) * itemsPerPage, giftSubmissionList.length);
 
-    const loadDataOnInitialRender = async() => {
+    const loadDataOnInitialRender = async () => {
         try {
             const responseList = await getYourSubmissionAPI(loggedInEmail);
-            if(responseList instanceof Array) {
+            if (responseList instanceof Array) {
                 setGiftSubmissionList(responseList);
             }
             const pendingApprovalCount = await getYourPendingApprovalCountAPI(loggedInEmail);
@@ -35,29 +36,29 @@ const YourSubmission = ({navigation}) => {
     }
 
     useEffect(() => {
-        if(isFocused) {
+        if (isFocused) {
             loadDataOnInitialRender();
         }
-    },[isFocused]);
+    }, [isFocused]);
 
     /* IT WILL RENDER ONCE THE UI IS MOUNTING */
-    if(isMount) {
+    if (isMount) {
         return <FullScreenLoader />
     };
 
-    return(
+    return (
         <ScrollView style={styles.rootElement}>
             {/* PAGE TITLE */}
             <View style={styles.topRowView}>
-                <Ionicons onPress={() => navigation.goBack(null)} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="#FFF" />
-                <Text style={{fontWeight: "bold",textTransform: "capitalize",fontSize: "16px"}}>your gift submission list</Text>
-                <View style={{width: "150px",marginVertical: 20,display: "flex",flexDirection: "row",columnGap: "20px",justifyContent: "flex-end"}}> 
+                <Ionicons onPress={() => navigation.goBack(null)} style={{ cursor: "pointer" }} name="arrow-back-circle-sharp" size={40} color="#FFF" />
+                <FadeInOutText text="your gift submission list" />
+                <View style={{ width: "150px", marginVertical: 20, display: "flex", flexDirection: "row", columnGap: "20px", justifyContent: "flex-end" }}>
                     <View>
                         <Text style={styles.approvalTextElement}>{approvalCount}</Text>
-                        <Button onPress={() => navigation.navigate("gift-and-hospitality-approval-tab",{giftID: null,canEdit: true})} title="approve" touchSoundDisabled={false} />
+                        <Button onPress={() => navigation.navigate("gift-and-hospitality-approval-tab", { giftID: null, canEdit: true })} title="approve" touchSoundDisabled={false} />
                     </View>
-                    <View style={{justifyContent: "flex-end"}}>
-                        <Button onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: null,canEdit: true})} title="new submission" touchSoundDisabled={false} />
+                    <View style={{ justifyContent: "flex-end" }}>
+                        <Button onPress={() => navigation.navigate("gift-and-hospitality-form", { giftID: null, canEdit: true })} title="new submission" touchSoundDisabled={false} />
                     </View>
                 </View>
             </View>
@@ -67,33 +68,33 @@ const YourSubmission = ({navigation}) => {
                     <DataTable.Title><Text style={styles.tableHeaderTitleContent}>form id</Text></DataTable.Title>
                     <DataTable.Title><Text style={styles.tableHeaderTitleContent}>vendor name</Text></DataTable.Title>
                     <DataTable.Title><Text style={styles.tableHeaderTitleContent}>gift value</Text></DataTable.Title>
-                    <DataTable.Title style={{flex: 2}}><Text style={{...styles.tableHeaderTitleContent}}>approval details</Text></DataTable.Title>
+                    <DataTable.Title style={{ flex: 2 }}><Text style={{ ...styles.tableHeaderTitleContent }}>approval details</Text></DataTable.Title>
                     <DataTable.Title><Text style={styles.tableHeaderTitleContent}>action</Text></DataTable.Title>
                 </DataTable.Header>
                 {/* TABLE BODY */}
                 {(giftSubmissionList instanceof Array && giftSubmissionList.length > 0) ?
-                    giftSubmissionList.slice(fromCount,toCount).map((submission) => {
-                        return(
+                    giftSubmissionList.slice(fromCount, toCount).map((submission) => {
+                        return (
                             <DataTable.Row key={submission.id} style={styles.dataTableBody}>
                                 <DataTable.Cell>#GH-{submission.id}</DataTable.Cell>
                                 <DataTable.Cell>{submission.vendorName}</DataTable.Cell>
                                 <DataTable.Cell>
-                                    <FontAwesome5 name="dollar-sign" size={15} color="black" style={{marginRight: "2px"}}  />
+                                    <FontAwesome5 name="dollar-sign" size={15} color="black" style={{ marginRight: "2px" }} />
                                     {submission.giftAmount}
                                 </DataTable.Cell>
-                                <DataTable.Cell style={{flex: 2}}>
+                                <DataTable.Cell style={{ flex: 2 }}>
                                     {
                                         submission?.approvalList.map((approval) => {
-                                            return(
+                                            return (
                                                 <View key={approval.id} style={styles.approverDetailsElement}>
-                                                    <Text style={{...styles.approverDetailsElementText,width: "100%"}}>{approval.approverEmail}</Text>
-                                                    {approval.canApprove ? 
-                                                    <Tooltip title="pending-approval">
-                                                        <MaterialIcons name="pending-actions" size={25} color="orange" />
-                                                    </Tooltip> : 
-                                                    null}
+                                                    <Text style={{ ...styles.approverDetailsElementText, width: "100%" }}>{approval.approverEmail}</Text>
+                                                    {approval.canApprove ?
+                                                        <Tooltip title="pending-approval">
+                                                            <MaterialIcons name="pending-actions" size={25} color="orange" />
+                                                        </Tooltip> :
+                                                        null}
                                                     <Tooltip title="approved">
-                                                        <MaterialIcons name= {approval.isApproved && "verified-user"} size={25} color={approval.isApproved && "green"} />
+                                                        <MaterialIcons name={approval.isApproved && "verified-user"} size={25} color={approval.isApproved && "green"} />
                                                     </Tooltip>
                                                 </View>
                                             )
@@ -101,14 +102,14 @@ const YourSubmission = ({navigation}) => {
                                     }
                                 </DataTable.Cell>
                                 <DataTable.Cell>
-                                    <FontAwesome5 onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: submission.id,canEdit: submission.isEdit})} name= {submission.isEdit ? "edit" : "readme"} size={30} color="blue" />
+                                    <FontAwesome5 onPress={() => navigation.navigate("gift-and-hospitality-form", { giftID: submission.id, canEdit: submission.isEdit })} name={submission.isEdit ? "edit" : "readme"} size={30} color="blue" />
                                 </DataTable.Cell>
                             </DataTable.Row>
                         )
-                    }) : <Text style={{textAlign: "center",paddingVertical: "10px",textTransform: "capitalize",borderBottomColor: "rgba(0,0,0,0.3)"}}>no data available</Text>
+                    }) : <Text style={{ textAlign: "center", paddingVertical: "10px", textTransform: "capitalize", borderBottomColor: "rgba(0,0,0,0.3)" }}>no data available</Text>
                 }
                 {/* TABLE PAGINATION */}
-                <DataTable.Pagination 
+                <DataTable.Pagination
                     style={styles.pagination}
                     page={page}
                     numberOfPages={Math.ceil(giftSubmissionList.length / itemsPerPage)}
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#003eff",
         paddingHorizontal: "5px"
-    },  
+    },
     dataTable: {
         marginTop: "10px",
         borderWidth: 1,
