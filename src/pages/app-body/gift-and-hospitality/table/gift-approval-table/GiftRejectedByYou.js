@@ -5,12 +5,17 @@ import { getGiftRejectedByYouAPI } from "../../../../../api/yourApprovalApi";
 import { useIsFocused } from "@react-navigation/native";
 import { FailureToast } from "../../../../../components/Toast";
 import { FullScreenLoader } from "../../../../../components/Loader";
+import { DataTable } from "react-native-paper";
 
 const GiftRejectedByYou = ({navigation}) => {
     const isFocused = useIsFocused();
     const loggedInEmail = localStorage.getItem("user-email")
     const [giftRejectedList,setGiftRejectedList] = useState([]);
     const [isMount,setMount] = useState(true);
+    const [page,setPage] = useState(0);
+    const [itemsPerPage,setItemsPerPage] = useState(6);
+    const fromCount = page * itemsPerPage;
+    const toCount = Math.min((page + 1) * itemsPerPage,giftRejectedList.length);
  
     const loadDataOnInitialRender = async() => {
         try {
@@ -39,33 +44,47 @@ const GiftRejectedByYou = ({navigation}) => {
     return(
         <ScrollView style={styles.rootElement}>
             {/* PAGE TITLE */}
-            <View style={{display: "flex",flexDirection: "row",justifyContent: "space-between",alignItems: "center",borderBottomColor: "rgba(0,0,0,0.5)",borderBottomWidth: "1px"}}>
-                <Ionicons onPress={() => navigation.goBack(null)} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="black" />
+            <View style={styles.topRowView}>
+                <Ionicons onPress={() => navigation.goBack(null)} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="#FFF" />
                 <Text style={{fontWeight: "bold",textTransform: "uppercase",fontSize: "16px"}}>gift's rejected by you</Text>
                 <View />
             </View>
-            {/* TABLE HEADER */}
-            <View style={styles.tableHeader}>
-                <Text style={styles.headerCell}>form id</Text>
-                <Text style={styles.headerCell}>rejection reason</Text>
-                <Text style={styles.headerCell}>requested by</Text>
-                <Text style={styles.headerCell}>view form</Text>
-            </View>
-            {/* TABLE BODY */}
-            <View style={styles.tableBody}>
+            <DataTable style={styles.dataTable}>
+                {/* TABLE HEADER */}
+                <DataTable.Header style={styles.tableHeader}>
+                        <DataTable.Title><Text style={styles.tableHeaderTitleContent}>form id</Text></DataTable.Title>
+                        <DataTable.Title><Text style={styles.tableHeaderTitleContent}>rejection reason</Text></DataTable.Title>
+                        <DataTable.Title><Text style={styles.tableHeaderTitleContent}>requested by</Text></DataTable.Title>
+                        <DataTable.Title><Text style={styles.tableHeaderTitleContent}>view form</Text></DataTable.Title>
+                    </DataTable.Header>
+                {/* TABLE BODY */}
                 {(giftRejectedList instanceof Array && giftRejectedList.length > 0) ?
-                    giftRejectedList.map((rejection) => {
+                    giftRejectedList.slice(fromCount,toCount).map((rejection) => {
                         return(
-                            <View key={rejection.approvalID} style={styles.tableBodyRow}>
-                                <Text style={styles.bodyCell}>#GH-{rejection.giftID}</Text>
-                                <Text style={styles.bodyCell}>{rejection.rejectedReason}</Text>
-                                <Text style={styles.bodyCell}>{rejection.requestedBy}</Text>
-                                <FontAwesome5 onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: rejection.giftID,canEdit: false})} style={{...styles.bodyCell}} name="readme" size={30} color="blue" />
-                            </View>
+                            <DataTable.Row key={rejection.approvalID} style={styles.dataTableBody}>
+                                <DataTable.Cell>#GH-{rejection.giftID}</DataTable.Cell>
+                                <DataTable.Cell>{rejection.rejectedReason}</DataTable.Cell>
+                                <DataTable.Cell>{rejection.requestedBy}</DataTable.Cell>
+                                <DataTable.Cell>
+                                    <FontAwesome5 onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: rejection.giftID,canEdit: false})} name="readme" size={30} color="blue" />
+                                </DataTable.Cell>
+                            </DataTable.Row>
                         )
-                    }) : <Text style={{textAlign: "center",marginBottom: "10px"}}>no data available</Text>
+                    }) : <Text style={{textAlign: "center",paddingVertical: "10px",textTransform: "uppercase",borderBottomColor: "rgba(0,0,0,0.3)",borderBottomWidth: 1}}>no data available</Text>
                 }
-            </View>
+                {/* TABLE PAGINATION */}
+                <DataTable.Pagination 
+                    style={styles.pagination}
+                    page={page}
+                    numberOfPages={Math.ceil(giftRejectedList.length / itemsPerPage)}
+                    onPageChange={(page) => setPage(page)}
+                    label={`${fromCount + 1}-${toCount} of ${giftRejectedList.length}`}
+                    showFastPaginationControls
+                    optionsPerPage={[2, 3, 4]}
+                    itemsPerPage={itemsPerPage}
+                    setItemsPerPage={setItemsPerPage}
+                />
+            </DataTable>
         </ScrollView>
     )
 }
@@ -75,43 +94,36 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         paddingHorizontal: 20
     },
-    tableHeader: {
+    topRowView: {
         display: "flex",
         flexDirection: "row",
-        marginTop: "20px",
-        overflow: "scroll"
-    },
-    headerCell: {
-        width: "50%",
-        textAlign: "center",
-        textTransform: "uppercase",
-        fontWeight: "500",
-        borderWidth: "2px",
-        borderColor: "rgba(0,0,0,0.3)",
-        marginHorizontal: "3px",
-        padding: "5px",
-        minWidth: "200px"
-    },
-    tableBody: {
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: "#003eff",
+        paddingHorizontal: "5px",
+        paddingVertical: "10px"
+    }, 
+    dataTable: {
         marginTop: "10px",
-        overflow: "scroll"
-    },
-    tableBodyRow: {
-        display: "flex",
-        flexDirection: "row"
-    },
-    bodyCell: {
-        width: "25%",
-        textAlign: "center",
-        fontWeight: "500",
-        borderWidth: "1px",
+        borderWidth: 1,
+        borderTopColor: "rgba(0,0,0,1)",
         borderColor: "rgba(0,0,0,0.3)",
-        marginHorizontal: "3px",
-        marginTop: "3px",
-        padding: "5px",
-        minWidth: "200px",
-        alignContent: 'center',
-    }
+        backgroundColor: "#FAF9F6"
+    },
+    tableHeader: {
+        borderBottomWidth: 5,
+        borderColor: "rgba(0,0,0,0.3)"
+    },
+    tableHeaderTitleContent: {
+        textTransform: "uppercase",
+        color: "blue",
+        fontWeight: "bold",
+    },
+    dataTableBody: {
+        padding: "10px",
+        borderBottomColor: "rgba(0,0,0,0.3)",
+        borderBottomWidth: 1
+    },
 });
 
 export default GiftRejectedByYou;

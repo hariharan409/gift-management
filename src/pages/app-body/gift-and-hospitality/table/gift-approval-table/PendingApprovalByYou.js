@@ -7,6 +7,7 @@ import { FailureToast, SuccessToast } from "../../../../../components/Toast";
 import { FullScreenLoader } from "../../../../../components/Loader";
 import GiftApproveModal from "./GiftApproveModal";
 import GiftRejectModal from "./GiftRejectModal";
+import { DataTable } from "react-native-paper";
 
 const PendingApprovalByYou = ({navigation}) => {
     const isFocused = useIsFocused();
@@ -16,6 +17,10 @@ const PendingApprovalByYou = ({navigation}) => {
     const [approveModalVisible,setApproveModalVisible] = useState(false);
     const [rejectModalVisible,setRejectModalVisible] = useState(false);
     const [giftObject,setGiftObject] = useState({});
+    const [page,setPage] = useState(0);
+    const [itemsPerPage,setItemsPerPage] = useState(6);
+    const fromCount = page * itemsPerPage;
+    const toCount = Math.min((page + 1) * itemsPerPage,giftApprovalList.length);
  
     const loadDataOnInitialRender = async() => {
         try {
@@ -86,46 +91,62 @@ const PendingApprovalByYou = ({navigation}) => {
     return(
         <ScrollView style={styles.rootElement}>
             {/* PAGE TITLE */}
-            <View style={{display: "flex",flexDirection: "row",justifyContent: "space-between",alignItems: "center",borderBottomColor: "rgba(0,0,0,0.5)",borderBottomWidth: "1px"}}>
-                <Ionicons onPress={() => navigation.goBack(null)} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="black" />
+            <View style={styles.topRowView}>
+                <Ionicons onPress={() => navigation.goBack(null)} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="#FFF" />
                 <Text style={{fontWeight: "bold",textTransform: "uppercase",fontSize: "16px"}}>approval pending list</Text>
                 <View />
             </View>
-            {/* TABLE HEADER */}
-            <View style={styles.tableHeader}>
-                <Text style={styles.headerCell}>form id</Text>
-                <Text style={styles.headerCell}>vendor name</Text>
-                <Text style={styles.headerCell}>gift value</Text>
-                <Text style={styles.headerCell}>view form</Text>
-                <Text style={styles.headerCell}>action</Text>
-            </View>
-            {/* TABLE BODY */}
-            <View style={styles.tableBody}>
+            <DataTable style={styles.dataTable}>
+                {/* TABLE HEADER */}
+                <DataTable.Header style={styles.tableHeader}>
+                    <DataTable.Title><Text style={styles.tableHeaderTitleContent}>form id</Text></DataTable.Title>
+                    <DataTable.Title><Text style={styles.tableHeaderTitleContent}>vendor name</Text></DataTable.Title>
+                    <DataTable.Title><Text style={styles.tableHeaderTitleContent}>gift value</Text></DataTable.Title>
+                    <DataTable.Title><Text style={styles.tableHeaderTitleContent}>view form</Text></DataTable.Title>
+                    <DataTable.Title style={{flex: 1.4}}><Text style={{...styles.tableHeaderTitleContent}}>action</Text></DataTable.Title>
+                </DataTable.Header>
+                {/* TABLE BODY */}
                 {(giftApprovalList instanceof Array && giftApprovalList.length > 0) ?
-                    giftApprovalList.map((approval) => {
+                    giftApprovalList.slice(fromCount,toCount).map((approval) => {
                         return(
-                            <View key={approval.approvalID} style={styles.tableBodyRow}>
-                                <Text style={styles.bodyCell}>#GH-{approval.giftID}</Text>
-                                <Text style={styles.bodyCell}>{approval.vendorName}</Text>
-                                <Text style={styles.bodyCell}>
+                            <DataTable.Row key={approval.approvalID} style={styles.dataTableBody}>
+                                <DataTable.Cell>#GH-{approval.giftID}</DataTable.Cell>
+                                <DataTable.Cell>{approval.vendorName}</DataTable.Cell>
+                                <DataTable.Cell>
                                     <FontAwesome5 name="dollar-sign" size={15} color="black" style={{marginRight: "2px"}}  />
                                     {approval.giftAmount}
-                                </Text>
-                                <FontAwesome5 onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: approval.giftID,canEdit: false})} style={{...styles.bodyCell}} name="readme" size={30} color="blue" />
-                                <View style={{...styles.bodyCell,flexDirection: "row",columnGap: "20px"}}>
-                                    <View style={{flex: 1}}>
-                                        <Button title="approve" touchSoundDisabled={false} onPress={() => onApproveModalOpen(approval)} />
-                                    </View>
+                                </DataTable.Cell>
+                                <DataTable.Cell>
+                                    <FontAwesome5 onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: approval.giftID,canEdit: false})} name="readme" size={30} color="blue" />
+                                </DataTable.Cell>
+                                <DataTable.Cell style={{flex: 1.4}}>
+                                    <View style={{flexDirection: "row",columnGap: "20px"}}>
+                                        <View style={{minWidth: "120px"}}>
+                                            <Button title="approve" touchSoundDisabled={false} onPress={() => onApproveModalOpen(approval)} />
+                                        </View>
 
-                                    <View style={{flex: 1}}>
-                                        <Button title="reject" touchSoundDisabled={false} color="red" onPress={() => onRejectModalOpen(approval)} />
+                                        <View style={{minWidth: "120px"}}>
+                                            <Button title="reject" touchSoundDisabled={false} color="red" onPress={() => onRejectModalOpen(approval)} />
+                                        </View>
                                     </View>
-                                </View>
-                            </View>
+                                </DataTable.Cell>
+                            </DataTable.Row>
                         )
-                    }) : <Text style={{textAlign: "center",marginBottom: "10px"}}>no data available</Text>
+                    }) : <Text style={{textAlign: "center",paddingVertical: "10px",textTransform: "uppercase",borderBottomColor: "rgba(0,0,0,0.3)",borderBottomWidth: 1}}>no data available</Text>
                 }
-            </View>
+                {/* TABLE PAGINATION */}
+                <DataTable.Pagination 
+                    style={styles.pagination}
+                    page={page}
+                    numberOfPages={Math.ceil(giftApprovalList.length / itemsPerPage)}
+                    onPageChange={(page) => setPage(page)}
+                    label={`${fromCount + 1}-${toCount} of ${giftApprovalList.length}`}
+                    showFastPaginationControls
+                    optionsPerPage={[2, 3, 4]}
+                    itemsPerPage={itemsPerPage}
+                    setItemsPerPage={setItemsPerPage}
+                />
+            </DataTable>
             <GiftApproveModal  approveModalVisible={approveModalVisible} setApproveModalVisible={setApproveModalVisible} giftObject={giftObject} onApprove={onApprove} />
             <GiftRejectModal rejectModalVisible={rejectModalVisible} setRejectModalVisible={setRejectModalVisible} giftObject={giftObject} onReject={onReject} />
         </ScrollView>
@@ -137,43 +158,36 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         paddingHorizontal: 20
     },
-    tableHeader: {
+    topRowView: {
         display: "flex",
         flexDirection: "row",
-        marginTop: "20px",
-        overflow: "scroll"
-    },
-    headerCell: {
-        width: "50%",
-        textAlign: "center",
-        textTransform: "uppercase",
-        fontWeight: "500",
-        borderWidth: "2px",
-        borderColor: "rgba(0,0,0,0.3)",
-        marginHorizontal: "3px",
-        padding: "5px",
-        minWidth: "200px"
-    },
-    tableBody: {
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: "#003eff",
+        paddingHorizontal: "5px",
+        paddingVertical: "10px"
+    }, 
+    dataTable: {
         marginTop: "10px",
-        overflow: "scroll"
-    },
-    tableBodyRow: {
-        display: "flex",
-        flexDirection: "row"
-    },
-    bodyCell: {
-        width: "20%",
-        textAlign: "center",
-        fontWeight: "500",
-        borderWidth: "1px",
+        borderWidth: 1,
+        borderTopColor: "rgba(0,0,0,1)",
         borderColor: "rgba(0,0,0,0.3)",
-        marginHorizontal: "3px",
-        marginTop: "3px",
-        padding: "5px",
-        minWidth: "200px",
-        alignContent: 'center',
-    }
+        backgroundColor: "#FAF9F6"
+    },
+    tableHeader: {
+        borderBottomWidth: 5,
+        borderColor: "rgba(0,0,0,0.3)"
+    },
+    tableHeaderTitleContent: {
+        textTransform: "uppercase",
+        color: "blue",
+        fontWeight: "bold",
+    },
+    dataTableBody: {
+        padding: "10px",
+        borderBottomColor: "rgba(0,0,0,0.3)",
+        borderBottomWidth: 1
+    },
 });
 
 export default PendingApprovalByYou;

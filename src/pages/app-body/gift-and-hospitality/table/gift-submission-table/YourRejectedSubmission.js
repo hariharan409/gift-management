@@ -63,8 +63,8 @@ const YourRejectedSubmission = ({navigation}) => {
                         return(
                             <DataTable.Row key={rejection.id} style={styles.dataTableBody}>
                                 <DataTable.Cell>#GH-{rejection.id}</DataTable.Cell>
-                                <DataTable.Cell>#GH-{rejection.rejectedReason}</DataTable.Cell>
-                                <DataTable.Cell>#GH-{rejection.rejectedBY}</DataTable.Cell>
+                                <DataTable.Cell>{rejection.rejectedReason}</DataTable.Cell>
+                                <DataTable.Cell>{rejection.rejectedBY}</DataTable.Cell>
                                 <DataTable.Cell>
                                     <FontAwesome5 onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: rejection.id,canEdit: false})} name="readme" size={30} color="blue" />
                                 </DataTable.Cell>
