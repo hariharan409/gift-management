@@ -1,7 +1,4 @@
 import Entypo from "@expo/vector-icons/Entypo";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
 
 
 const HeaderMenu = () => {
