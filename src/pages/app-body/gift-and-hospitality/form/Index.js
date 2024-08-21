@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, ScrollView, Text, TextInput, View } from "react-native";
+import { Button, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import {useForm,Controller} from "react-hook-form";
 import {Ionicons} from "@expo/vector-icons";
 import {Dropdown} from "react-native-element-dropdown";
@@ -125,11 +125,12 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
     };
 
     return(
-        <ScrollView style={{paddingTop: 5,paddingHorizontal: 20,width: "50%",alignSelf: "center",backgroundColor: !canEdit && "rgba(0,0,0,0.150)" }} automaticallyAdjustKeyboardInsets={true}>
+        <ScrollView style={{paddingTop: 5,paddingHorizontal: 20,width: "50%",alignSelf: "center",backgroundColor: canEdit ? "#FAF9F6" : "rgba(0,0,0,0.150)"  }} automaticallyAdjustKeyboardInsets={true}>
             {/* PAGE TITLE */}
-            <View style={{display: "flex",flexDirection: "row",alignItems: "center",borderBottomColor: "rgba(0,0,0,0.5)",borderBottomWidth: "1px"}}>
-                <Ionicons onPress={() => navigation.goBack(null)} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="black" />
-                <Text style={{fontWeight: "bold",textTransform: "uppercase",fontSize: "16px",marginLeft: "auto",marginRight: "auto"}}>new submission</Text>
+            <View style={styles.topRowView}>
+                <Ionicons onPress={() => navigation.goBack(null)} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="#FFF" />
+                <Text style={{fontWeight: "bold",textTransform: "uppercase",fontSize: "16px"}}>new submission</Text>
+                <View />
             </View>
             <View style={{pointerEvents: !canEdit && "none",cursor: !canEdit && "not-allowed"}}>
                 {!canEdit ? <Text style={{color: "red",marginTop: "10px",fontWeight: "600"}}>
@@ -375,5 +376,18 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
         </ScrollView>
     )
 }
+
+
+const styles = StyleSheet.create({
+    topRowView: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: "#003eff",
+        paddingHorizontal: "5px",
+        paddingVertical: "10px"
+    },
+})
 
 export default GiftAndHospitalityForm;
