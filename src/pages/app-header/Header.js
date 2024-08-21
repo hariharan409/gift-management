@@ -1,8 +1,8 @@
 import React from "react";
 import { Image,StyleSheet,View } from "react-native";
 import CompanyLogo from "../../../assets/pages/app-header/company-logo.png";
-import Entypo from "@expo/vector-icons/Entypo";
 import FadeInOutText from "../../components/animation/FadeInOutText";
+import HeaderMenu from "./HeaderMenu";
 
 const Header = () => {
 
@@ -10,7 +10,7 @@ const Header = () => {
         <View style={styles.rootElement}>
             <Image style={{width: "130px",resizeMode: "contain"}} source={CompanyLogo} />
             <FadeInOutText text="gift and hospitality" style={{}} />
-            <Entypo name="dots-three-vertical" size={20} color="#000" style={{paddingRight: "10px",cursor: "pointer"}} />
+            <HeaderMenu />
         </View>  
     )
 }
