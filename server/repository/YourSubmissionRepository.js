@@ -88,15 +88,6 @@ exports.updateGift = async(gift) => {
                 );
             }
         };
-        // TRIGGERING EMAIL TO THE FIRST APPROVER TO NOTIFY THEM OF THE PENDING APPROVAL REQUEST
-        const firstApproverList = await executeSqlQuery(
-            `SELECT TOP(1) approver_email as approverEmail FROM ${SQL_TABLE.GIFT_APPROVAL} WHERE approval_required = 1 AND is_approved = 0 
-            AND can_approve = 1 AND gift_id = ${gift.id} ORDER BY approval_sequence ASC
-            `,[]
-        );
-        if(firstApproverList instanceof Array && firstApproverList.length > 0) {
-            sendEmailToApprover(gift.id,gift.giftValue,gift.requestorEmail,firstApproverList[0].approverEmail);
-        }
         return true;
     } catch (error) {
         throw new Error(error.message || error);
