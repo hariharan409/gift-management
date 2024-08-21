@@ -55,8 +55,8 @@ const Welcome = ({navigation}) => {
             <View style={{width: "200px",alignSelf: "center"}}>
                 <Button onPress={handleSubmit(onFormSubmit)} title="NEXT" touchSoundDisabled={false} />
             </View>
-            <View style={{position: "absolute",bottom: 0,left: 50,right: 50}}>
-                <Text style={{textAlign: "center",color: "blue",fontSize: "12px",fontWeight: "condensedBold"}}>App version b-0.0.2 @{currentYear} seatrium digital</Text>
+            <View style={{position: "absolute",bottom: 4,left: 50,right: 50}}>
+                <Text style={{textAlign: "center",color: "blue",fontSize: "12px",fontWeight: "bold",textTransform: "capitalize"}}>app version b-0.0.2 @{currentYear} seatrium digital</Text>
             </View>
         </View>
     )
