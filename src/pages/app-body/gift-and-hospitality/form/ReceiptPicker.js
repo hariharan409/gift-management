@@ -23,7 +23,7 @@ const ReceiptPicker = ({watch,control,getValues,onPickImage,errors}) => {
                     <View style={{marginTop: 20,marginBottom: 10}}>
                         <Text style={{fontSize: "16px",fontWeight: "600",textTransform: "capitalize",marginBottom: 10}}>upload receipt</Text>
                         <View style={{width: "200px",alignSelf: "center"}}>
-                            <Button onPress={onPickImage} title="PICK RECEIPT" touchSoundDisabled={false} />
+                            <Button onPress={onPickImage} title="Attach Proof" touchSoundDisabled={false} />
                         </View>
                     </View>
                 )}

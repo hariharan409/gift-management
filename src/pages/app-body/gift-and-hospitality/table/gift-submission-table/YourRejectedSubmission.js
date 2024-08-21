@@ -46,7 +46,7 @@ const YourRejectedSubmission = ({navigation}) => {
             {/* PAGE TITLE */}
             <View style={styles.topRowView}>
                 <Ionicons onPress={() => navigation.goBack(null)} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="#FFF" />
-                <Text style={{fontWeight: "bold",textTransform: "uppercase",fontSize: "16px"}}>your rejected gift submission list</Text>
+                <Text style={{fontWeight: "bold",textTransform: "capitalize",fontSize: "16px"}}>your rejected gift submission list</Text>
                 <View />
             </View>
             <DataTable style={styles.dataTable}>
@@ -70,7 +70,7 @@ const YourRejectedSubmission = ({navigation}) => {
                                 </DataTable.Cell>
                             </DataTable.Row>
                         )
-                    }) : <Text style={{textAlign: "center",paddingVertical: "10px",textTransform: "uppercase",borderBottomColor: "rgba(0,0,0,0.3)",borderBottomWidth: 1}}>no data available</Text>
+                    }) : <Text style={{textAlign: "center",paddingVertical: "10px",textTransform: "capitalize",borderBottomColor: "rgba(0,0,0,0.3)",borderBottomWidth: 1}}>no data available</Text>
                 }
                 {/* TABLE PAGINATION */}
                 <DataTable.Pagination 
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         borderColor: "rgba(0,0,0,0.3)"
     },
     tableHeaderTitleContent: {
-        textTransform: "uppercase",
+        textTransform: "capitalize",
         color: "blue",
         fontWeight: "bold"
     },

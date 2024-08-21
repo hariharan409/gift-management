@@ -307,22 +307,6 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
                     )}
                 />
                 {/* TEXT BOX */}
-                {watch("isGovernmentOfficial") === 1 ? <>
-                    <Controller 
-                        name="emailAcknowledgements[2].email" 
-                        control={control} 
-                        rules={{required: true}} 
-                        render={({field: {onChange,onBlur,value}}) => (
-                            <View style={{marginTop: 20}}>
-                                <Text style={{fontSize: "16px",fontWeight: "600"}}>Compliance Approval</Text>
-                                <TextInput keyboardType="email-address" style={{width: "100%",height: 30,marginTop: 8,borderColor: "rgba(0,0,0,0.2)",borderWidth: 2,borderRadius: "5px",paddingHorizontal: 10}} placeholder="Enter Compliance Email" onBlur={onBlur} onChangeText={onChange} value={value}  />
-                            </View>
-                        )}
-                    />
-                    {errors.emailAcknowledgements?.[2]?.email && <ShowError errorMessage="this is required" />}
-                </> : setValue("emailAcknowledgements[2].email","")}
-    
-                {/* TEXT BOX */}
                 <Controller 
                     name="emailAcknowledgements[0].email" 
                     control={control} 
@@ -354,6 +338,21 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
                     />
                     {errors.emailAcknowledgements?.[1]?.email && <ShowError errorMessage="this is required" />}
                 </> : setValue("emailAcknowledgements[1].email","")}
+                {/* TEXT BOX */}
+                {watch("isGovernmentOfficial") === 1 ? <>
+                    <Controller 
+                        name="emailAcknowledgements[2].email" 
+                        control={control} 
+                        rules={{required: true}} 
+                        render={({field: {onChange,onBlur,value}}) => (
+                            <View style={{marginTop: 20}}>
+                                <Text style={{fontSize: "16px",fontWeight: "600"}}>Compliance Approval</Text>
+                                <TextInput keyboardType="email-address" style={{width: "100%",height: 30,marginTop: 8,borderColor: "rgba(0,0,0,0.2)",borderWidth: 2,borderRadius: "5px",paddingHorizontal: 10}} placeholder="Enter Compliance Email" onBlur={onBlur} onChangeText={onChange} value={value}  />
+                            </View>
+                        )}
+                    />
+                    {errors.emailAcknowledgements?.[2]?.email && <ShowError errorMessage="this is required" />}
+                </> : setValue("emailAcknowledgements[2].email","")}
                 {/* TEXT BOX */}
                 {watch("giftValue") >= 500 ? <>
                     <Controller 

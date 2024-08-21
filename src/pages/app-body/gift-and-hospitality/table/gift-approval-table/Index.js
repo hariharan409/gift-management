@@ -70,8 +70,8 @@ const styles = StyleSheet.create({
             borderWidth: 0,
         },
         tabBarLabelStyle: {
-            fontSize: "12px",
-            textTransform: "uppercase",
+            fontSize: "15px",
+            textTransform: "capitalize",
         }
     }
 });
