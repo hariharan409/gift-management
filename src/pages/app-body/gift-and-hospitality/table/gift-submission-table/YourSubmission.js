@@ -26,9 +26,7 @@ const YourSubmission = ({navigation}) => {
                 setGiftSubmissionList(responseList);
             }
             const pendingApprovalCount = await getYourPendingApprovalCountAPI(loggedInEmail);
-            if(pendingApprovalCount > 0) {
-                setApprovalCount(pendingApprovalCount);
-            }
+            setApprovalCount(pendingApprovalCount);
         } catch (error) {
             FailureToast("Oops! Something went wrong.")
         } finally {

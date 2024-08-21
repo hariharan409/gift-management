@@ -92,7 +92,7 @@ const PendingApprovalByYou = ({navigation}) => {
         <ScrollView style={styles.rootElement}>
             {/* PAGE TITLE */}
             <View style={styles.topRowView}>
-                <Ionicons onPress={() => navigation.goBack(null)} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="#FFF" />
+                <Ionicons onPress={() => navigation.navigate("gift-and-hospitality-submission-tab")} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="#FFF" />
                 <Text style={{fontWeight: "bold",textTransform: "capitalize",fontSize: "16px"}}>approval pending list</Text>
                 <View />
             </View>
