@@ -73,7 +73,7 @@ const YourApprovedSubmission = ({navigation}) => {
                                 </DataTable.Cell>
                             </DataTable.Row>
                         )
-                    }) : <Text style={{textAlign: "center",marginVertical: "10px",textTransform: "uppercase"}}>no data available</Text>
+                    }) : <Text style={{textAlign: "center",paddingVertical: "10px",textTransform: "uppercase",borderBottomColor: "rgba(0,0,0,0.3)",borderBottomWidth: 1}}>no data available</Text>
                 }
                 {/* TABLE PAGINATION */}
                 <DataTable.Pagination 
