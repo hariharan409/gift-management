@@ -1,5 +1,5 @@
 
-import { Platform, SafeAreaView} from 'react-native';
+import { SafeAreaView} from 'react-native';
 import "@expo/metro-runtime";
 import {NavigationContainer} from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
