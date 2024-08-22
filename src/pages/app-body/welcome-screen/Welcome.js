@@ -62,7 +62,8 @@ const Welcome = ({navigation}) => {
             <View style={{position: "absolute",bottom: 4,left: 50,right: 50}}>
                 <Text style={{textAlign: "center",color: "blue",fontSize: "12px",fontWeight: "bold",textTransform: "capitalize"}}>app version b-0.0.2 @{currentYear} seatrium digital</Text>
             </View>
-            <LottieWelcome style={{width: "20%",position: "absolute",top: "20%",left: "40%"}} />
+            <LottieWelcome style={{width: "20%",position: "absolute",top: "20%",left: "10%"}} />
+            <LottieWelcome style={{width: "20%",position: "absolute",top: "20%",right: "10%"}} />
         </View>
     )
 }

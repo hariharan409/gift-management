@@ -9,7 +9,7 @@ export const LottieWelcome = ({style}) => {
 
     return(
         <View style={style}>
-            <LottieView source={LottieWelcomeAnimation} autoPlay loop={true} speed={0.5} />
+            <LottieView source={LottieWelcomeAnimation} autoPlay loop={true} speed={1.2} />
         </View>
     )
 }
