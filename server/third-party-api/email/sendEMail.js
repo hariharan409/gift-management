@@ -44,7 +44,7 @@ let transporter = nodemailer.createTransport({
     await transporter.sendMail(mailOptions);
     console.log(`EMAIL TRIGGERED TO THE USER FOR APPROVAL`,approverEmail);
     } catch (error) {
-        throw new Error(error.message || error);
+        console.log(error.message || error);
     }
   }
 
@@ -74,7 +74,7 @@ let transporter = nodemailer.createTransport({
     await transporter.sendMail(mailOptions);
     console.log(`EMAIL TRIGGERED TO THE USER FOR GIFT SUCCESS`,requestorEmail);
     } catch (error) {
-        throw new Error(error.message || error);
+        console.log(error.message || error);
     }
   }
 
@@ -105,6 +105,6 @@ let transporter = nodemailer.createTransport({
      await transporter.sendMail(mailOptions);
      console.log(`EMAIL TRIGGERED TO THE USER FOR GIFT REJECTION`,requestorEmail);
     } catch (error) {
-        throw new Error(error.message || error);
+        console.log(error.message || error);
     }
   }

@@ -35,15 +35,15 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
             isGovernmentOfficial: 0,
             emailAcknowledgements: [
                 {
-                    position: "HOD",
+                    position: "compliance",
                     email: "",
                     approvalSequence: 1,
                     isApproved: 0,
                     approvalRequired: 0,
-                    canApprove: 1,
+                    canApprove: 0,
                 },
                 {
-                    position: "BU",
+                    position: "HOD", 
                     email: "",
                     approvalSequence: 2,
                     isApproved: 0,
@@ -51,7 +51,7 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
                     canApprove: 0,
                 },
                 {
-                    position: "compliance",
+                    position: "BU",
                     email: "",
                     approvalSequence: 3,
                     isApproved: 0,
@@ -100,6 +100,10 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
 
     const onFormSubmit = async(giftObject) => {
         try {
+            // IF COMPLIANCE NEED TO APPROVE, THEN HE WILL BE THE FIRST APPROVER.
+            giftObject.emailAcknowledgements[0].canApprove = giftObject?.emailAcknowledgements?.[0]?.email ? 1 : 0;
+            // IF COMPLIANCE NO NEED TO APPROVE, THEN HOD WILL BE THE FIRST APPROVER.
+            giftObject.emailAcknowledgements[1].canApprove = giftObject?.emailAcknowledgements?.[0]?.email ? 0 : 1;
             await createGiftAPI(giftObject);
             SuccessToast(`Your gift form has been ${giftID ? "updated" : "created"} successfully`);
             navigation.navigate("gift-and-hospitality-submission-tab");
@@ -361,8 +365,23 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
                     )}
                 />
                 {/* TEXT BOX */}
+                {watch("isGovernmentOfficial") === 1 ? <>
+                    <Controller 
+                        name="emailAcknowledgements[0].email" 
+                        control={control} 
+                        rules={{required: true}} 
+                        render={({field: {onChange,onBlur,value}}) => (
+                            <View style={{marginTop: 20}}>
+                                <Text style={{fontSize: "16px",fontWeight: "600"}}>Compliance Approval</Text>
+                                <TextInput keyboardType="email-address" style={{width: "100%",height: 30,marginTop: 8,borderColor: "rgba(0,0,0,0.2)",borderWidth: 2,borderRadius: "5px",paddingHorizontal: 10}} placeholder="Enter Compliance Email" onBlur={onBlur} onChangeText={onChange} value={value}  />
+                            </View>
+                        )}
+                    />
+                    {errors.emailAcknowledgements?.[0]?.email && <ShowError errorMessage="this is required" />}
+                </> : setValue("emailAcknowledgements[0].email","")}
+                {/* TEXT BOX */}
                 <Controller 
-                    name="emailAcknowledgements[0].email" 
+                    name="emailAcknowledgements[1].email" 
                     control={control} 
                     rules={{required: true}} 
                     render={({field: {onChange,onBlur,value}}) => {
@@ -374,11 +393,11 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
                         )}
                     }
                 />
-                {errors.emailAcknowledgements?.[0]?.email && <ShowError errorMessage="this is required" />}
+                {errors.emailAcknowledgements?.[1]?.email && <ShowError errorMessage="this is required" />}
                 {/* TEXT BOX */}
                 {watch("giftValue") >= 100 ? <>
                     <Controller 
-                        name="emailAcknowledgements[1].email" 
+                        name="emailAcknowledgements[2].email" 
                         control={control} 
                         rules={{required: true}} 
                         render={({field: {onChange,onBlur,value}}) => {
@@ -389,21 +408,6 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
                                 </View>
                             )}
                         }
-                    />
-                    {errors.emailAcknowledgements?.[1]?.email && <ShowError errorMessage="this is required" />}
-                </> : setValue("emailAcknowledgements[1].email","")}
-                {/* TEXT BOX */}
-                {watch("isGovernmentOfficial") === 1 ? <>
-                    <Controller 
-                        name="emailAcknowledgements[2].email" 
-                        control={control} 
-                        rules={{required: true}} 
-                        render={({field: {onChange,onBlur,value}}) => (
-                            <View style={{marginTop: 20}}>
-                                <Text style={{fontSize: "16px",fontWeight: "600"}}>Compliance Approval</Text>
-                                <TextInput keyboardType="email-address" style={{width: "100%",height: 30,marginTop: 8,borderColor: "rgba(0,0,0,0.2)",borderWidth: 2,borderRadius: "5px",paddingHorizontal: 10}} placeholder="Enter Compliance Email" onBlur={onBlur} onChangeText={onChange} value={value}  />
-                            </View>
-                        )}
                     />
                     {errors.emailAcknowledgements?.[2]?.email && <ShowError errorMessage="this is required" />}
                 </> : setValue("emailAcknowledgements[2].email","")}
