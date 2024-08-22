@@ -3,7 +3,7 @@ import { Button, Modal, StyleSheet, Text, TextInput, View } from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import { Controller } from "react-hook-form";
 
-const GiftRejectModal = ({rejectModalVisible,setRejectModalVisible,giftObject,onReject}) => {
+const GiftRejectModal = ({rejectModalVisible,setRejectModalVisible,giftObject,onReject,isRejecting}) => {
     const [rejectionReason,setRejectionReason] = useState("");
     return(
         <Modal visible={rejectModalVisible} animationType="slide" transparent={true}>
@@ -22,8 +22,8 @@ const GiftRejectModal = ({rejectModalVisible,setRejectModalVisible,giftObject,on
                         <TextInput multiline={true} numberOfLines={4} style={{width: "100%",height: 100,marginTop: 8,borderColor: "rgba(0,0,0,0.2)",borderWidth: 2,borderRadius: "5px",paddingHorizontal: 10,paddingVertical: 3}} placeholder="Enter rejection reason" onChangeText={(value) => setRejectionReason(value)} value={rejectionReason}  />
                     </View>
                     <View style={{flexDirection: "row",justifyContent: "flex-end",columnGap: "20px",marginTop: "20px"}}>
-                        <View style={{width: "100px"}}>
-                            <Button title="reject" touchSoundDisabled={false} color="red" onPress={() => onReject(giftObject,rejectionReason)} />
+                        <View style={{width: "100px",pointerEvents: `${isRejecting ? "none" : "auto"}`}}>
+                            <Button title="reject" touchSoundDisabled={false} color={isRejecting ? "gray" : "red"} onPress={() => onReject(giftObject,rejectionReason)} />
                         </View>
 
                         <View style={{width: "100px"}}>

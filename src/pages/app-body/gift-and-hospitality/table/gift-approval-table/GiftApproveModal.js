@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Modal, StyleSheet, Text, View } from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 
-const GiftApproveModal = ({approveModalVisible,setApproveModalVisible,giftObject,onApprove}) => {
+const GiftApproveModal = ({approveModalVisible,setApproveModalVisible,giftObject,onApprove,isApproving}) => {
 
     return(
         <Modal visible={approveModalVisible} animationType="slide" transparent={true}>
@@ -16,8 +16,8 @@ const GiftApproveModal = ({approveModalVisible,setApproveModalVisible,giftObject
                         Are you sure you want to approve this gift? Once approved, this action cannot be undone. Please review the details carefully before proceeding.
                     </Text>
                     <View style={{flexDirection: "row",justifyContent: "flex-end",columnGap: "20px",marginTop: "20px"}}>
-                        <View style={{width: "100px"}}>
-                            <Button title="approve" touchSoundDisabled={false} onPress={() => onApprove(giftObject)} />
+                        <View style={{width: "100px",pointerEvents: `${isApproving ? "none" : "auto"}`}}>
+                            <Button title="approve" touchSoundDisabled={false} onPress={() => onApprove(giftObject)} color={(isApproving) && "gray"} />
                         </View>
 
                         <View style={{width: "100px"}}>

@@ -147,7 +147,7 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
            setValue("receiptImage",result.assets[0].uri);
         }   
     }
-    // UPDATING A SINGLE PROPERTY
+    // UPDATING A BOOLEAN OBJECT
     const onUpdateBooleanState = (update) => {
         try {
             setBooleanState((prevState) => ({
