@@ -22,9 +22,9 @@ exports.createGift = async(gift) => {
         const result = await executeSqlQuery(
             `INSERT INTO ${SQL_TABLE.GIFT_SUBMISSION} (gift_category_id,gift_type,business_purpose,requestor_email,
             gift_description,vendor_name,remarks,gift_amount,is_vendor_government_official,internal_higher_position_name,
-            receipt_image) VALUES (${gift.giftCategory.id},'${gift.giftType}','${gift.businessDescription}','${gift.requestorEmail}',
+            receipt_image,intended_requestor_name,intended_requestor_email) VALUES (${gift.giftCategory.id},'${gift.giftType}','${gift.businessDescription}','${gift.requestorEmail}',
             '${gift.giftDescription}','${gift.vendor}','${gift.remarks}',${gift.giftValue},${gift.isGovernmentOfficial},
-            '${gift.higherPositionName}','${gift.receiptImage}');
+            '${gift.higherPositionName}','${gift.receiptImage}','${gift.intendedRequestorName}','${gift.intendedRequestorEMail}');
             select SCOPE_IDENTITY() AS id;
             `,[]
         );
@@ -69,7 +69,10 @@ exports.updateGift = async(gift) => {
             gift_amount = ${gift.giftValue},
             is_vendor_government_official = ${gift.isGovernmentOfficial},
             internal_higher_position_name = '${gift.higherPositionName}',
-            receipt_image = '${gift.receiptImage}' WHERE id = ${gift.id}
+            receipt_image = '${gift.receiptImage}', 
+            intended_requestor_name = '${gift.intendedRequestorName}',
+            intended_requestor_email = '${gift.intendedRequestorEMail}'
+            WHERE id = ${gift.id}
             `,[]
         );
         /* REMOVING THE DATA FROM APPROVAL TABLE BY GIFT ID AND REINSERT AGAIN */
@@ -160,6 +163,8 @@ exports.getYourSubmissionByID = async(giftID) => {
             internal_higher_position_name as higherPositionName,
             is_vendor_government_official as isGovernmentOfficial,
             receipt_image as receiptImage,
+            intended_requestor_name as intendedRequestorName,
+            intended_requestor_email as intendedRequestorEMail,
             (SELECT * FROM ${SQL_TABLE.GIFT_CATEGORY} WHERE id = gift_category_id FOR JSON PATH, WITHOUT_ARRAY_WRAPPER) AS giftCategory
             FROM ${SQL_TABLE.GIFT_SUBMISSION} WHERE id=${giftID}`,[]
         ).then((tempArray) => {

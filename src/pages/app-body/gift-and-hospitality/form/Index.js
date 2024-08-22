@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import {useForm,Controller} from "react-hook-form";
 import {Ionicons} from "@expo/vector-icons";
@@ -8,9 +8,13 @@ import ReceiptPicker from "./ReceiptPicker";
 import {createGiftAPI, getGiftCategoryAPI, getYourSubmissionByIDAPI} from "../../../../api/yourSubmissionApi";
 import { FailureToast, SuccessToast } from "../../../../components/Toast";
 import { FullScreenLoader } from "../../../../components/Loader";
+import { UserContext } from "../../../../contexts/UserContext";
+import { Checkbox } from "react-native-paper";
 
 
 const GiftAndHospitalityForm = ({route,navigation}) => {
+    const {userEMail} = useContext(UserContext);
+    const [booleanState,setBooleanState] = useState({isSubmitting: false,isIntendedRequestor: false});
     const {giftID,canEdit} = route.params;
     const [giftCategoryList,setGiftCategoryList] = useState([]);
     const [isMount,setMount] = useState(true);
@@ -21,7 +25,9 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
             giftCategory: {},
             giftType: "",
             businessDescription: "",
-            requestorEmail: "",
+            requestorEmail: userEMail,
+            intendedRequestorName: "",
+            intendedRequestorEMail: "",
             giftDescription: "",
             remarks: "",
             giftValue: 0,
@@ -75,6 +81,9 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
                     Object.keys(responseObj).forEach((key) => {
                         setValue(key,responseObj[key]);
                     });
+                    if(responseObj.intendedRequestorEMail.trim()) {
+                        onUpdateBooleanState({isIntendedRequestor: true});
+                    }
                 };
             };
             setGiftCategoryList(responseList);
@@ -125,8 +134,18 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
                 return;
             }
            setValue("receiptImage",result.assets[0].uri);
+        }   
+    }
+    // UPDATING A SINGLE PROPERTY
+    const onUpdateBooleanState = (update) => {
+        try {
+            setBooleanState((prevState) => ({
+                ...prevState,
+                ...update
+            }));
+        } catch (error) {
+            FailureToast(error.message);
         }
-        
     }
 
     /* IT WILL RENDER ONCE THE UI IS MOUNTING */
@@ -214,18 +233,39 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
                 />
                 {errors.businessDescription && <ShowError errorMessage="this is required" />}
                 {/* TEXT BOX */}
-                <Controller 
-                    name="requestorEmail" 
-                    control={control} 
-                    rules={{required: true}} 
-                    render={({field: {onChange,onBlur,value}}) => (
-                        <View style={{marginTop: 20}}>
-                            <Text style={{fontSize: "16px",fontWeight: "600",textTransform: "capitalize"}}>email of requestor's behalf</Text>
-                            <TextInput keyboardType="email-address" style={{width: "100%",height: 30,marginTop: 8,borderColor: "rgba(0,0,0,0.2)",borderWidth: 2,borderRadius: "5px",paddingHorizontal: 10}} placeholder="Enter Email" onBlur={onBlur} onChangeText={onChange} value={value}  />
-                        </View>
-                    )}
-                />
-                {errors.requestorEmail && <ShowError errorMessage="this is required" />}
+                <View style={{marginTop: "20px",flexDirection: "row",alignItems: "center",marginLeft: "-5px"}}>
+                    <Checkbox status={booleanState.isIntendedRequestor === true ? "checked" : "unchecked"} onPress={() => onUpdateBooleanState({isIntendedRequestor: !booleanState.isIntendedRequestor})} />
+                    <Text style={{fontSize: "16px",fontWeight: "600",textTransform: "capitalize"}}>submit on behalf of</Text>
+                </View>
+                {booleanState.isIntendedRequestor ? <>
+                    <Controller 
+                        name="intendedRequestorName" 
+                        control={control} 
+                        rules={{required: true}} 
+                        render={({field: {onChange,onBlur,value}}) => (
+                            <View style={{marginTop: 20}}>
+                                <Text style={{fontSize: "16px",fontWeight: "600",textTransform: "capitalize"}}>name</Text>
+                                <TextInput readOnly={!booleanState.isIntendedRequestor} keyboardType="default" style={{backgroundColor: `${booleanState.isIntendedRequestor === false && "rgba(0,0,0,0.2)"}`,width: "100%",height: 30,marginTop: 8,borderColor: "rgba(0,0,0,0.2)",borderWidth: 2,borderRadius: "5px",paddingHorizontal: 10}} placeholder="Enter Intended Requestor Name" onBlur={onBlur} onChangeText={onChange} value={value}  />
+                            </View>
+                        )}
+                    />
+                    {errors.intendedRequestorName && <ShowError errorMessage="this is required" />}
+                </> : setValue("intendedRequestorName","")
+                }
+                {booleanState.isIntendedRequestor ? <>
+                    <Controller 
+                        name="intendedRequestorEMail" 
+                        control={control} 
+                        rules={{required: true}} 
+                        render={({field: {onChange,onBlur,value}}) => (
+                            <View style={{marginTop: 20}}>
+                                <Text style={{fontSize: "16px",fontWeight: "600",textTransform: "capitalize"}}>email</Text>
+                                <TextInput readOnly={!booleanState.isIntendedRequestor} keyboardType="email-address" style={{backgroundColor: `${booleanState.isIntendedRequestor === false && "rgba(0,0,0,0.2)"}`,width: "100%",height: 30,marginTop: 8,borderColor: "rgba(0,0,0,0.2)",borderWidth: 2,borderRadius: "5px",paddingHorizontal: 10}} placeholder="Enter Intended Requestor Email" onBlur={onBlur} onChangeText={onChange} value={value}  />
+                            </View>
+                        )}
+                    />
+                    {errors.intendedRequestorEMail && <ShowError errorMessage="this is required" />}
+                </> : setValue("intendedRequestorEMail","")}
                 {/* DESCRIPTION BOX */}
                 <Controller 
                     name="giftDescription" 
