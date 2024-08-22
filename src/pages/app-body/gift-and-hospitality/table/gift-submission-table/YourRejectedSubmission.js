@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, Text, View,StyleSheet } from "react-native";
 import {Ionicons,FontAwesome5} from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
@@ -7,10 +7,11 @@ import { FullScreenLoader } from "../../../../../components/Loader";
 import { getYourRejectedSubmissionAPI } from "../../../../../api/yourSubmissionApi";
 import { DataTable } from "react-native-paper";
 import FadeInOutText from "../../../../../components/animation/FadeInOutText";
+import { UserContext } from "../../../../../contexts/UserContext";
 
 const YourRejectedSubmission = ({navigation}) => {
     const isFocused = useIsFocused();
-    const loggedInEmail = localStorage.getItem("user-email")
+    const {userEMail} = useContext(UserContext);
     const [rejectedGiftSubmissionList,setRejectedGiftSubmissionList] = useState([]);
     const [isMount,setMount] = useState(true);
     const [page,setPage] = useState(0);
@@ -20,7 +21,7 @@ const YourRejectedSubmission = ({navigation}) => {
  
     const loadDataOnInitialRender = async() => {
         try {
-            const responseList = await getYourRejectedSubmissionAPI(loggedInEmail);
+            const responseList = await getYourRejectedSubmissionAPI(userEMail);
             if(responseList instanceof Array) {
                 setRejectedGiftSubmissionList(responseList);
             }

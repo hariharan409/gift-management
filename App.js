@@ -10,6 +10,7 @@ import GiftAndHospitalityForm from './src/pages/app-body/gift-and-hospitality/fo
 import SubmissionTabView from "./src/pages/app-body/gift-and-hospitality/table/gift-submission-table/Index";
 import ApprovalTabView from './src/pages/app-body/gift-and-hospitality/table/gift-approval-table/Index';
 import { PaperProvider } from 'react-native-paper';
+import { UserProvider } from './src/contexts/UserContext';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,18 +27,20 @@ export default App = () => {
 
   return (
     <PaperProvider>
-      <SafeAreaView style={{width: "100%",height: "100%",backgroundColor: "#FFF"}}>
-        <Header />
-        <NavigationContainer theme={NavigationContainerTheme} linking={linking}>
-            <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='welcome-screen'>
-              <Stack.Screen name='welcome-screen' component={Welcome} />
-              <Stack.Screen name='gift-and-hospitality-form' component={GiftAndHospitalityForm} />
-              <Stack.Screen name='gift-and-hospitality-submission-tab' component={SubmissionTabView} />
-              <Stack.Screen name='gift-and-hospitality-approval-tab' component={ApprovalTabView} />
-            </Stack.Navigator>
-        </NavigationContainer>
-        <Toaster />
-      </SafeAreaView>
+      <UserProvider>
+        <SafeAreaView style={{width: "100%",height: "100%",backgroundColor: "#FFF"}}>
+          <Header />
+          <NavigationContainer theme={NavigationContainerTheme} linking={linking}>
+              <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='welcome-screen'>
+                <Stack.Screen name='welcome-screen' component={Welcome} />
+                <Stack.Screen name='gift-and-hospitality-form' component={GiftAndHospitalityForm} />
+                <Stack.Screen name='gift-and-hospitality-submission-tab' component={SubmissionTabView} />
+                <Stack.Screen name='gift-and-hospitality-approval-tab' component={ApprovalTabView} />
+              </Stack.Navigator>
+          </NavigationContainer>
+          <Toaster />
+        </SafeAreaView>
+      </UserProvider>
     </PaperProvider>
   );
 }

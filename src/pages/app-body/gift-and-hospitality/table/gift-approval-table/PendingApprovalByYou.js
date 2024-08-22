@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, Text, View,StyleSheet, Button } from "react-native";
 import {Ionicons,FontAwesome5} from "@expo/vector-icons";
 import { getPendingApprovalByYouAPI,approveGiftAPI,rejectGiftAPI } from "../../../../../api/yourApprovalApi";
@@ -9,10 +9,11 @@ import GiftApproveModal from "./GiftApproveModal";
 import GiftRejectModal from "./GiftRejectModal";
 import { DataTable } from "react-native-paper";
 import FadeInOutText from "../../../../../components/animation/FadeInOutText";
+import { UserContext } from "../../../../../contexts/UserContext";
 
 const PendingApprovalByYou = ({navigation}) => {
     const isFocused = useIsFocused();
-    const loggedInEmail = localStorage.getItem("user-email")
+    const {userEMail} = useContext(UserContext);
     const [giftApprovalList,setGiftApprovalList] = useState([]);
     const [isMount,setMount] = useState(true);
     const [approveModalVisible,setApproveModalVisible] = useState(false);
@@ -25,7 +26,7 @@ const PendingApprovalByYou = ({navigation}) => {
  
     const loadDataOnInitialRender = async() => {
         try {
-            const responseList = await getPendingApprovalByYouAPI(loggedInEmail);
+            const responseList = await getPendingApprovalByYouAPI(userEMail);
             if(responseList instanceof Array) {
                 setGiftApprovalList(responseList);
             }
@@ -53,7 +54,7 @@ const PendingApprovalByYou = ({navigation}) => {
 
     const onApprove = async(giftObject) => {
         try {
-            const responseList = await approveGiftAPI(giftObject.giftID,giftObject.approvalID,loggedInEmail);
+            const responseList = await approveGiftAPI(giftObject.giftID,giftObject.approvalID,userEMail);
             setGiftApprovalList(responseList);
             SuccessToast("The gift has been approved successfully!");
             setApproveModalVisible(false);
@@ -73,7 +74,7 @@ const PendingApprovalByYou = ({navigation}) => {
 
     const onReject = async(giftObject,rejectionReason) => {
         try {
-            const responseList = await rejectGiftAPI(giftObject.giftID,rejectionReason,loggedInEmail);
+            const responseList = await rejectGiftAPI(giftObject.giftID,rejectionReason,userEMail);
             setGiftApprovalList(responseList);
             SuccessToast("The gift has been rejected successfully!");
             setRejectModalVisible(false);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, Text, View, StyleSheet, Button } from "react-native";
 import { Ionicons, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
 import { DataTable, Tooltip } from "react-native-paper";
@@ -8,10 +8,11 @@ import { useIsFocused } from "@react-navigation/native";
 import { FailureToast } from "../../../../../components/Toast";
 import { FullScreenLoader } from "../../../../../components/Loader";
 import FadeInOutText from "../../../../../components/animation/FadeInOutText";
+import { UserContext } from "../../../../../contexts/UserContext";
 
 const YourSubmission = ({ navigation }) => {
     const isFocused = useIsFocused();
-    const loggedInEmail = localStorage.getItem("user-email")
+    const {userEMail} = useContext(UserContext);
     const [giftSubmissionList, setGiftSubmissionList] = useState([]);
     const [isMount, setMount] = useState(true);
     const [approvalCount, setApprovalCount] = useState(0);
@@ -22,11 +23,11 @@ const YourSubmission = ({ navigation }) => {
 
     const loadDataOnInitialRender = async () => {
         try {
-            const responseList = await getYourSubmissionAPI(loggedInEmail);
+            const responseList = await getYourSubmissionAPI(userEMail);
             if (responseList instanceof Array) {
                 setGiftSubmissionList(responseList);
             }
-            const pendingApprovalCount = await getYourPendingApprovalCountAPI(loggedInEmail);
+            const pendingApprovalCount = await getYourPendingApprovalCountAPI(userEMail);
             setApprovalCount(pendingApprovalCount);
         } catch (error) {
             FailureToast("Oops! Something went wrong.")

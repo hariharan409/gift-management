@@ -1,22 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Image, Text, TextInput, View } from "react-native";
 import {useForm,Controller} from "react-hook-form";
 import BusinessGiftImage from "../../../../assets/pages/app-body/welcome-screen/business-gift-image.jpg";
 import { FailureToast, SuccessToast } from "../../../components/Toast";
 import FadeInOutText from "../../../components/animation/FadeInOutText";
+import { UserContext } from "../../../contexts/UserContext";
 
 
 const Welcome = ({navigation}) => {
+    const {userEMail,setUserEMail} = useContext(UserContext);
     const currentYear = new Date().getFullYear();
     const {control,handleSubmit,formState:{errors},getValues,watch,setValue} = useForm({
         defaultValues: {
-            loginEmail: localStorage.getItem("user-email"),
+            loginEmail: userEMail,
         }
     });
 
     const onFormSubmit = async(user) => {
         try {
             localStorage.setItem("user-email",user.loginEmail);
+            setUserEMail(user.loginEmail);
             SuccessToast(`Welcome ${user.loginEmail.split("@")[0]}`)
             navigation.navigate("gift-and-hospitality-submission-tab");
         } catch (error) {

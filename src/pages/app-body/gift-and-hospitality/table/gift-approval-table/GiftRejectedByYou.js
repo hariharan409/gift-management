@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, Text, View,StyleSheet } from "react-native";
 import {Ionicons,FontAwesome5} from "@expo/vector-icons";
 import { getGiftRejectedByYouAPI } from "../../../../../api/yourApprovalApi";
@@ -7,10 +7,11 @@ import { FailureToast } from "../../../../../components/Toast";
 import { FullScreenLoader } from "../../../../../components/Loader";
 import { DataTable } from "react-native-paper";
 import FadeInOutText from "../../../../../components/animation/FadeInOutText";
+import { UserContext } from "../../../../../contexts/UserContext";
 
 const GiftRejectedByYou = ({navigation}) => {
     const isFocused = useIsFocused();
-    const loggedInEmail = localStorage.getItem("user-email")
+    const {userEMail} = useContext(UserContext);
     const [giftRejectedList,setGiftRejectedList] = useState([]);
     const [isMount,setMount] = useState(true);
     const [page,setPage] = useState(0);
@@ -20,7 +21,7 @@ const GiftRejectedByYou = ({navigation}) => {
  
     const loadDataOnInitialRender = async() => {
         try {
-            const responseList = await getGiftRejectedByYouAPI(loggedInEmail);
+            const responseList = await getGiftRejectedByYouAPI(userEMail);
             if(responseList instanceof Array) {
                 setGiftRejectedList(responseList);
             }
