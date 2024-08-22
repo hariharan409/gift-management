@@ -434,8 +434,8 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
                         />
                         {errors.emailAcknowledgements?.[3]?.email && <ShowError errorMessage="this is required" />}
                     </> : setValue("emailAcknowledgements[3].email","")}
-                    <View style={{width: "200px",alignSelf: "center",marginVertical: 20,pointerEvents: `${booleanState.isSubmitting ? "none" : "auto"}`}}>   
-                        <Button onPress={handleSubmit(onFormSubmit)} title="SUBMIT" touchSoundDisabled={false} color={booleanState.isSubmitting && "gray"}  />
+                    <View style={{width: "200px",alignSelf: "center",marginVertical: 20,pointerEvents: `${(booleanState.isSubmitting || !canEdit) ? "none" : "auto"}`}}>   
+                        <Button onPress={handleSubmit(onFormSubmit)} title="SUBMIT" touchSoundDisabled={false} color={(booleanState.isSubmitting || !canEdit) && "gray"}  />
                     </View>
                 </View>
             </ScrollView>

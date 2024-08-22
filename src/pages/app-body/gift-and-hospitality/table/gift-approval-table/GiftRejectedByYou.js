@@ -6,7 +6,6 @@ import { useIsFocused } from "@react-navigation/native";
 import { FailureToast } from "../../../../../components/Toast";
 import { FullScreenLoader } from "../../../../../components/Loader";
 import { DataTable } from "react-native-paper";
-import FadeInOutText from "../../../../../components/animation/FadeInOutText";
 import { UserContext } from "../../../../../contexts/UserContext";
 
 const GiftRejectedByYou = ({navigation}) => {
@@ -48,7 +47,7 @@ const GiftRejectedByYou = ({navigation}) => {
             {/* PAGE TITLE */}
             <View style={styles.topRowView}>
                 <Ionicons onPress={() => navigation.goBack(null)} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="#FFF" />
-                <FadeInOutText text="gift's rejected by you" />
+                <Text style={{textTransform: "capitalize",fontSize: "16px",fontWeight: "bold",color: "#000"}}>gift's rejected by you</Text>
                 <View />
             </View>
             <DataTable style={styles.dataTable}>

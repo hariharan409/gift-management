@@ -7,7 +7,6 @@ import { getYourSubmissionAPI } from "../../../../../api/yourSubmissionApi";
 import { useIsFocused } from "@react-navigation/native";
 import { FailureToast } from "../../../../../components/Toast";
 import { FullScreenLoader } from "../../../../../components/Loader";
-import FadeInOutText from "../../../../../components/animation/FadeInOutText";
 import { UserContext } from "../../../../../contexts/UserContext";
 
 const YourSubmission = ({ navigation }) => {
@@ -52,7 +51,7 @@ const YourSubmission = ({ navigation }) => {
             {/* PAGE TITLE */}
             <View style={styles.topRowView}>
                 <Ionicons onPress={() => navigation.goBack(null)} style={{ cursor: "pointer" }} name="arrow-back-circle-sharp" size={40} color="#FFF" />
-                <FadeInOutText text="your gift submission list" />
+                <Text style={{textTransform: "capitalize",fontSize: "16px",fontWeight: "bold",color: "#000"}}>your gift submission list</Text>
                 <View style={{ width: "150px", marginVertical: 20, display: "flex", flexDirection: "row", columnGap: "20px", justifyContent: "flex-end" }}>
                     <View>
                         <Text style={styles.approvalTextElement}>{approvalCount}</Text>
