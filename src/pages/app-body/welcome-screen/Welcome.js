@@ -5,8 +5,7 @@ import BusinessGiftImage from "../../../../assets/pages/app-body/welcome-screen/
 import { FailureToast, SuccessToast } from "../../../components/Toast";
 import FadeInOutText from "../../../components/animation/FadeInOutText";
 import { UserContext } from "../../../contexts/UserContext";
-import LottieView from 'lottie-react-native';
-import LottieGiftAnimation from "../../../../assets/lottie/gift-animation-one.json";
+import { LottieWelcome } from "../../../components/lottie-web-animation/LottieWebAnimation";
 
 const Welcome = ({navigation}) => {
     const {userEMail,setUserEMail} = useContext(UserContext);
@@ -63,9 +62,7 @@ const Welcome = ({navigation}) => {
             <View style={{position: "absolute",bottom: 4,left: 50,right: 50}}>
                 <Text style={{textAlign: "center",color: "blue",fontSize: "12px",fontWeight: "bold",textTransform: "capitalize"}}>app version b-0.0.2 @{currentYear} seatrium digital</Text>
             </View>
-            <View style={{width: "20%",position: "absolute",top: "20%",left: "40%"}}>
-                <LottieView source={LottieGiftAnimation} autoPlay loop={true} speed={0.5} />
-            </View>
+            <LottieWelcome style={{width: "20%",position: "absolute",top: "20%",left: "40%"}} />
         </View>
     )
 }
