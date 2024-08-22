@@ -159,6 +159,8 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
                                 data={giftCategoryList}
                                 placeholder="Select Category"
                                 placeholderStyle={{color: "rgba(0,0,0,0.2)"}}
+                                itemTextStyle={{textTransform: "capitalize"}}
+                                selectedTextStyle={{textTransform: "capitalize"}}
                                 labelField="name"
                                 valueField="id"
                                 onChange={(selectedObj) => onChange(selectedObj)}
@@ -185,6 +187,8 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
                                 ]}
                                 placeholder="Select Type"
                                 placeholderStyle={{color: "rgba(0,0,0,0.2)"}}
+                                itemTextStyle={{textTransform: "capitalize"}}
+                                selectedTextStyle={{textTransform: "capitalize"}}
                                 labelField="label"
                                 valueField="value"
                                 onChange={(selectedObj) => onChange(selectedObj.value)}
@@ -275,7 +279,7 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
                 />
                 {errors.giftValue && <ShowError errorMessage="this is required" />}
                 {/* TEXT BOX */}
-                {(watch("giftCategory.name") === "business-entertainment" || watch("giftCategory.name") === "travel-business-entertainment") && 
+                {(watch("giftCategory").name === "business-entertainment" || watch("giftCategory").name === "travel-business-entertainment") && 
                 <>
                     <Controller 
                     name="higherPositionName" 
