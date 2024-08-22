@@ -5,7 +5,7 @@ import BusinessGiftImage from "../../../../assets/pages/app-body/welcome-screen/
 import { FailureToast, SuccessToast } from "../../../components/Toast";
 import FadeInOutText from "../../../components/animation/FadeInOutText";
 import { UserContext } from "../../../contexts/UserContext";
-import { LottieWelcome } from "../../../components/lottie-web-animation/LottieWebAnimation";
+import { LottieMoney, LottieWelcome } from "../../../components/lottie-web-animation/LottieWebAnimation";
 
 const Welcome = ({navigation}) => {
     const {userEMail,setUserEMail} = useContext(UserContext);
@@ -63,7 +63,7 @@ const Welcome = ({navigation}) => {
                 <Text style={{textAlign: "center",color: "blue",fontSize: "12px",fontWeight: "bold",textTransform: "capitalize"}}>app version b-0.0.2 @{currentYear} seatrium digital</Text>
             </View>
             <LottieWelcome style={{width: "20%",position: "absolute",top: "20%",left: "10%"}} />
-            <LottieWelcome style={{width: "20%",position: "absolute",top: "20%",right: "10%"}} />
+            <LottieMoney style={{width: "20%",position: "absolute",top: "18%",right: "10%"}} />
         </View>
     )
 }

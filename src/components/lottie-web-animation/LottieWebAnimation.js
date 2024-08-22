@@ -2,6 +2,7 @@ import React from "react";
 import LottieView from "lottie-react-native";
 import { View } from "react-native";
 import LottieWelcomeAnimation from "../../../assets/lottie/gift-animation-one.json";
+import LottieMoneyAnimation from "../../../assets/lottie/gift-animation-three.json";
 import LottieGiftSuccessAnimation from "../../../assets/lottie/gift-success-submission-approval.json";
 import LottieGiftJumpingAnimation from "../../../assets/lottie/gift-animation-two.json";
 import LottieGiftRejectAnimation from "../../../assets/lottie/gift-reject-approval.json";
@@ -12,6 +13,15 @@ export const LottieWelcome = ({style}) => {
     return(
         <View style={style}>
             <LottieView source={LottieWelcomeAnimation} autoPlay loop={true} speed={1.2} />
+        </View>
+    )
+}
+
+export const LottieMoney = ({style}) => {
+
+    return(
+        <View style={style}>
+            <LottieView source={LottieMoneyAnimation} autoPlay loop={true} speed={0.7} />
         </View>
     )
 }
