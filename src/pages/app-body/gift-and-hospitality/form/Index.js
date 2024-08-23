@@ -25,6 +25,7 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
             vendor: "",
             giftCategory: {},
             giftType: "",
+            giftAcceptanceType: "",
             businessDescription: "",
             requestorEmail: userEMail,
             intendedRequestorName: "",
@@ -231,6 +232,37 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
                         )}
                     />
                     {errors.giftType && <ShowError errorMessage="this is required" />}
+                    {/* GIFT ACCEPTANCE TYPE DROPDOWN */}
+                    {((watch("giftCategory").name === "gift" || watch("giftCategory").name === "travel-gift") && watch("giftType") === "acceptance") ? <>
+                        <Controller 
+                            name="giftAcceptanceType" 
+                            control={control} 
+                            rules={{required: true}} 
+                            render={({field: {onChange,onBlur,value}}) => (
+                                <View style={{marginTop: 20}}>
+                                    <Text style={{fontSize: "16px",fontWeight: "600",textTransform: "capitalize"}}>gift acceptance type</Text>
+                                    <Dropdown 
+                                        data={[
+                                            { label: 'Accepted (Shared with team)', value: 'Accepted (Shared with team)' },
+                                            { label: 'Accepted (Personal)', value: 'Accepted (Personal)' },
+                                            { label: 'Returned to sender', value: 'Returned to sender' },
+                                        ]}
+                                        placeholder="Select Acceptance Type"
+                                        placeholderStyle={{color: "rgba(0,0,0,0.2)"}}
+                                        itemTextStyle={{textTransform: "capitalize"}}
+                                        selectedTextStyle={{textTransform: "capitalize"}}
+                                        labelField="label"
+                                        valueField="value"
+                                        onChange={(selectedObj) => onChange(selectedObj.value)}
+                                        onBlur={onBlur}
+                                        value={value}
+                                        style={{width: "100%",height: 30,marginTop: 8,borderColor: "rgba(0,0,0,0.2)",borderWidth: 2,borderRadius: "5px",paddingHorizontal: 10}}
+                                    />
+                                </View>
+                            )}
+                        />
+                        {errors.giftAcceptanceType && <ShowError errorMessage="this is required" />}
+                    </> : setValue("giftAcceptanceType","")}
                     {/* DESCRIPTION BOX */}
                     <Controller 
                         name="businessDescription" 

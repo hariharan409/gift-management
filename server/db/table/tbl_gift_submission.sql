@@ -22,3 +22,4 @@ ALTER TABLE tbl_gift_submission ADD is_approved tinyint not null default 0;
 ALTER TABLE tbl_gift_submission ADD created_at datetime not null default GETDATE();
 ALTER TABLE tbl_gift_submission ADD intended_requestor_name varchar(255);
 ALTER TABLE tbl_gift_submission ADD intended_requestor_email varchar(255);
+ALTER TABLE tbl_gift_submission ADD gift_acceptance_type varchar(255);
