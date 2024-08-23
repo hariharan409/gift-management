@@ -10,6 +10,7 @@ import GiftRejectModal from "./GiftRejectModal";
 import { DataTable } from "react-native-paper";
 import { UserContext } from "../../../../../contexts/UserContext";
 import { LottieGiftReject, LottieGiftSuccess } from "../../../../../components/lottie-web-animation/LottieWebAnimation";
+import { BlurView } from "expo-blur";
 
 const PendingApprovalByYou = ({navigation}) => {
     const isFocused = useIsFocused();
@@ -58,11 +59,11 @@ const PendingApprovalByYou = ({navigation}) => {
             onUpdateBooleanState({isApproving: true});
             const responseList = await approveGiftAPI(giftObject.giftID,giftObject.approvalID,userEMail);
             onUpdateBooleanState({isApproved: true});
+            setApproveModalVisible(false);
             setTimeout(() => {
                 setGiftApprovalList(responseList);
                 onUpdateBooleanState({isApproving: false,isApproved: false});
                 SuccessToast("The gift has been approved successfully!");
-                setApproveModalVisible(false);
             },8000);
         } catch (error) {
             onUpdateBooleanState({isApproving: false});
@@ -84,11 +85,11 @@ const PendingApprovalByYou = ({navigation}) => {
             onUpdateBooleanState({isRejecting: true});
             const responseList = await rejectGiftAPI(giftObject.giftID,rejectionReason,userEMail);
             onUpdateBooleanState({isRejected: true});
+            setRejectModalVisible(false);
             setTimeout(() => {
                 setGiftApprovalList(responseList);
                 onUpdateBooleanState({isRejecting: false,isRejected: false});
                 SuccessToast("The gift has been rejected successfully!");
-                setRejectModalVisible(false);
             },8000);
         } catch (error) {
             onUpdateBooleanState({isRejecting: false});
@@ -176,8 +177,16 @@ const PendingApprovalByYou = ({navigation}) => {
                 <GiftApproveModal  approveModalVisible={approveModalVisible} setApproveModalVisible={setApproveModalVisible} giftObject={giftObject} onApprove={onApprove} isApproving={booleanState.isApproving} />
                 <GiftRejectModal rejectModalVisible={rejectModalVisible} setRejectModalVisible={setRejectModalVisible} giftObject={giftObject} onReject={onReject} isRejecting={booleanState.isRejecting} />
             </ScrollView>
-            {booleanState.isApproved && <LottieGiftSuccess style={{width: "20%",position: "absolute",top: "10%",left: "40%"}} loop={false} />}
-            {booleanState.isRejected && <LottieGiftReject style={{width: "20%",position: "absolute",top: "10%",left: "40%"}} loop={false} />}
+            {booleanState.isApproved && 
+                <BlurView intensity={50} tint="systemThickMaterialLight" style={{width: "100%",height: "100%",position: "absolute"}}>
+                    <LottieGiftSuccess style={{width: "20%",height: "50%",top: "20%",left: "40%"}} loop={true} />
+                </BlurView>
+            }
+            {booleanState.isRejected && 
+                <BlurView intensity={50} tint="systemThickMaterialLight" style={{width: "100%",height: "100%",position: "absolute"}}>
+                    <LottieGiftReject style={{width: "20%",position: "absolute",top: "20%",left: "40%"}} loop={false} />
+                </BlurView>
+            }
         </>
     )
 }

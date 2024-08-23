@@ -10,7 +10,8 @@ import { FailureToast, SuccessToast } from "../../../../components/Toast";
 import { FullScreenLoader } from "../../../../components/Loader";
 import { UserContext } from "../../../../contexts/UserContext";
 import { Checkbox } from "react-native-paper";
-import { LottieGiftSuccess } from "../../../../components/lottie-web-animation/LottieWebAnimation";
+import { LottieGiftSuccess, LottieMoney } from "../../../../components/lottie-web-animation/LottieWebAnimation";
+import {BlurView} from "expo-blur";
 
 
 const GiftAndHospitalityForm = ({route,navigation}) => {
@@ -167,6 +168,7 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
 
     return(
         <>
+            <LottieMoney style={{width: "20%",position: "absolute",left: "2%",top: "25%"}} loop={true} speed={0.6} />
             <ScrollView style={{paddingTop: 5,paddingHorizontal: 20,width: "50%",alignSelf: "center",backgroundColor: canEdit ? "#FAF9F6" : "rgba(0,0,0,0.150)"  }} automaticallyAdjustKeyboardInsets={true}>
                 {/* PAGE TITLE */}
                 <View style={styles.topRowView}>
@@ -471,7 +473,12 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
                     </View>
                 </View>
             </ScrollView>
-            {booleanState.isSubmitted && <LottieGiftSuccess style={{width: "20%",position: "absolute",top: "10%",left: "40%"}} loop={false} />}
+            <LottieMoney style={{width: "20%",position: "absolute",right: "2%",top: "25%"}} loop={true} speed={0.4} />
+            {booleanState.isSubmitted && 
+                <BlurView intensity={50} tint="systemThickMaterialLight" style={{width: "100%",height: "100%",position: "absolute"}}>
+                    <LottieGiftSuccess style={{width: "20%",height: "50%",top: "20%",left: "40%"}} loop={false} />
+                </BlurView>
+            }
         </>
     )
 }

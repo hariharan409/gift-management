@@ -17,11 +17,11 @@ export const LottieWelcome = ({style}) => {
     )
 }
 
-export const LottieMoney = ({style}) => {
+export const LottieMoney = ({style,speed}) => {
 
     return(
         <View style={style}>
-            <LottieView source={LottieMoneyAnimation} autoPlay loop={true} speed={0.7} />
+            <LottieView source={LottieMoneyAnimation} autoPlay loop={true} speed={speed} />
         </View>
     )
 }
@@ -48,7 +48,7 @@ export const LottieGiftReject = ({style,loop}) => {
 
     return(
         <View style={style}>
-            <LottieView source={LottieGiftRejectAnimation} autoPlay loop={loop} speed={0.5} />
+            <LottieView source={LottieGiftRejectAnimation} autoPlay loop={loop} speed={0.2} />
         </View>
     )
 }
