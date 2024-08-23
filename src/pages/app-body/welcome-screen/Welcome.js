@@ -40,8 +40,7 @@ const Welcome = ({navigation}) => {
             <Image style={{height: "40%",width: "100%",resizeMode: "contain",borderRadius: "10px",shadowColor: "green"}} source={BusinessGiftImage} />
             <FadeInOutText text={t("welcome-screen.title")} style={{fontSize: "20px",textAlign: "center"}} />
             <Text style={{color: "rgba(0,0,0,0.5)",fontSize: "12px",textAlign: "center",fontWeight: "bold"}}>
-                It is designed to streamline the process of managing corporate gifts, ensuring that businesses can efficiently track,
-                organize and distribute gifts to clients,partners and employees
+                {t("welcome-screen.description")}
             </Text>
             {/* TEXT BOX */}
             <View style={{width: "50%",alignSelf: "center"}}>
@@ -51,7 +50,7 @@ const Welcome = ({navigation}) => {
                     rules={{required: true}} 
                     render={({field: {onChange,onBlur,value}}) => (
                         <View style={{marginTop: 20}}>
-                            <Text style={{fontSize: "16px",fontWeight: "600",textTransform: "capitalize"}}>user email</Text>
+                            <Text style={{fontSize: "16px",fontWeight: "600",textTransform: "capitalize"}}>{t("welcome-screen.user-email-textbox-label")}</Text>
                             <TextInput keyboardType="email-address" style={{width: "100%",height: 30,marginTop: 8,borderColor: "rgba(0,0,0,0.2)",borderWidth: 2,borderRadius: "5px",paddingHorizontal: 10}} placeholder="Enter Email" onBlur={onBlur} onChangeText={onChange} value={value}  />
                         </View>
                     )}
@@ -59,10 +58,10 @@ const Welcome = ({navigation}) => {
                 {errors.loginEmail && <ShowError errorMessage="this is required" />}
             </View>
             <View style={{width: "200px",alignSelf: "center"}}>
-                <Button onPress={handleSubmit(onFormSubmit)} title="NEXT" touchSoundDisabled={false} />
+                <Button onPress={handleSubmit(onFormSubmit)} title={`${t("welcome-screen.next-button-label")}`} touchSoundDisabled={false} />
             </View>
             <View style={{position: "absolute",bottom: 4,left: 50,right: 50}}>
-                <Text style={{textAlign: "center",color: "blue",fontSize: "12px",fontWeight: "bold",textTransform: "capitalize"}}>app version b-0.0.2 @{currentYear} seatrium digital</Text>
+                <Text style={{textAlign: "center",color: "blue",fontSize: "12px",fontWeight: "bold",textTransform: "capitalize"}}>{t("welcome-screen.app-version-text")} b-0.0.2 @{currentYear} {t("welcome-screen.seatrium-digital-text")}</Text>
             </View>
             <LottieWelcome style={{width: "20%",position: "absolute",top: "20%",left: "10%"}} />
             <LottieWelcome style={{width: "20%",position: "absolute",top: "20%",right: "10%"}} />

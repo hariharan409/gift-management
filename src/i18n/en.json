@@ -1,5 +1,13 @@
 {
+    "app-header": {
+        "app-name": "gift and hospitality"
+    },
     "welcome-screen": {
-        "title": "welcome to gift & hospitality management!"
+        "title": "welcome to gift & hospitality management!",
+        "description": "It is designed to streamline the process of managing corporate gifts, ensuring that businesses can efficiently track,organize and distribute gifts to clients,partners and employees",
+        "user-email-textbox-label": "user email",
+        "next-button-label": "next",
+        "app-version-text": "app version",
+        "seatrium-digital-text": "seatrium digital"
     }
 }
