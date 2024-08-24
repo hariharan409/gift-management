@@ -1,7 +1,7 @@
 {
   "name": "gift-management",
   "version": "1.0.0",
-  "main": "expo/AppEntry.js",
+  "main": "./Index.js",
   "dependencies": {
     "@dotlottie/react-player": "^1.6.19",
     "@react-navigation/bottom-tabs": "^6.6.1",
