@@ -20,7 +20,7 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
     const {giftID,canEdit} = route.params;
     const [giftCategoryList,setGiftCategoryList] = useState([]);
     const [isMount,setMount] = useState(true);
-    const {control,handleSubmit,formState:{errors},getValues,watch,setValue} = useForm({
+    const {control,handleSubmit,setError,formState:{errors},getValues,watch,setValue} = useForm({
         defaultValues: {
             id: null,
             vendor: "",
@@ -104,6 +104,14 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
     const onFormSubmit = async(giftObject) => {
         try {
             onUpdateBooleanState({isSubmitting: true});
+            if(giftObject.giftValue > 350) {
+                setError("giftValue",{
+                    type: "validate",
+                    message: "Gift value cannot exceed $350"
+                });
+                onUpdateBooleanState({isSubmitting: false});
+                return;
+            }
             // IF COMPLIANCE NEED TO APPROVE, THEN HE WILL BE THE FIRST APPROVER.
             giftObject.emailAcknowledgements[0].canApprove = giftObject?.emailAcknowledgements?.[0]?.email ? 1 : 0;
             // IF COMPLIANCE NO NEED TO APPROVE, THEN HOD WILL BE THE FIRST APPROVER.
@@ -359,11 +367,11 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
                         render={({field: {onChange,onBlur,value}}) => (
                             <View style={{marginTop: 20}}>
                                 <Text style={{fontSize: "16px",fontWeight: "600",textTransform: "capitalize"}}>gift value</Text>
-                                <TextInput keyboardType="decimal-pad" style={{width: "100%",height: 30,marginTop: 8,borderColor: "rgba(0,0,0,0.2)",borderWidth: 2,borderRadius: "5px",paddingHorizontal: 10}} defaultValue={getValues("giftValue").toString()} onBlur={onBlur} onChangeText={(value) => onChange(parseFloat(value))} value={value} placeholder="Enter Gift Amount"  />
+                                <TextInput  keyboardType="decimal-pad" style={{width: "100%",height: 30,marginTop: 8,borderColor: "rgba(0,0,0,0.2)",borderWidth: 2,borderRadius: "5px",paddingHorizontal: 10}} defaultValue={getValues("giftValue").toString()} onBlur={onBlur} onChangeText={(value) => onChange(parseFloat(value))} value={value} placeholder="Enter Gift Amount"  />
                             </View>
                         )}
                     />
-                    {errors.giftValue && <ShowError errorMessage="this is required" />}
+                    {errors.giftValue && <ShowError errorMessage={errors.giftValue.message || "this is required"} />}
                     {/* TEXT BOX */}
                     {(watch("giftCategory").name === "business-entertainment" || watch("giftCategory").name === "travel-business-entertainment") && 
                     <>

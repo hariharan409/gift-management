@@ -1,5 +1,6 @@
 
 import { SafeAreaView} from 'react-native';
+import React from 'react';
 import "@expo/metro-runtime";
 import {I18nextProvider} from "react-i18next";
 import {NavigationContainer} from "@react-navigation/native";
@@ -24,7 +25,7 @@ export default App = () => {
   }
 
   const linking = {
-      prefixes: ["http://localhost:8081"]
+      prefixes: ["https://assetcaredemo.seatrium.com/giftapp/"]
   };
 
   return (
