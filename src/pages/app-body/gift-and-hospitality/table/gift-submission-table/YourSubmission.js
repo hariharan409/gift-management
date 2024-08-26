@@ -55,10 +55,10 @@ const YourSubmission = ({ navigation }) => {
                 <View style={{ width: "150px", marginVertical: 20, display: "flex", flexDirection: "row", columnGap: "20px", justifyContent: "flex-end" }}>
                     <View>
                         <Text style={styles.approvalTextElement}>{approvalCount}</Text>
-                        <Button onPress={() => navigation.navigate("giftapp/gift-and-hospitality-approval-tab", { giftID: null, canEdit: true })} title="approve" touchSoundDisabled={false} />
+                        <Button onPress={() => navigation.navigate("gift-and-hospitality-approval-tab", { giftID: null, canEdit: true })} title="approve" touchSoundDisabled={false} />
                     </View>
                     <View style={{ justifyContent: "flex-end" }}>
-                        <Button onPress={() => navigation.navigate("giftapp/gift-and-hospitality-form", { giftID: null, canEdit: true })} title="new submission" touchSoundDisabled={false} />
+                        <Button onPress={() => navigation.navigate("gift-and-hospitality-form", { giftID: null, canEdit: true })} title="new submission" touchSoundDisabled={false} />
                     </View>
                 </View>
             </View>
@@ -102,7 +102,7 @@ const YourSubmission = ({ navigation }) => {
                                     }
                                 </DataTable.Cell>
                                 <DataTable.Cell>
-                                    <FontAwesome5 onPress={() => navigation.navigate("giftapp/gift-and-hospitality-form", { giftID: submission.id, canEdit: submission.isEdit })} name={submission.isEdit ? "edit" : "readme"} size={30} color="blue" />
+                                    <FontAwesome5 onPress={() => navigation.navigate("gift-and-hospitality-form", { giftID: submission.id, canEdit: submission.isEdit })} name={submission.isEdit ? "edit" : "readme"} size={30} color="blue" />
                                 </DataTable.Cell>
                             </DataTable.Row>
                         )

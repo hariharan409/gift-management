@@ -119,7 +119,7 @@ const PendingApprovalByYou = ({navigation}) => {
             <ScrollView style={styles.rootElement}>
                 {/* PAGE TITLE */}
                 <View style={styles.topRowView}>
-                    <Ionicons onPress={() => navigation.navigate("giftapp/gift-and-hospitality-submission-tab")} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="#FFF" />
+                    <Ionicons onPress={() => navigation.navigate("gift-and-hospitality-submission-tab")} style={{cursor: "pointer"}} name="arrow-back-circle-sharp" size={40} color="#FFF" />
                     <Text style={{textTransform: "capitalize",fontSize: "16px",fontWeight: "bold",color: "#000"}}>approval pending list</Text>
                 <View />
                 </View>
@@ -144,7 +144,7 @@ const PendingApprovalByYou = ({navigation}) => {
                                         {approval.giftAmount}
                                     </DataTable.Cell>
                                     <DataTable.Cell>
-                                        <FontAwesome5 onPress={() => navigation.navigate("giftapp/gift-and-hospitality-form",{giftID: approval.giftID,canEdit: false})} name="readme" size={30} color="blue" />
+                                        <FontAwesome5 onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: approval.giftID,canEdit: false})} name="readme" size={30} color="blue" />
                                     </DataTable.Cell>
                                     <DataTable.Cell style={{flex: 1.4}}>
                                         <View style={{flexDirection: "row",columnGap: "20px"}}>

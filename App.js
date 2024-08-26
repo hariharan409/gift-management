@@ -25,7 +25,15 @@ const App = () => {
   }
 
   const linking = {
-      prefixes: ["https://assetcaredemo.seatrium.com/"]
+      prefixes: ["https://assetcaredemo.seatrium.com"],
+      config: {
+        screens: {
+          "welcome-screen"                      : 'giftapp/welcome-screen',
+          "gift-and-hospitality-form"           : 'giftapp/gift-and-hospitality-form',
+          "gift-and-hospitality-submission-tab" : 'giftapp/gift-and-hospitality-submission-tab',
+          "gift-and-hospitality-approval-tab"   : 'giftapp/gift-and-hospitality-approval-tab',
+        },
+      },
   };
 
   return (
@@ -35,11 +43,11 @@ const App = () => {
           <SafeAreaView style={{width: "100%",height: "100%",backgroundColor: "#FFF"}}>
             <Header />
             <NavigationContainer theme={NavigationContainerTheme} linking={linking}>
-                <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='giftapp/welcome-screen'>
-                  <Stack.Screen name='giftapp/welcome-screen' component={Welcome} />
-                  <Stack.Screen name='giftapp/gift-and-hospitality-form' component={GiftAndHospitalityForm} />
-                  <Stack.Screen name='giftapp/gift-and-hospitality-submission-tab' component={SubmissionTabView} />
-                  <Stack.Screen name='giftapp/gift-and-hospitality-approval-tab' component={ApprovalTabView} />
+                <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='welcome-screen'>
+                  <Stack.Screen name='welcome-screen' component={Welcome} />
+                  <Stack.Screen name='gift-and-hospitality-form' component={GiftAndHospitalityForm} />
+                  <Stack.Screen name='gift-and-hospitality-submission-tab' component={SubmissionTabView} />
+                  <Stack.Screen name='gift-and-hospitality-approval-tab' component={ApprovalTabView} />
                 </Stack.Navigator>
             </NavigationContainer>
             <Toaster />
