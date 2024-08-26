@@ -25,7 +25,7 @@ const App = () => {
   }
 
   const linking = {
-      prefixes: ["https://assetcaredemo.seatrium.com"],
+      prefixes: ["https://assetcaredemo.seatrium.com/giftapp"],
       config: {
         screens: {
           "welcome-screen"                      : 'giftapp/welcome-screen',
