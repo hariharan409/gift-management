@@ -1,6 +1,6 @@
 
-import { SafeAreaView} from 'react-native';
 import React from 'react';
+import { SafeAreaView} from 'react-native';
 import "@expo/metro-runtime";
 import {I18nextProvider} from "react-i18next";
 import {NavigationContainer} from "@react-navigation/native";
@@ -17,7 +17,7 @@ import i18n from './src/i18n/i18n-config';
 
 const Stack = createNativeStackNavigator();
 
-export default App = () => {
+const App = () => {
   const NavigationContainerTheme = {
     colors: {
       background: "#FFF"
@@ -48,4 +48,6 @@ export default App = () => {
       </I18nextProvider>
     </PaperProvider>
   );
-}
+};
+
+export default App;
