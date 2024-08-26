@@ -23,7 +23,7 @@ const Welcome = ({navigation}) => {
             localStorage.setItem("user-email",user.loginEmail);
             setUserEMail(user.loginEmail);
             SuccessToast(`Welcome ${user.loginEmail.split("@")[0]}`)
-            navigation.navigate("gift-and-hospitality-submission-tab");
+            navigation.navigate("giftapp/gift-and-hospitality-submission-tab");
         } catch (error) {
             FailureToast(error.message);
         }

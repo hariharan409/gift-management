@@ -70,7 +70,7 @@ const YourApprovedSubmission = ({navigation}) => {
                                 </DataTable.Cell>
                                 <DataTable.Cell>{approved.vendor}</DataTable.Cell>
                                 <DataTable.Cell>
-                                    <FontAwesome5 onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: approved.id,canEdit: false})} name="readme" size={30} color="blue" />
+                                    <FontAwesome5 onPress={() => navigation.navigate("giftapp/gift-and-hospitality-form",{giftID: approved.id,canEdit: false})} name="readme" size={30} color="blue" />
                                 </DataTable.Cell>
                             </DataTable.Row>
                         )

@@ -121,7 +121,7 @@ const GiftAndHospitalityForm = ({route,navigation}) => {
             setTimeout(() => {
                 onUpdateBooleanState({isSubmitting: false,isSubmitted: false});
                 SuccessToast(`Your gift form has been ${giftID ? "updated" : "created"} successfully`);
-                navigation.navigate("gift-and-hospitality-submission-tab");
+                navigation.navigate("giftapp/gift-and-hospitality-submission-tab");
             },8000);
         } catch (error) {
             onUpdateBooleanState({isSubmitting: false});

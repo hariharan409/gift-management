@@ -1,4 +1,5 @@
 {
+  "homepage": "/giftapp",
   "name": "gift-management",
   "version": "1.0.0",
   "main": "./Index.js",

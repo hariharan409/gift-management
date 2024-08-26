@@ -67,7 +67,7 @@ const YourRejectedSubmission = ({navigation}) => {
                                 <DataTable.Cell>{rejection.rejectedReason}</DataTable.Cell>
                                 <DataTable.Cell>{rejection.rejectedBY}</DataTable.Cell>
                                 <DataTable.Cell>
-                                    <FontAwesome5 onPress={() => navigation.navigate("gift-and-hospitality-form",{giftID: rejection.id,canEdit: false})} name="readme" size={30} color="blue" />
+                                    <FontAwesome5 onPress={() => navigation.navigate("giftapp/gift-and-hospitality-form",{giftID: rejection.id,canEdit: false})} name="readme" size={30} color="blue" />
                                 </DataTable.Cell>
                             </DataTable.Row>
                         )
