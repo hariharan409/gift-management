@@ -1,5 +1,5 @@
 import axios from "axios";
-const serverURL = "https://assetcaredemo.seatrium.com/giftapp/webservice"
+const serverURL = "your_server-url"
 
 export const getRequest = async(path, params) => {
     try{
