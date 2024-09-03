@@ -7,6 +7,9 @@
     "platforms": ["ios", "android", "web"],
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "experiments": {
+      "baseUrl": "/giftapp"
+    },
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
